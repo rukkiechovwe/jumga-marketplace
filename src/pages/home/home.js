@@ -11,8 +11,8 @@ export function Home() {
   }, [dispatch]);
   return (
     <div>
-      <center>GET theme</center>
-      <p>{theme}</p>
+      <center>HELLO WORLD</center>
+      <p>App theme: {theme}</p>
     </div>
   );
 }
