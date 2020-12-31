@@ -17,6 +17,10 @@ export function generateReference() {
   return `#${date.toString().substring(0, 9)}`;
 }
 
+export const getPng = (name) => {
+  return require(`../assets/images/${name}.png`);
+};
+//don't be distracted, lollllll, lollll
 // export function formatDate(date) {
 //    return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 // }
