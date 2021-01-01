@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavigationBar } from "../../components";
-import { selectTheme } from "../../redux/app/app-slice";
+import { selectUser } from "../../redux/authentication/auth-slice";
 
 export function Home() {
-  const theme = useSelector(selectTheme);
-  const dispatch = useDispatch();
-  useEffect(() => {}, []);
+  const user = useSelector(selectUser);
   return (
     <div>
-      <NavigationBar />
+      <NavigationBar user={user} />
     </div>
   );
 }

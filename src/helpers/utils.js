@@ -20,7 +20,10 @@ export function generateReference() {
 export const getPng = (name) => {
   return require(`../assets/images/${name}.png`);
 };
-//don't be distracted, lollllll, lollll
+
+export const getUrlParam = (param) => {
+  return new URLSearchParams(window.location.search).get(param) || "/";
+};
 // export function formatDate(date) {
 //    return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 // }

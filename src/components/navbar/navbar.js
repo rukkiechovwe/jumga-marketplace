@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { getPng } from "../../helpers/utils";
+import { Link, withRouter } from "react-router-dom";
+import { user } from "../../api/firebase";
+// import { getPng } from "../../helpers/utils";
 import Avatar from "../avatar/avatar";
-const cartIcon = require(`../../assets/images/icon.png`);
+// import cartIcon from "../../assets/images/cart.png";
 
-export default function NavigationBar(props) {
+function NavigationBar(props) {
+  const {
+    match: { path },
+  } = props;
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -69,10 +73,10 @@ export default function NavigationBar(props) {
                 href="#"
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                Cart
+                Cart <span>({props.user ? props.user.cart.length : "0"})</span>
               </a>
               <Link
-                to="/sign-up"
+                to={`/login?from=${path}`}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 {props.user ? props.user.email : "Login"}
@@ -83,7 +87,7 @@ export default function NavigationBar(props) {
             </button>
             <div className="ml-3 relative">
               <div
-                className="hidden origin-top-right absolute right-0 mt-4 w-36 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+                className={`hidden origin-top-right absolute right-0 mt-4 w-36 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu"
@@ -138,3 +142,5 @@ export default function NavigationBar(props) {
     </nav>
   );
 }
+
+export default withRouter(NavigationBar);
