@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { authenticateUser } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import { Alert } from "../../components";
+import waves from "../../assets/images/waves.svg"
 
 export default function Signup(props) {
   const auth = useSelector(selectAuth);
@@ -25,81 +26,97 @@ export default function Signup(props) {
     }
   }, {});
   return (
-    <div>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (signup.country === undefined) signup.country = "Nigeria";
-          dispatch(authenticateUser(signup, ""));
-        }}
-      >
-        <p>SIGNUP</p>
-        <p>{auth.isLoading && "Please wait"}</p>
-        {auth.error && (
-          <Alert label={auth.message} callback={() => dispatch(authReset())} />
-        )}
-        <input
-          type="text"
-          name="fullname"
-          placeholder="Fullname"
-          onChange={(event) => {
-            event.persist();
-            dispatchInputEvent({ type: "GET_INPUT", payload: event });
-          }}
-        ></input>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          onChange={(event) => {
-            event.persist();
-            dispatchInputEvent({ type: "GET_INPUT", payload: event });
-          }}
-        ></input>
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          onChange={(event) => {
-            event.persist();
-            dispatchInputEvent({ type: "GET_INPUT", payload: event });
-          }}
-        ></input>
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          onChange={(event) => {
-            event.persist();
-            dispatchInputEvent({ type: "GET_INPUT", payload: event });
-          }}
-        ></input>
-        <select
-          name="country"
-          onChange={(event) => {
-            event.persist();
-            dispatchInputEvent({ type: "GET_INPUT", payload: event });
-          }}
-        >
-          <option value="NG">Nigeria</option>
-          <option value="GH">Ghana</option>
-          <option value="KE">Kenya</option>
-          <option value="UK">UK</option>
-        </select>
-        <button type="submit"> SIGNUP</button>
-        <small>
-          Already have an account?
-          <Link to="/login" replace={true}>
-            Login
+    <div className="relative h-screen w-full sssss">
+      <div></div>
+      <div className="w-1/2 absolute right-0 top-0 bg-white h-full" >
+        <div className="p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
+          <div className="w-full absolute custom-shape-divider-top-1609595750">
+            <img className="transform rotate-90" src={waves} />
+          </div>
+
+          <div className="py-8">
+            <h2 className="text-4xl">SignUp</h2>
+            <p className="text-gray-500 py-1">Create an account to continue</p>
+          </div>
+          <form
+            className="flex flex-col justify-center items-center w-5/6"
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (signup.country === undefined) signup.country = "Nigeria";
+              dispatch(authenticateUser(signup, ""));
+            }}
+          >
+            <p>{auth.isLoading && "Please wait"}</p>
+            {auth.error && (
+              <Alert label={auth.message} callback={() => dispatch(authReset())} />
+            )}
+            <input
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
+              type="text"
+              name="fullname"
+              placeholder="Fullname"
+              onChange={(event) => {
+                event.persist();
+                dispatchInputEvent({ type: "GET_INPUT", payload: event });
+              }}
+            ></input>
+            <input
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              onChange={(event) => {
+                event.persist();
+                dispatchInputEvent({ type: "GET_INPUT", payload: event });
+              }}
+            ></input>
+            <input
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
+              type="password"
+              name="password"
+              placeholder="Enter Password"
+              onChange={(event) => {
+                event.persist();
+                dispatchInputEvent({ type: "GET_INPUT", payload: event });
+              }}
+            ></input>
+            <input
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              onChange={(event) => {
+                event.persist();
+                dispatchInputEvent({ type: "GET_INPUT", payload: event });
+              }}
+            ></input>
+            <select
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3"
+              name="country"
+              onChange={(event) => {
+                event.persist();
+                dispatchInputEvent({ type: "GET_INPUT", payload: event });
+              }}
+            >
+              <option value="NG">Nigeria</option>
+              <option value="GH">Ghana</option>
+              <option value="KE">Kenya</option>
+              <option value="UK">UK</option>
+            </select>
+            <button
+              className="w-24 bg-green-400 p-2 my-3 rounded-full text-white"
+              type="submit">
+              SIGNUP
+            </button>
+            <p className="text-gray-500 my-3">
+              Already have an account?
+          <Link to="/login" replace={true} className="text-green-400 underline pl-0.5">
+                Login
           </Link>
-        </small>
-      </form>
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
