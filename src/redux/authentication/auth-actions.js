@@ -7,10 +7,11 @@ import {
 } from "../../api/firebase";
 import { history } from "../../App";
 import { getUrlParam } from "../../helpers/utils";
+import { getCart } from "../cart/cart-slice";
 import {
   getUserSuccess,
   getUserFailed,
-  authStart,
+  authActionStarted,
   authSuccess,
   resetPasswordSuccess,
   resetPasswordFailed,
@@ -18,12 +19,15 @@ import {
 } from "./auth-slice";
 
 export const getUser = () => async (dispatch) => {
-  dispatch(authStart());
+  dispatch(authActionStarted());
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       try {
         const res = await db.collection("users").doc(user.uid).get();
-        dispatch(getUserSuccess(res.data()));
+        const userMd = res.data();
+        dispatch(getUserSuccess(userMd));
+        // get the user cart from firestore
+        dispatch(getCart(userMd.cart));
       } catch (err) {
         dispatch(getUserFailed(err.message));
       }
@@ -34,7 +38,7 @@ export const getUser = () => async (dispatch) => {
 };
 
 export const authenticateUser = (user, authType) => async (dispatch) => {
-  dispatch(authStart());
+  dispatch(authActionStarted());
   const res =
     authType === "login"
       ? await userLogin(user.email, user.password)
@@ -48,7 +52,7 @@ export const authenticateUser = (user, authType) => async (dispatch) => {
 };
 
 export const resetPassword = (email) => async (dispatch) => {
-  dispatch(authStart());
+  dispatch(authActionStarted());
   const res = await passwordReset(email);
   if (res.err) {
     dispatch(resetPasswordFailed(res.err.message));

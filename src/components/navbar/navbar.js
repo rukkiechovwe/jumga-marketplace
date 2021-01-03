@@ -1,14 +1,9 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { user } from "../../api/firebase";
-// import { getPng } from "../../helpers/utils";
+import { Link, useLocation } from "react-router-dom";
 import Avatar from "../avatar/avatar";
-// import cartIcon from "../../assets/images/cart.png";
 
 function NavigationBar(props) {
-  const {
-    match: { path },
-  } = props;
+  const location = useLocation();
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -73,10 +68,11 @@ function NavigationBar(props) {
                 href="#"
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                Cart <span>({props.user ? props.user.cart.length : "0"})</span>
+                Cart
+                <span>({props.totalInCart})</span>
               </a>
               <Link
-                to={`/login?from=${path}`}
+                to={`/login?from=${location.pathname}`}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 {props.user ? props.user.email : "Login"}
@@ -130,12 +126,18 @@ function NavigationBar(props) {
             className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
             Cart
+            <span>({props.totalInCart})</span>
           </a>
           <a
             href="#"
             className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            akpamastanlee@gmail.com
+            <Link
+              to={`/login?from=${location.pathname}`}
+              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              {props.user ? props.user.email : "Login"}
+            </Link>
           </a>
         </div>
       </div>
@@ -143,4 +145,4 @@ function NavigationBar(props) {
   );
 }
 
-export default withRouter(NavigationBar);
+export default NavigationBar;

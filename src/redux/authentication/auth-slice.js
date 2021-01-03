@@ -16,10 +16,10 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = true;
     },
-    getUserFailed: (state, action) => {
+    getUserFailed: (state) => {
       state.isLoading = false;
     },
-    authStart: (state) => {
+    authActionStarted: (state) => {
       state.isLoading = true;
       state.error = false;
       state.message = "";
@@ -58,7 +58,7 @@ export const selectAuth = (state) => state.auth;
 export const {
   getUserSuccess,
   getUserFailed,
-  authStart,
+  authActionStarted,
   authSuccess,
   authFailed,
   resetPasswordSuccess,

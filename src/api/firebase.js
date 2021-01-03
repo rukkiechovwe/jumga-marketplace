@@ -81,6 +81,20 @@ export const passwordReset = async (email) => {
   }
 };
 
+//  PRODUCTS API
+
+export const fetchProducts = async () => {
+  try {
+    const res = await db.collection("products").get();
+    const products = res.docs.map((p) => {
+      return { ...p.data(), quantity: 0 };
+    });
+    return { err: null, products: products };
+  } catch (e) {
+    return { err: e };
+  }
+};
+
 export const uploadOneFile = async (file, folderPath, name) => {
   try {
     let fileType = file.name.split(".");

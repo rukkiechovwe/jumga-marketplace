@@ -24,6 +24,11 @@ export const getPng = (name) => {
 export const getUrlParam = (param) => {
   return new URLSearchParams(window.location.search).get(param) || "/";
 };
+
+export const getLastPathname = (pathname) => {
+  const pathList = pathname.split("/");
+  return pathList[pathList.length - 1];
+};
 // export function formatDate(date) {
 //    return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 // }
