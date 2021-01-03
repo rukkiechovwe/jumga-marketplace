@@ -1,56 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { fetchProductById } from "../../api/firebase";
 import { history } from "../../App";
+import { NavigationBar, Spacer } from "../../components";
 import { getLastPathname } from "../../helpers/utils";
+import { selectUser } from "../../redux/authentication/auth-slice";
 import { addItemToCart } from "../../redux/cart/cart-actions";
-import { selectCart } from "../../redux/cart/cart-slice";
-import {
-  getProductById,
-  getProductShop,
-} from "../../redux/product/product-actions";
+import { selectCart, selectCartTotal } from "../../redux/cart/cart-slice";
 
 // new products would use camelCase
 function Product() {
   const dispatch = useDispatch();
   const location = useLocation();
   const cart = useSelector(selectCart);
+  const user = useSelector(selectUser);
+  const total = useSelector(selectCartTotal);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [product, setProduct] = useState(
-    location.state && location.state.product
-  );
+  const [product, setProduct] = useState({});
+
   useEffect(() => {
-    // if product is undefined, get product using id from url
     getProduct();
   }, []);
+
   const getProduct = async () => {
     setLoading(true);
-    if (product) {
-      // getProductShop(product.shopId);
-      const productShop = await getProductShop(product.shop_id);
-      if (productShop.err) {
-        setError(true);
-      } else {
-        let p = { ...product, shop: productShop.shop };
-        setProduct(p);
-      }
+    const product = await fetchProductById(getLastPathname(location.pathname));
+    if (product.err) {
+      setError(true);
     } else {
-      const product = await getProductById(getLastPathname(location.pathname));
-      if (product.err) {
-        setError(true);
-      } else {
-        const productShop = await getProductShop(product.shop_id);
-        if (productShop.err) {
-          setError(true);
-        } else {
-          let p = { ...product, shop: productShop.shop };
-          setProduct(p);
-        }
-      }
+      // pipe through cart list to get quantity
+      setProduct({ ...product, quantity: 0 });
     }
     setLoading(false);
   };
+
   const handleProductQuantity = (action) => {
     switch (action) {
       case "add":
@@ -72,16 +58,18 @@ function Product() {
     }
   };
   return (
-    <div style={{ marginTop: "40px" }}>
+    <div>
+      <NavigationBar user={user} totalInCart={total} />
+      <Spacer top="50px" />
       <center>{cart.isLoading && `${cart.message}`}</center>
       <center>
-        {loading && <center>Loading Product</center>}
-        {error && (
+        {!product.shop && loading && <center>Loading Product</center>}
+        {product && !product.shop && error && (
           <center>
             Something went wrong, It's not you, it's us, Try again
           </center>
         )}
-        {product && (
+        {product && product.shop && !loading && (
           <div
             style={{
               border: "1px solid grey",

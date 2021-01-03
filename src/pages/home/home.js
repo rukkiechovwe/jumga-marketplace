@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../App";
+import { NavigationBar, Spacer } from "../../components";
+import { selectUser } from "../../redux/authentication/auth-slice";
+import { selectCartTotal } from "../../redux/cart/cart-slice";
 import { getProducts } from "../../redux/product/product-actions";
 import { selectProduct } from "../../redux/product/product-slice";
 
@@ -9,6 +12,9 @@ import { selectProduct } from "../../redux/product/product-slice";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector(selectProduct);
+  const user = useSelector(selectUser);
+  const total = useSelector(selectCartTotal);
+
   useEffect(() => {
     // just get products once okayy
     if (!product.products) {
@@ -16,7 +22,9 @@ function Home() {
     }
   }, []);
   return (
-    <div style={{ marginTop: "40px" }}>
+    <div>
+      <NavigationBar user={user} totalInCart={total} />
+      <Spacer top="50px" />
       {product.isLoading && <center>LOADING...</center>}
       {product.error && (
         <center style={{ color: "red" }}>{product.message}</center>
@@ -27,10 +35,8 @@ function Home() {
             <center key={product.product_id}>
               <div
                 onClick={() => {
-                  // history.push(`/product/${product.productId}`, product);
-                  history.push(`/product/${product.product_id}`, {
-                    product: product,
-                  });
+                  // history.push(`/product/${product.productId}`);
+                  history.push(`/product/${product.product_id}`);
                 }}
                 style={{
                   border: "1px solid grey",

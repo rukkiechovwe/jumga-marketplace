@@ -14,15 +14,7 @@ export const getProducts = () => async (dispatch) => {
     dispatch(getProductSuccess(product.products));
   }
 };
-export const getProductById = async (productId) => {
-  //   const product = await fetchProductShop();
-  //   if (product.err) {
-  //   } else {
-  //   }
-};
-export const getProductShop = (shopId) => async (dispatch) => {
-  //   const product = await fetchProductShop();
-  //   if (product.err) {
-  //   } else {
-  //   }
-};
+// export const getProductById = async (productId) => {
+// };
+// export const getProductShop = (shopId) => async (dispatch) => {
+// };

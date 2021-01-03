@@ -95,6 +95,24 @@ export const fetchProducts = async () => {
   }
 };
 
+export const fetchProductById = async (id) => {
+  try {
+    const product = await (
+      await db.collection("products").doc(id).get()
+    ).data();
+    const shop = await (
+      await db.collection("shops").doc(product.shop_id).get()
+    ).data();
+    // before we start adding shops, just return an empty shop object
+    const productMd = { ...product, shop: { shop_id: product.shop_id } };
+    return productMd;
+  } catch (e) {
+    return { err: e };
+  }
+};
+
+// STORAGE API
+
 export const uploadOneFile = async (file, folderPath, name) => {
   try {
     let fileType = file.name.split(".");
