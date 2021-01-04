@@ -5,6 +5,8 @@ import { authenticateUser } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import { Alert } from "../../components";
 import waves from "../../assets/images/waves.svg"
+import loginImg from "../../assets/images/loginImg.jpg"
+
 
 export default function Signup(props) {
   const auth = useSelector(selectAuth);
@@ -27,11 +29,13 @@ export default function Signup(props) {
   }, {});
   return (
     <div className="relative h-screen w-full sssss">
-      <div></div>
-      <div className="w-1/2 absolute right-0 top-0 bg-white h-full" >
+      <div className="hidden sm:block w-1/2 h-full">
+        <div className="h-full bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${loginImg})` }}></div>
+      </div>
+      <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-white h-full" >
         <div className="p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
           <div className="w-full absolute custom-shape-divider-top-1609595750">
-            <img className="transform rotate-90" src={waves} />
+            <img className="transform rotate-90" src={waves} alt={waves} />
           </div>
 
           <div className="py-8">
@@ -80,6 +84,7 @@ export default function Signup(props) {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             ></input>
+
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               type="password"

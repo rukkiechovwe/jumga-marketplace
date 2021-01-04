@@ -29,33 +29,42 @@ function Home() {
       {product.error && (
         <center style={{ color: "red" }}>{product.message}</center>
       )}
-      {product.products &&
-        product.products.map((product) => {
-          return (
-            <center key={product.product_id}>
+      <div className="flex flex-wrap p-5 w-full">
+        {product.products &&
+          product.products.map((product) => {
+            return (
               <div
-                onClick={() => {
-                  history.push(
-                    `/vendors/${product.shop_id}/products/${product.product_id}`
-                  );
-                }}
-                style={{
-                  border: "1px solid grey",
-                  maxWidth: "400px",
-                  margin: "10px",
-                  cursor: "pointer",
-                }}
+                key={product.product_id}
+                className="text-center w-1/3 sm:2/5 mx:w-1/4 lg:w-1/5 py-3 px-2 m-3 rounded-lg shadow-lg cursor-pointer bg-white"
               >
-                <center style={{ fontWeight: "bold" }}>{product.title}</center>
-                <center>NGN {product.price_ngn}</center>
-                <center>{product.description}</center>
-                <center style={{ color: "green" }}>
-                  {product.quantities_available} in stock
-                </center>
+                <div
+                  className="flex flex-col items-center justify-between h-full"
+                  onClick={() => {
+                    history.push(
+                      `/vendors/${product.shop_id}/products/${product.product_id}`
+                    );
+                  }}
+                >
+                  <div className="w-20">
+                    <img
+                      className="w-full"
+                      src={product.images}
+                      alt={product.title}
+                    />
+                  </div>
+                  <p className="font-bold pt-10 pb-7">{product.title}</p>
+                  <div className="flex justify-between items-center w-full">
+                    <p>₦ {product.price_ngn}</p>
+                    <p className="bg-green-400 py-1 px-2 text-white rounded-full">
+                      {/* {product.quantitiesAvailable} in stock */}
+                      {product.quantities_available} in stock
+                    </p>
+                  </div>
+                </div>
               </div>
-            </center>
-          );
-        })}
+            );
+          })}
+      </div>
     </div>
   );
 }
