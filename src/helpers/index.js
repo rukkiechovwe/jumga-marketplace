@@ -1,3 +1,19 @@
-import { setItem, generateReference, getItem, download } from "./utils";
+import {
+  setItem,
+  generateReference,
+  getItem,
+  download,
+  uuid,
+  getLastPathname,
+  getUrlParam,
+} from "./utils";
 
-export default { setItem, generateReference, getItem, download };
+export {
+  setItem,
+  generateReference,
+  getItem,
+  uuid,
+  download,
+  getUrlParam,
+  getLastPathname,
+};

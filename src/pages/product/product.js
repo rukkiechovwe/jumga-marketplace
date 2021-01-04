@@ -4,9 +4,9 @@ import { useLocation } from "react-router-dom";
 import { fetchProductById } from "../../api/firebase";
 import { history } from "../../App";
 import { NavigationBar, Spacer } from "../../components";
-import { getLastPathname } from "../../helpers/utils";
+import { getLastPathname } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
-import { addItemToCart } from "../../redux/cart/cart-actions";
+import { addItemToCart, cartPipeline } from "../../redux/cart/cart-actions";
 import { selectCart, selectCartTotal } from "../../redux/cart/cart-slice";
 
 // new products would use camelCase
@@ -32,7 +32,7 @@ function Product() {
       setError(true);
     } else {
       // pipe through cart list to get quantity
-      setProduct({ ...product, quantity: 0 });
+      setProduct(cartPipeline(cart.cart, product));
     }
     setLoading(false);
   };

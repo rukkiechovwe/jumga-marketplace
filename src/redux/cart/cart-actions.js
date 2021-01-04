@@ -1,19 +1,40 @@
-import { user } from "../../api/firebase";
-import { addToCart, cartActionStarted, removeFromCart } from "./cart-slice";
+import { addToCart, removeFromCart } from "./cart-slice";
 
 // const URL = "https://fakestoreapi.com/products";
-
-export const addItemToCart = (item, cart) => async (dispatch) => {
-  dispatch(cartActionStarted("Adding item to cart"));
-  console.log(user, "user");
-  if (user) {
-    // const res = await addItemToUserCart(item)
-  }
-  const newCart = cart.concat(item);
-  dispatch(addToCart(newCart));
+export const cartPipeline = (cart, product) => {
+  let _product;
+  cart.forEach((item) => {
+    if (item.product_id === product.product_id) {
+      _product = {
+        ...product,
+        quantity: item.quantity,
+      };
+    }
+  });
+  return _product ? _product : { ...product, quantity: 0 };
 };
+
+export const addItemToCart = (item, cart) => (dispatch) => {
+  let isNewItem = true;
+  const _cart = cart.map((_item) => {
+    if (_item.product_id === item.product_id) {
+      isNewItem = false;
+      return {
+        ..._item,
+        quantity: item.quantity,
+      };
+    }
+    return _item;
+  });
+  if (isNewItem) {
+    const _cart = [...cart, item];
+    dispatch(addToCart(_cart));
+  } else {
+    dispatch(addToCart(_cart));
+  }
+};
+
 export const removeItemFromCart = (item, cart) => async (dispatch) => {
-  dispatch(cartActionStarted("Removing item from cart"));
-  const newCart = cart.filter((c) => item.id !== c.id);
-  dispatch(removeFromCart(newCart));
+  const _cart = cart.filter((_item) => item.product_id !== _item.product_id);
+  dispatch(removeFromCart(_cart));
 };

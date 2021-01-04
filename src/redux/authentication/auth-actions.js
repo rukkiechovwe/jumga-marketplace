@@ -6,7 +6,7 @@ import {
   auth,
 } from "../../api/firebase";
 import { history } from "../../App";
-import { getUrlParam } from "../../helpers/utils";
+import { getUrlParam } from "../../helpers";
 import { getCart } from "../cart/cart-slice";
 import {
   getUserSuccess,
@@ -26,8 +26,6 @@ export const getUser = () => async (dispatch) => {
         const res = await db.collection("users").doc(user.uid).get();
         const userMd = res.data();
         dispatch(getUserSuccess(userMd));
-        // get the user cart from firestore
-        dispatch(getCart(userMd.cart));
       } catch (err) {
         dispatch(getUserFailed(err.message));
       }

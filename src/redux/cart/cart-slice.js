@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItem, setItem } from "../../helpers";
 
 const initialState = {
   cart: [],
@@ -10,17 +11,13 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: initialState,
   reducers: {
-    cartActionStarted: (state, action) => {
-      state.isLoading = true;
-      state.error = false;
-      state.message = action.payload;
-    },
     getCart: (state, action) => {
-      state.cart = action.payload;
+      state.cart = action.payload || getItem("cart", "session") || [];
       state.error = false;
       state.isLoading = false;
     },
     addToCart: (state, action) => {
+      setItem("cart", action.payload, "session");
       state.cart = action.payload;
       state.isLoading = false;
       state.message = "Item added to cart";
@@ -31,6 +28,7 @@ export const cartSlice = createSlice({
       state.message = "Error adding item to cart";
     },
     removeFromCart: (state, action) => {
+      setItem("cart", action.payload, "session");
       state.cart = action.payload;
       state.isLoading = false;
       state.message = "Item removed from cart";
@@ -44,13 +42,27 @@ export const cartSlice = createSlice({
 });
 
 export const selectCart = (state) => state.cart;
-export const selectCartTotal = (state) =>
-  (state.cart.cart && state.cart.cart.length) || 0;
+export const selectCartTotal = (state) => {
+  let cart = state.cart.cart || [];
+  let total = 0;
+  for (const item of cart) {
+    total += item.quantity;
+  }
+  return total;
+};
+export const selectCartTotalAmount = (state) => {
+  let cart = state.cart.cart || [];
+  let total = 0;
+  for (const item of cart) {
+    total += item.price_ngn * item.quantity;
+  }
+  return total.toFixed(2);
+};
+
 export const {
   addToCart,
   removeFromCart,
   getCart,
-  cartActionStarted,
   addToCartFailed,
   removeFromCartFailed,
 } = cartSlice.actions;

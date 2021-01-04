@@ -52,7 +52,7 @@ function NavigationBar(props) {
                 className="text-white items-center"
                 style={{ fontFamily: "Pacifico", fontSize: "22px" }}
               >
-                Jumga
+                <Link to="/">Jumga</Link>
               </span>
             </div>
           </div>
@@ -68,8 +68,13 @@ function NavigationBar(props) {
                 href="#"
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                Cart
-                <span>({props.totalInCart})</span>
+                <Link
+                  to={`/cart`}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Cart
+                  <span>({props.totalInCart})</span>
+                </Link>
               </a>
               <Link
                 to={`/login?from=${location.pathname}`}
@@ -125,8 +130,13 @@ function NavigationBar(props) {
             href="#"
             className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            Cart
-            <span>({props.totalInCart})</span>
+            <Link
+              to={`/cart`}
+              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Cart
+              <span>({props.totalInCart})</span>
+            </Link>
           </a>
           <a
             href="#"
