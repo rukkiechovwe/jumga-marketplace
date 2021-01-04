@@ -35,8 +35,9 @@ function Home() {
             <center key={product.product_id}>
               <div
                 onClick={() => {
-                  // history.push(`/product/${product.productId}`);
-                  history.push(`/product/${product.product_id}`);
+                  history.push(
+                    `/vendors/${product.shop_id}/products/${product.product_id}`
+                  );
                 }}
                 style={{
                   border: "1px solid grey",
@@ -46,11 +47,9 @@ function Home() {
                 }}
               >
                 <center style={{ fontWeight: "bold" }}>{product.title}</center>
-                {/* <center>NGN {product.priceNgn}</center> */}
                 <center>NGN {product.price_ngn}</center>
                 <center>{product.description}</center>
                 <center style={{ color: "green" }}>
-                  {/* {product.quantitiesAvailable} in stock */}
                   {product.quantities_available} in stock
                 </center>
               </div>

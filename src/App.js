@@ -8,6 +8,7 @@ import { getUser } from "./redux/authentication/auth-actions";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
 import { getCart } from "./redux/cart/cart-slice";
+import Marketplace from "./pages/marketplace/marketplace";
 export const history = createBrowserHistory();
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/reset-password" component={ResetPassword} />
           <Route path="/cart" component={Cart} />
-          <Route path="/product/:id" component={Product} />
-          <Route path="/" component={Home} />
+          <Route path="/vendors/:id/products/:id" component={Product} />
+          <Route path="/vendors/:id" component={Home} />
+          <Route path="/" component={Marketplace} />
         </Switch>
       </Router>
     </div>

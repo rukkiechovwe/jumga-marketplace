@@ -81,6 +81,30 @@ export const passwordReset = async (email) => {
   }
 };
 
+// SHOP API
+export const fetchShops = async () => {
+  try {
+    const res = await db.collection("shops").get();
+    const shops = res.docs.map((p) => p.data());
+    return { err: null, shops: shops };
+  } catch (e) {
+    return { err: e };
+  }
+};
+
+export const fetchShopById = async (id) => {
+  try {
+    const shop = await (await db.collection("shops").doc(id).get()).data();
+    const dispatcher = await (
+      await db.collection("dispatchers").doc(shop.shopId).get()
+    ).data();
+    const shopMd = { ...shop, dispatcher: dispatcher };
+    return shopMd;
+  } catch (e) {
+    return { err: e };
+  }
+};
+
 //  PRODUCTS API
 
 export const fetchProducts = async () => {
@@ -103,8 +127,7 @@ export const fetchProductById = async (id) => {
     const shop = await (
       await db.collection("shops").doc(product.shop_id).get()
     ).data();
-    // before we start adding shops, just return an empty shop object
-    const productMd = { ...product, shop: { shop_id: product.shop_id } };
+    const productMd = { ...product, shop: shop };
     return productMd;
   } catch (e) {
     return { err: e };
