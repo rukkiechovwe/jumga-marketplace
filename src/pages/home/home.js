@@ -54,7 +54,7 @@ function Home() {
                   </div>
                   <p className="font-bold pt-10 pb-7">{product.title}</p>
                   <div className="flex justify-between items-center w-full">
-                    <p>₦ {product.price_ngn}</p>
+                    <p>NGN {product.price_ngn}</p>
                     <p className="bg-green-400 py-1 px-2 text-white rounded-full">
                       {/* {product.quantitiesAvailable} in stock */}
                       {product.quantities_available} in stock
