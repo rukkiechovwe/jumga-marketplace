@@ -60,84 +60,66 @@ function Product() {
   return (
     <div>
       <NavigationBar user={user} totalInCart={total} />
-      <Spacer top="50px" />
+      {/* <Spacer top="50px" /> */}
       <center>{cart.isLoading && `${cart.message}`}</center>
-      <center>
+      <div>
         {!product.shop && loading && <center>Loading Product</center>}
         {product && !product.shop && error && (
           <center>
-            Something went wrong, It's not you, it's us, Try again
+            Something went wrong, It's not you, it's us, Try again.   
           </center>
         )}
         {product && product.shop && !loading && (
-          <div
-            style={{
-              border: "1px solid grey",
-              maxWidth: "400px",
-            }}
-          >
-            <center style={{ fontWeight: "bold" }}>{product.title}</center>
-            {/* <center>NGN {product.priceNgn}</center> */}
-            <center>NGN {product.price_ngn}</center>
-            <center>{product.description}</center>
-            <center style={{ color: "green" }}>
-              {/* {product.quantitiesAvailable} in stock */}
-              {product.quantities_available} in stock
-            </center>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <span
-                onClick={() => handleProductQuantity("remove")}
-                style={{
-                  fontWeight: "bolder",
-                  margin: "8px",
-                  cursor: "pointer",
-                  padding: "8px",
-                }}
-              >
-                -
-              </span>
-              <span
-                style={{
-                  fontWeight: "bolder",
-                  margin: "8px",
-                  fontSize: "16px",
-                }}
-              >
-                {product.quantity}
-              </span>
-              <span
-                onClick={() => handleProductQuantity("add")}
-                style={{
-                  fontWeight: "bolder",
-                  margin: "8px",
-                  cursor: "pointer",
-                  padding: "8px",
-                }}
-              >
-                +
-              </span>
-            </div>
-            <div>
-              <button
-                onClick={() => {
-                  if (product.quantity > 0)
-                    dispatch(addItemToCart(product, cart.cart));
-                }}
-                style={{ backgroundColor: "slateblue", color: "white" }}
-              >
-                Add To Cart
+          <div className="h-full md:h-screen w-full">
+            <div className="h-full w-full flex flex-col md:flex-row items-start overflow-scroll">
+              <div className="h-full flex items-center justify-center w-full md:w-1/2 py-8 px-4">
+                <img className="w-1/2" src={product.images} alt={product.title} />
+              </div>
+              <div className="w-full md:w-1/2 h-full bg-gray-800 text-white text-left" >
+                <div className="p-9 w-full h-full flex flex-col justify-center">
+                  <p className="text-3xl font-semibold py-3">{product.title}</p>
+                  <div className="flex items-center w-full py-3 justify-between">
+                    <p className="text-xl font-medium">NGN {product.price_ngn}</p>
+                    <p className="bg-green-400 px-2 text-white rounded-full py-1">
+                      {product.quantities_available} in stock
+                  </p>
+                  </div>
+                  <div className="py-3 flex items-start flex-col">
+                    <p className="pb-0.5 mb-1.5 font-semibold border-solid border-b-2 border-green-400">DESCRIPTION</p>
+                    <p>{product.description}</p>
+                  </div>
+                  <div className="flex items-center justify-center bg-black rounded-full p-1 my-3 w-24">
+                    <span
+                      className="font-bold cursor-pointer px-2"
+                      onClick={() => handleProductQuantity("remove")}
+                    >-</span>
+                    <span className="font-bold px-2">
+                      {product.quantity}
+                    </span>
+                    <span
+                      onClick={() => handleProductQuantity("add")}
+                      className="font-bold cursor-pointer px-2"
+                    >+</span>
+                  </div>
+
+                  <div>
+                    <button
+                      onClick={() => {
+                        if (product.quantity > 0)
+                          dispatch(addItemToCart(product, cart.cart));
+                      }}
+                      className="border-solid border-2 border-green-400 w-full rounded-full py-1.5 my-1.5"
+                    >
+                      Add To Cart
               </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
-      </center>
+      </div>
+
     </div>
   );
 }
