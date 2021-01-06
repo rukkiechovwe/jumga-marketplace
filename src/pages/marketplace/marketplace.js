@@ -48,6 +48,14 @@ function Marketplace() {
                   cursor: "pointer",
                 }}
               >
+                <div className="w-100">
+                  <img
+                    className="w-full"
+                    src={shop.featuredImage}
+                    alt={shop.title}
+                    loading="eager"
+                  />
+                </div>
                 <center style={{ fontWeight: "bold" }}>{shop.title}</center>
                 <center>{shop.description}</center>
                 <center style={{ color: "green" }}>

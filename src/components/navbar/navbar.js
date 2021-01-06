@@ -62,7 +62,13 @@ function NavigationBar(props) {
                 href="#"
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                Sell
+                <Link
+                  // if already a merchant, goto shop
+                  to={`/sell`}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Sell
+                </Link>
               </a>
               <a
                 href="#"
@@ -73,7 +79,7 @@ function NavigationBar(props) {
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Cart
-                  <span>({props.totalInCart})</span>
+                  {props.totalInCart > 0 && <span>({props.totalInCart})</span>}
                 </Link>
               </a>
               <Link

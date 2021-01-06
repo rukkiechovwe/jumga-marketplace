@@ -73,33 +73,43 @@ function Product() {
           <div className="h-full md:h-screen w-full">
             <div className="h-full w-full flex flex-col md:flex-row items-start overflow-auto">
               <div className="h-full flex items-center justify-center w-full md:w-1/2 py-8 px-4">
-                <img className="w-1/2" src={product.images} alt={product.title} />
+                <img
+                  className="w-1/2"
+                  src={product.images}
+                  alt={product.title}
+                />
               </div>
-              <div className="w-full md:w-1/2 h-full bg-gray-800 text-white text-left" >
+              <div className="w-full md:w-1/2 h-full bg-gray-800 text-white text-left">
                 <div className="p-9 w-full h-full flex flex-col justify-center">
                   <p className="text-3xl font-semibold py-3">{product.title}</p>
                   <div className="flex items-center w-full py-3 justify-between">
-                    <p className="text-xl font-medium">NGN {product.price_ngn}</p>
+                    <p className="text-xl font-medium">
+                      NGN {product.price_ngn}
+                    </p>
                     <p className="bg-green-400 px-2 text-white rounded-full py-1">
                       {product.quantities_available} in stock
-                  </p>
+                    </p>
                   </div>
                   <div className="py-3 flex items-start flex-col">
-                    <p className="pb-0.5 mb-1.5 font-semibold border-solid border-b-2 border-green-400">DESCRIPTION</p>
-                    <p>{product.description}</p>
+                    <p className="pb-0.5 mb-1.5 font-semibold border-solid border-b-2 border-green-400">
+                      DESCRIPTION
+                    </p>
+                    <p className="text-grey">{product.description}</p>
                   </div>
                   <div className="flex items-center justify-center bg-black rounded-full p-1 my-3 w-24">
                     <span
                       className="font-bold cursor-pointer px-2"
                       onClick={() => handleProductQuantity("remove")}
-                    >-</span>
-                    <span className="font-bold px-2">
-                      {product.quantity}
+                    >
+                      -
                     </span>
+                    <span className="font-bold px-2">{product.quantity}</span>
                     <span
                       onClick={() => handleProductQuantity("add")}
                       className="font-bold cursor-pointer px-2"
-                    >+</span>
+                    >
+                      +
+                    </span>
                   </div>
 
                   <div>
@@ -111,7 +121,7 @@ function Product() {
                       className="border-solid border-2 border-green-400 w-full rounded-full py-1.5 my-1.5"
                     >
                       Add To Cart
-              </button>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -119,7 +129,6 @@ function Product() {
           </div>
         )}
       </div>
-
     </div>
   );
 }
