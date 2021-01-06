@@ -1,12 +1,11 @@
 /* ./src/index.css */
 @tailwind base;
-@tailwind components;
+/* @tailwind components; */
 @tailwind utilities;
 
 @layer base {
   @font-face {
-    font-family: Interstate;
-    font-weight: 100;
-    src: url("./assets/interstate.ttf");
+    font-family: Brfirma;
+    src: url("./assets/BRFirma-Regular.ttf");
   }
 }

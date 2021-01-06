@@ -9,6 +9,7 @@ import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
 import { getCart } from "./redux/cart/cart-slice";
 import Marketplace from "./pages/marketplace/marketplace";
+import { CreateShop, SellOnboarding } from "./pages/sell";
 export const history = createBrowserHistory();
 
 function App() {
@@ -18,19 +19,19 @@ function App() {
     dispatch(getCart());
   }, []);
   return (
-    <div className="">
-      <Router history={history}>
-        <Switch>
-          <Route path="/sign-up" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/reset-password" component={ResetPassword} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/vendors/:id/products/:id" component={Product} />
-          <Route path="/vendors/:id" component={Home} />
-          <Route path="/" component={Marketplace} />
-        </Switch>
-      </Router>
-    </div>
+    <Router history={history}>
+      <Switch>
+        <Route path="/sign-up" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/reset-password" component={ResetPassword} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/vendors/:id/products/:id" component={Product} />
+        <Route path="/vendors/:id" component={Home} />
+        <Route path="/sell" component={SellOnboarding} />
+        <Route path="/create-shop" component={CreateShop} />
+        <Route path="/" component={Marketplace} />
+      </Switch>
+    </Router>
   );
 }
 
