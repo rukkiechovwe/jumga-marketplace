@@ -66,12 +66,12 @@ function Product() {
         {!product.shop && loading && <center>Loading Product</center>}
         {product && !product.shop && error && (
           <center>
-            Something went wrong, It's not you, it's us, Try again.   
+            Something went wrong, It's not you, it's us, Try again.
           </center>
         )}
         {product && product.shop && !loading && (
           <div className="h-full md:h-screen w-full">
-            <div className="h-full w-full flex flex-col md:flex-row items-start overflow-scroll">
+            <div className="h-full w-full flex flex-col md:flex-row items-start overflow-auto">
               <div className="h-full flex items-center justify-center w-full md:w-1/2 py-8 px-4">
                 <img className="w-1/2" src={product.images} alt={product.title} />
               </div>

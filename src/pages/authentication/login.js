@@ -26,13 +26,13 @@ export default function Login(props) {
     }
   }, {});
   return (
-    <div className="relative h-screen w-full sssss">
+    <div className="relative h-screen w-screen sssss">
       <div className="hidden sm:block w-1/2 h-full">
         <div className="h-full bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${loginImg})` }}></div>
       </div>
       <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-white h-full" >
         <div className="p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
-          <div className="w-full absolute custom-shape-divider-top-1609595750">
+          <div className="w-full absolute custom-shape-divider-top">
             <img className="transform rotate-90" src={waves} alt={waves} />
           </div>
 
@@ -51,7 +51,7 @@ export default function Login(props) {
               <Alert label={auth.message} callback={() => dispatch(authReset())} />
             )}
             <input
-              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
+              className="w-full border-solid border-b-2 border-gray-400 p-2 mt-4 focus:outline-none"
               type="email"
               name="email"
               placeholder="Email Address"
@@ -61,7 +61,7 @@ export default function Login(props) {
               }}
             ></input>
             <input
-              className="w-full border-solid border-b-2 border-gray-400 p-2 mt-3 focus:outline-none"
+              className="w-full border-solid border-b-2 border-gray-400 p-2 mt-4 focus:outline-none"
               type="password"
               name="password"
               placeholder="Enter Password"
