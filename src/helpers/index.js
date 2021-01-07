@@ -1,19 +1,23 @@
 import {
   setItem,
-  generateReference,
+  getReference,
   getItem,
   download,
   uuid,
   getLastPathname,
   getUrlParam,
+  getFileSize,
+  encrypt,
 } from "./utils";
 
 export {
   setItem,
-  generateReference,
+  getReference,
   getItem,
   uuid,
   download,
+  encrypt,
   getUrlParam,
   getLastPathname,
+  getFileSize,
 };

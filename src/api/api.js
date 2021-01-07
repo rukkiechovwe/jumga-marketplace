@@ -1,28 +1,32 @@
-// api base_url
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "https://us-central1-jumga-marketplace.cloudfunctions.net"
-    : "https:localhost:4000";
-const sendHttpRequest = async (method, url, data) => {
+    ? "https://us-central1-jumga-marketplace.cloudfunctions.net/jumga-marketplace/us-central1"
+    : "http://localhost:5001/jumga-marketplace/us-central1";
+const BASENAME =
+  process.env.NODE_ENV === "production"
+    ? "https://jumga-marketplace.netlify.app"
+    : "https://localhost:3000";
+
+const sendHttpRequest = async (method, endpoint, data) => {
   try {
     if (method === "GET" || method === "DELETE") {
-      const response = await fetch(url, {
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: method,
-        headers: {},
       });
       return await response.json();
     }
-    const response = await fetch(url, {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: method,
       body: JSON.stringify(data),
     });
-    return response.json();
+    return await response.json();
   } catch (error) {
     return error;
   }
 };
 
-const get = async (url) => await sendHttpRequest("GET", url, null);
-const post = async (url, data) => await sendHttpRequest("POST", url, data);
+const get = async (endpoint) => await sendHttpRequest("GET", endpoint, null);
+const post = async (endpoint, data) =>
+  await sendHttpRequest("POST", endpoint, data);
 
-export { post, get, BASE_URL };
+export { post, get, BASENAME };

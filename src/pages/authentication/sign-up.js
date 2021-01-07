@@ -174,10 +174,12 @@ export default function Signup() {
             </select> */}
             <div class="flex mt-6">
               <label class="flex items-center">
-                <input type="checkbox" class="form-checkbox" />
+                <input type="checkbox" className="form-checkbox" />
                 <span class="ml-2 text-sm">
                   I agree to the{" "}
-                  <span class="underline cursor-pointer">privacy policy</span>
+                  <span className="underline cursor-pointer text-green-400">
+                    privacy policy
+                  </span>
                 </span>
               </label>
             </div>

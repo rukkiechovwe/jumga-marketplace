@@ -1,3 +1,3 @@
-import { get, post } from "./api";
+import { get, post, BASENAME } from "./api";
 
-export { get, post };
+export { get, post, BASENAME };

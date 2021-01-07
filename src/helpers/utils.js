@@ -1,6 +1,5 @@
-// import moment from 'moment';
 import { v4 as uuidv4 } from "uuid";
-
+var forge = require("node-forge");
 export const uuid = () => uuidv4();
 
 export function setItem(key, value, storage = "local") {
@@ -29,9 +28,9 @@ export function clearLocalStorage(storage = "local") {
   }
 }
 
-export function generateReference() {
+export function getReference() {
   var date = Date.now();
-  return `#${date.toString().substring(0, 9)}`;
+  return `${date.toString().substring(0, 9)}`;
 }
 
 export const getPng = (name) => {
@@ -45,6 +44,28 @@ export const getUrlParam = (param) => {
 export const getLastPathname = (pathname) => {
   const pathList = pathname.split("/");
   return pathList[pathList.length - 1];
+};
+
+export const getFileSize = (number) => {
+  if (number < 1024) {
+    return number + "bytes";
+  } else if (number >= 1024 && number < 1048576) {
+    return (number / 1024).toFixed(1) + "KB";
+  } else if (number >= 1048576) {
+    return (number / 1048576).toFixed(1) + "MB";
+  }
+};
+
+export const encrypt = (details) => {
+  var cipher = forge.cipher.createCipher(
+    "3DES-ECB",
+    forge.util.createBuffer(process.env.REACT_APP_ENCRYPTION_KEY)
+  );
+  cipher.start({ iv: "" });
+  cipher.update(forge.util.createBuffer(JSON.stringify(details), "utf-8"));
+  cipher.finish();
+  var encrypted = cipher.output;
+  return forge.util.encode64(encrypted.getBytes());
 };
 
 // export function formatDate(date) {
