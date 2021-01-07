@@ -9,7 +9,7 @@ import {
   getCurrentVendor,
   selectProduct,
 } from "../../redux/product/product-slice";
-
+import Slider from "react-slick";
 // new shops would use camelCase
 // pipe the shops through cart shops to get the quantity
 function Marketplace() {
@@ -24,47 +24,73 @@ function Marketplace() {
       dispatch(getShops());
     }
   }, []);
+
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    speed: 700,
+    autoplaySpeed: 4000,
+    cssEase: "linear",
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
   return (
     <div>
       <NavigationBar user={user} totalInCart={total} />
-      <Spacer top="50px" />
+      {/* <Spacer top="50px" /> */}
       {product.isLoading && <center>LOADING...</center>}
       {product.error && (
-        <center style={{ color: "red" }}>{product.message}</center>
+        <p className="text-red-400 text-center">{product.message}</p>
       )}
-      {product.shops &&
-        product.shops.map((shop) => {
-          return (
-            <center key={shop.shopId}>
-              <div
-                onClick={() => {
-                  dispatch(getCurrentVendor(shop));
-                  history.push(`/vendors/${shop.shopId}`);
-                }}
-                style={{
-                  border: "1px solid grey",
-                  maxWidth: "400px",
-                  margin: "10px",
-                  cursor: "pointer",
-                }}
-              >
-                <div className="w-100">
-                  <img
-                    className="w-full"
-                    src={shop.featuredImage}
-                    alt={shop.title}
-                    loading="eager"
-                  />
+
+      {/* carousel */}
+      <div className="width-full overflow-hidden">
+        <Slider {...settings}>
+          <div className="h-96 w-full bg-black flex items-center justify-center p-2">
+            <p className="w-full flex items-center text-4xl text-white">jumga</p>
+          </div>
+          <div className="h-96 w-full bg-black flex items-center justify-center p-2">
+            <p className=" w-full flex items-center text-4xl text-white">jumga</p>
+          </div>
+        </Slider>
+      </div>
+      {/* carousel */}
+
+      <div className="">
+        {
+          product.shops &&
+          product.shops.map((shop) => {
+            return (
+              <div key={shop.shopId} className="mt-6 p-2">
+                <div
+                  onClick={() => {
+                    dispatch(getCurrentVendor(shop));
+                    history.push(`/vendors/${shop.shopId}`);
+                  }}
+                  className="m-2 cursor-pointer w-72 shadow-lg rounded-md"
+                >
+                  <div className="w-full">
+                    <img
+                      className="w-full"
+                      src={shop.featuredImage}
+                      alt={shop.title}
+                      loading="eager"
+                    />
+                  </div>
+                  <div className=" p-4">
+                    <p className="font-bold uppercase">{shop.title}</p>
+                    <p className="py-4">{shop.description}</p>
+                    <p className="text-right text-green-500">{shop.tags.join(" ")}</p>
+                  </div>
                 </div>
-                <center style={{ fontWeight: "bold" }}>{shop.title}</center>
-                <center>{shop.description}</center>
-                <center style={{ color: "green" }}>
-                  {shop.tags.join(" ")}
-                </center>
               </div>
-            </center>
-          );
-        })}
+
+            );
+          })
+        }
+      </div>
     </div>
   );
 }

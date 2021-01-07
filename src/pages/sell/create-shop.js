@@ -38,9 +38,8 @@ export default function CreateShop() {
               }}
             />
             <div
-              className={`w-full p-2 my-3 cursor-pointer flex items-center justify-center rounded-lg border-2 border-dashed ${
-                drag ? "border-green-400" : "border-gray-200"
-              } text-sm font-medium py-4`}
+              className={`w-full p-2 my-3 cursor-pointer flex items-center justify-center rounded-lg border-2 border-dashed ${drag ? "border-green-400" : "border-gray-200"
+                } text-sm font-medium py-4`}
               onDragOver={(event) => {
                 event.preventDefault();
                 setDrag(true);
@@ -63,9 +62,9 @@ export default function CreateShop() {
                   for (var i = 0; i < event.dataTransfer.files.length; i++) {
                     console.log(
                       "... file[" +
-                        i +
-                        "].name = " +
-                        event.dataTransfer.files[i].name
+                      i +
+                      "].name = " +
+                      event.dataTransfer.files[i].name
                     );
                   }
                 }
