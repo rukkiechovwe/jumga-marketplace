@@ -1,14 +1,16 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { authenticateUser } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import { Alert } from "../../components";
 import loginImg from "../../assets/images/loginImg.jpg";
+import validateForm from "../../helpers/validators";
 
 export default function Signup() {
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const [error, setError] = useState("");
   const [signup, dispatchInputEvent] = useReducer(
     (state, action) => {
       switch (action.type) {
@@ -47,7 +49,26 @@ export default function Signup() {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              dispatch(authenticateUser(signup, ""));
+              if (validateForm({ name: 'fullName', value: signup.fullName })) {
+                if (validateForm({ name: 'email', value: signup.email })) {
+                  if (validateForm({ name: 'password', value: signup.password })) {
+                    if (signup.confirmPassword === signup.password) {
+                      dispatch(authenticateUser(signup, ""));
+                    }
+                    else {
+                      setError("Invalid password, Could not confirm password")
+                    }
+                  } else {
+                    setError("Invalid password, Password should be greater than 5 characters")
+                  }
+                } else {
+                  setError("Invalid email address")
+                }
+              }
+              else {
+                setError("Invalid name")
+              }
+
             }}
           >
             <p>{auth.isLoading && "Please wait"}</p>
@@ -57,6 +78,7 @@ export default function Signup() {
                 callback={() => dispatch(authReset())}
               />
             )}
+            <p>{error && error}</p>
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               type="text"

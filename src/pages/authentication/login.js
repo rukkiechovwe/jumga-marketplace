@@ -1,16 +1,17 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Alert } from "../../components";
 import { authenticateUser } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import "./auth-svg.css";
-import waves from "../../assets/images/waves.svg";
 import loginImg from "../../assets/images/loginImg.jpg";
+import validateForm from "../../helpers/validators";
 
 export default function Login(props) {
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const [error, setError] = useState("")
   const [login, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
       case "INIT":
@@ -25,6 +26,7 @@ export default function Login(props) {
         throw new Error("No actionType");
     }
   }, {});
+
   return (
     <div className="relative h-screen w-screen sssss">
       <div className="hidden sm:block w-1/2 h-full">
@@ -45,10 +47,21 @@ export default function Login(props) {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              dispatch(authenticateUser(login, "login"));
-            }}
+              if (validateForm({ name: 'email', value: login.email })) {
+                if (validateForm({ name: 'password', value: login.password })) {
+                  dispatch(authenticateUser(login, "login"));
+                } else {
+                  setError("Invalid password, Password should be greater than 5 characters")
+                }
+              } else {
+                setError("Invalid email address")
+              }
+            }
+            }
           >
+
             <p>{auth.isLoading && "Please wait"}</p>
+            <p>{error && error}</p>
             {auth.error && (
               <Alert
                 label={auth.message}

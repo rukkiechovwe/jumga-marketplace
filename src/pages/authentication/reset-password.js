@@ -5,10 +5,12 @@ import { resetPassword } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import waves from "../../assets/images/waves.svg";
 import loginImg from "../../assets/images/loginImg.jpg";
+import validateForm from "../../helpers/validators";
 
 export default function ResetPassword(props) {
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const [error, setError] = useState("");
   const [email, setEmail] = useState(null);
   return (
     <div className="relative h-screen w-full sssss">
@@ -28,10 +30,15 @@ export default function ResetPassword(props) {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              dispatch(resetPassword(email));
+              if (validateForm({ name: 'email', value: email })) {
+                dispatch(resetPassword(email));
+              } else {
+                setError("Invalid email address")
+              }
             }}
           >
             <p>{auth.isLoading && "Please wait"}</p>
+            <p>{error && error}</p>
             {auth.error && (
               <Alert
                 label={auth.message}
