@@ -27,21 +27,7 @@ export default function CardPin({ card, amount, currency, onSuccess }) {
       },
     };
 
-    const res = await initPayment(
-      encrypt({
-        card_number: "4242424242424242",
-        cvv: "812",
-        expiry_month: "01",
-        expiry_year: "21",
-        currency: "NGN",
-        amount: "100000",
-        email: "ekene@gmail.com",
-        tx_ref: "MC-3243enewtest-visa-2",
-        redirect_url:
-          "https://webhook.site/3ed41e38-2c79-4c79-b455-97398730866c",
-        type: "card",
-      })
-    );
+    const res = await initPayment(encrypt(details));
     if (res.err) {
       setError(res.err ?? "Something went wrong.");
     } else {
