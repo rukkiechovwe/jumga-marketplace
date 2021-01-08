@@ -8,8 +8,10 @@ import { getUser } from "./redux/authentication/auth-actions";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
 import { getCart } from "./redux/cart/cart-slice";
-import Marketplace from "./pages/marketplace/marketplace";
+import { Marketplace } from "./pages/marketplace";
 import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 export const history = createBrowserHistory();
 
 function App() {

@@ -7,6 +7,7 @@ exports.initPayment = functions.https.onRequest(async (req, res) => {
   try {
     const data = req.body;
     const flwRes = await post(`${FLW_URL}/charges?type=card`, data, {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.FLW_SK}`,
     });
     res

@@ -71,7 +71,7 @@ function Product() {
         )}
         {product && product.shop && !loading && (
           <div className="h-full md:h-screen w-full">
-            <div className="h-full w-full flex flex-col md:flex-row items-start overflow-scroll">
+            <div className="h-full w-full flex flex-col md:flex-row items-start overflow-auto">
               <div className="h-full flex items-center justify-center w-full md:w-1/2 py-8 px-4">
                 <img
                   className="w-1/2"

@@ -26,7 +26,7 @@ export default function Login(props) {
     }
   }, {});
   return (
-    <div className="relative h-screen w-full sssss">
+    <div className="relative h-screen w-screen sssss">
       <div className="hidden sm:block w-1/2 h-full">
         <div
           className="h-full bg-no-repeat bg-center bg-cover"
@@ -56,7 +56,7 @@ export default function Login(props) {
               />
             )}
             <input
-              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
+              className="w-full border-solid border-b-2 border-gray-400 p-2 mt-4 focus:outline-none"
               type="email"
               name="email"
               placeholder="Email Address"
@@ -66,7 +66,7 @@ export default function Login(props) {
               }}
             ></input>
             <input
-              className="w-full border-solid border-b-2 border-gray-400 p-2 mt-3 focus:outline-none"
+              className="w-full border-solid border-b-2 border-gray-400 p-2 mt-4 focus:outline-none"
               type="password"
               name="password"
               placeholder="Enter Password"
