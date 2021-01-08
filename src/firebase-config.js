@@ -3,11 +3,11 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 const firebaseConfig = {
-  apiKey: "AIzaSyD6-PHt9HYknKs9UtWxFzmqH4Fg0PZC5bU",
-  authDomain: "jumga-marketplace.firebaseapp.com",
-  projectId: "jumga-marketplace",
-  storageBucket: "jumga-marketplace.appspot.com",
-  messagingSenderId: "924105883521",
-  appId: "1:924105883521:web:0518996072cef08b00b280",
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID,
 };
 export default firebase.initializeApp(firebaseConfig);

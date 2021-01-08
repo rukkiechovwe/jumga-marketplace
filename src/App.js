@@ -8,8 +8,8 @@ import { getUser } from "./redux/authentication/auth-actions";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
 import { getCart } from "./redux/cart/cart-slice";
-import Marketplace from "./pages/marketplace/marketplace";
-import { CreateShop, SellOnboarding } from "./pages/sell";
+import { Marketplace } from "./pages/marketplace";
+import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 export const history = createBrowserHistory();
@@ -31,6 +31,7 @@ function App() {
         <Route path="/vendors/:id" component={Home} />
         <Route path="/sell" component={SellOnboarding} />
         <Route path="/create-shop" component={CreateShop} />
+        <Route path="/shop-payment" component={ShopPayment} />
         <Route path="/" component={Marketplace} />
       </Switch>
     </Router>

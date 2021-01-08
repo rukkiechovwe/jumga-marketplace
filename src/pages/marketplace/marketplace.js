@@ -25,7 +25,6 @@ function Marketplace() {
     }
   }, []);
 
-
   const settings = {
     dots: true,
     infinite: true,
@@ -34,7 +33,7 @@ function Marketplace() {
     autoplaySpeed: 4000,
     cssEase: "linear",
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
   };
   return (
     <div>
@@ -49,18 +48,21 @@ function Marketplace() {
       <div className="width-full overflow-hidden">
         <Slider {...settings}>
           <div className="h-96 w-full bg-black flex items-center justify-center p-2">
-            <p className="w-full flex items-center text-4xl text-white">jumga</p>
+            <p className="w-full flex items-center text-4xl text-white">
+              jumga
+            </p>
           </div>
           <div className="h-96 w-full bg-black flex items-center justify-center p-2">
-            <p className=" w-full flex items-center text-4xl text-white">jumga</p>
+            <p className=" w-full flex items-center text-4xl text-white">
+              jumga
+            </p>
           </div>
         </Slider>
       </div>
       {/* carousel */}
 
       <div className="">
-        {
-          product.shops &&
+        {product.shops &&
           product.shops.map((shop) => {
             return (
               <div key={shop.shopId} className="mt-6 p-2">
@@ -82,14 +84,14 @@ function Marketplace() {
                   <div className=" p-4">
                     <p className="font-bold uppercase">{shop.title}</p>
                     <p className="py-4">{shop.description}</p>
-                    <p className="text-right text-green-500">{shop.tags.join(" ")}</p>
+                    <p className="text-right text-green-500">
+                      {shop.tags.join(" ")}
+                    </p>
                   </div>
                 </div>
               </div>
-
             );
-          })
-        }
+          })}
       </div>
     </div>
   );
