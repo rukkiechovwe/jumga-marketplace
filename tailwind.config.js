@@ -8,8 +8,11 @@ module.exports = {
     },
     extend: {},
     screens: {
+      phn: "450px",
+      // => @media (min-width: 450px) { ... }
+
       sm: "660px",
-      // => @media (min-width: 640px) { ... }
+      // => @media (min-width: 660px) { ... }
 
       md: "768px",
       // => @media (min-width: 768px) { ... }

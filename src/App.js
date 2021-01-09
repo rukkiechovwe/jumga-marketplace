@@ -12,6 +12,7 @@ import { Marketplace } from "./pages/marketplace";
 import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ShopActivity from "./pages/user/dashboard/shop";
 export const history = createBrowserHistory();
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
     dispatch(getUser());
     dispatch(getCart());
   }, []);
+
   return (
     <Router history={history}>
       <Switch>
@@ -32,6 +34,7 @@ function App() {
         <Route path="/sell" component={SellOnboarding} />
         <Route path="/create-shop" component={CreateShop} />
         <Route path="/shop-payment" component={ShopPayment} />
+        <Route path="/shop-dashboard" component={ShopActivity} />
         <Route path="/shop/:productId" component={ShopPayment} />
         <Route path="/" component={Marketplace} />
       </Switch>

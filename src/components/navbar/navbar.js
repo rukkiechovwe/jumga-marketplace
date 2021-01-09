@@ -58,30 +58,20 @@ function NavigationBar(props) {
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="flex items-center justify-end space-x-4">
-              <a
-                href="#"
+              <Link
+                // if already a merchant, goto shop
+                to={`/sell`}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                <Link
-                  // if already a merchant, goto shop
-                  to={`/sell`}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Sell
+                Sell
                 </Link>
-              </a>
-              <a
-                href="#"
+              <Link
+                to={`/cart`}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                <Link
-                  to={`/cart`}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Cart
-                  {props.totalInCart > 0 && <span>({props.totalInCart})</span>}
-                </Link>
-              </a>
+                Cart
+                  {props.totalInCart > 0 && <span>({props.totalInCart}) </span>}
+              </Link>
               <Link
                 to={`/login?from=${location.pathname}`}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -89,9 +79,12 @@ function NavigationBar(props) {
                 {props.user ? props.user.email : "Login"}
               </Link>
             </div>
-            <button className="bg-gray-800 p-1 mr-4 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-              <Avatar />
-            </button>
+            <Link
+              to={`/shop-dashboard`}>
+              <button className="bg-gray-800 p-1 mr-4 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                <Avatar />
+              </button>
+            </Link>
             <div className="ml-3 relative">
               <div
                 className={`hidden origin-top-right absolute right-0 mt-4 w-36 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
