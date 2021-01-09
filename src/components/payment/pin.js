@@ -14,8 +14,25 @@ export default function CardPin({ card, amount, currency, onSuccess }) {
 
   const pay = async () => {
     setLoading(true);
-    const details = {
-      ...card,
+    setError("");
+    // const payload = {
+    //   ...card,
+    //   email: user.email,
+    //   amount: amount,
+    //   currency: currency,
+    //   redirect_url: `${BASENAME}/confirm-payment`,
+    //   tx_ref: getReference(),
+    //   authorization: {
+    //     mode: "pin",
+    //     pin: pin,
+    //   },
+    // };
+    const payload = {
+      fullname: "Stanley Akpama",
+      card_number: "5531886652142950",
+      cvv: "564",
+      expiry_month: "09",
+      expiry_year: "32",
       email: user.email,
       amount: amount,
       currency: currency,
@@ -23,17 +40,16 @@ export default function CardPin({ card, amount, currency, onSuccess }) {
       tx_ref: getReference(),
       authorization: {
         mode: "pin",
-        pin: pin,
+        pin: "3310",
       },
     };
-
-    const res = await initPayment(encrypt(details));
+    const res = await initPayment(encrypt(payload));
+    setLoading(false);
     if (res.err) {
       setError(res.err ?? "Something went wrong.");
     } else {
       onSuccess(res);
     }
-    setLoading(false);
   };
   return (
     <form
@@ -44,7 +60,9 @@ export default function CardPin({ card, amount, currency, onSuccess }) {
       }}
     >
       <label className="w-full text-center">Enter card pin</label>
-      {error && <span className="text-red text-center w-full">{error}</span>}
+      {error && (
+        <span className="text-red-300 text-sm text-center w-full">{error}</span>
+      )}
       <PinInput
         length={4}
         secret

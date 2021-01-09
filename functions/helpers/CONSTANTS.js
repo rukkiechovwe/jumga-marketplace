@@ -1,3 +1,3 @@
-const FLW_URL = "https://api.flutterwave.com/v3";
+const FLW_URL = "https://api.flutterwave.com";
 
 module.exports = { FLW_URL };

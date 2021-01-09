@@ -8,6 +8,7 @@ import {
   getUrlParam,
   getFileSize,
   encrypt,
+  getSlug,
 } from "./utils";
 
 export {
@@ -15,6 +16,7 @@ export {
   getReference,
   getItem,
   uuid,
+  getSlug,
   download,
   encrypt,
   getUrlParam,

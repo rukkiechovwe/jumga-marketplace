@@ -32,6 +32,7 @@ function App() {
         <Route path="/sell" component={SellOnboarding} />
         <Route path="/create-shop" component={CreateShop} />
         <Route path="/shop-payment" component={ShopPayment} />
+        <Route path="/shop/:productId" component={ShopPayment} />
         <Route path="/" component={Marketplace} />
       </Switch>
     </Router>

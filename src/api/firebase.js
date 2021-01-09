@@ -1,4 +1,5 @@
 import firebase from "../firebase-config";
+import { getRandomIndex } from "../helpers";
 
 export const db = firebase.firestore();
 export const storage = firebase.storage();
@@ -135,19 +136,15 @@ export const fetchProductById = async (id) => {
 };
 
 // STORAGE API
-
-export const uploadOneFile = async (file, folderPath, name) => {
+export const uploadFile = async (file, folder) => {
   try {
-    let fileType = file.name.split(".");
-    let filename = folderPath + name || "" + "." + fileType[1];
+    let filename = `${folder}/${file.name}`;
     filename = filename.replace(/\s/g, "").trim();
-
-    let fileRef = storage.ref().child(filename);
-    await fileRef.put(file);
-    let url = await fileRef.getDownloadURL();
-    return { err: null, url };
+    let fileReference = storage.ref().child(filename);
+    await fileReference.put(file);
+    let url = await fileReference.getDownloadURL();
+    return url;
   } catch (e) {
-    console.log(e);
     return { err: e };
   }
 };

@@ -1,6 +1,11 @@
 import { useReducer, useState } from "react";
+import { BASENAME } from "../../api";
+import { initPayment } from "../../api/payment";
+import { encrypt, getReference } from "../../helpers";
+import { selectUser } from "../../redux/authentication/auth-slice";
+import { useSelector } from "react-redux";
 
-export default function CardDetails({ currency, amount, onSubmit }) {
+export default function CardDetails({ currency, amount, onSuccess }) {
   const [card, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
       case "GET_INPUT":
@@ -13,20 +18,53 @@ export default function CardDetails({ currency, amount, onSubmit }) {
         throw new Error("No actionType");
     }
   }, {});
+  const user = useSelector(selectUser);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const initPay = async (card) => {
+    setLoading(true);
+    setError("");
+    // const details = {
+    //   ...card,
+    //   email: user.email,
+    //   amount: amount,
+    //   currency: currency,
+    //   redirect_url: `${BASENAME}/confirm-payment`,
+    //   tx_ref: getReference(),
+    // };
+    const details = {
+      fullname: "Stanley Akpama",
+      card_number: "5531886652142950",
+      cvv: "564",
+      expiry_month: "09",
+      expiry_year: "32",
+      email: user.email,
+      amount: amount,
+      currency: currency,
+      redirect_url: `${BASENAME}/confirm-payment`,
+      tx_ref: getReference(),
+    };
+    const res = await initPayment(encrypt(details));
+    setLoading(false);
+    if (res.err) {
+      setError(res.err ?? "Something went wrong.");
+    } else {
+      onSuccess({ card, res });
+    }
+  };
   return (
     <form
       className="flex flex-col justify-center items-center w-5/6"
       onSubmit={(event) => {
         event.preventDefault();
-        const em = card.expiry_date.substring(0, 2);
-        const ey = card.expiry_date.substring(3);
-        card.expiry_month = em;
-        card.expiry_year = ey;
-        let _card = { ...card };
-        delete _card.expiry_date;
-        onSubmit(_card);
+        initPay(card);
       }}
     >
+      {error && (
+        <span className="text-red-300 text-sm text-center w-full">{error}</span>
+      )}
+
       <input
         className="w-full p-2 my-3 focus:outline-none rounded text-black"
         name="fullname"
@@ -77,7 +115,8 @@ export default function CardDetails({ currency, amount, onSubmit }) {
         className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
         type="submit"
       >
-        PAY {`${currency === "USD" && " $"}${amount}`}
+        {loading && "Please wait..."}
+        {!loading && `PAY ${currency === "USD" && " $"}${amount}`}
       </button>
     </form>
   );
