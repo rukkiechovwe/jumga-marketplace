@@ -21,7 +21,7 @@ const sendHttpRequest = async (method, endpoint, data) => {
     });
     return await response.json();
   } catch (error) {
-    return error;
+    return { status: "error", err: error };
   }
 };
 

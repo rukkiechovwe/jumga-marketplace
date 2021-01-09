@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const admin = require("firebase-admin");
 
 const sendHttpRequest = async (method, endpoint, data, header) => {
   let headers = { ...header };
@@ -26,4 +27,8 @@ const post = async (endpoint, data, header) =>
 const get = async (endpoint, header) =>
   await sendHttpRequest("GET", endpoint, null, header);
 
-module.exports = { post, get };
+const getRandomIndex = (max) => {
+  return Math.floor(Math.random() * (max + 1));
+};
+
+module.exports = { post, get, getRandomIndex };

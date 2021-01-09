@@ -45,6 +45,14 @@ export const getLastPathname = (pathname) => {
   const pathList = pathname.split("/");
   return pathList[pathList.length - 1];
 };
+export const getSlug = (payload) => {
+  if (payload) {
+    let ls = payload.split(" ");
+    ls = ls.map((item) => item.toLowerCase());
+    return ls && ls.join("-");
+  }
+  return null;
+};
 
 export const getFileSize = (number) => {
   if (number < 1024) {
@@ -56,13 +64,13 @@ export const getFileSize = (number) => {
   }
 };
 
-export const encrypt = (details) => {
+export const encrypt = (payload) => {
   var cipher = forge.cipher.createCipher(
     "3DES-ECB",
     forge.util.createBuffer(process.env.REACT_APP_ENCRYPTION_KEY)
   );
   cipher.start({ iv: "" });
-  cipher.update(forge.util.createBuffer(JSON.stringify(details), "utf-8"));
+  cipher.update(forge.util.createBuffer(JSON.stringify(payload), "utf-8"));
   cipher.finish();
   var encrypted = cipher.output;
   return forge.util.encode64(encrypted.getBytes());
