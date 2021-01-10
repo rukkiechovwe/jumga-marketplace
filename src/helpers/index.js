@@ -9,11 +9,13 @@ import {
   getFileSize,
   encrypt,
   getSlug,
+  getRandomIndex,
 } from "./utils";
 
 export {
   setItem,
   getReference,
+  getRandomIndex,
   getItem,
   uuid,
   getSlug,

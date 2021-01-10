@@ -36,7 +36,10 @@ export default function CreateShop() {
       shop.shopId = uuid();
       shop.userId = user.user_id;
       try {
-        shop.featuredImage = await uploadFile(shop.featuredImage, "shopsFI"); //  shops featured images path
+        shop.featuredImage = await uploadFile(
+          shop.featuredImage,
+          "shopsFeaturedImages"
+        );
         const res = await createPendingShop(shop);
         setLoading(false);
         if (res.err) {

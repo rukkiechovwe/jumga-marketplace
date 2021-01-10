@@ -1,5 +1,4 @@
 import firebase from "../firebase-config";
-import { getRandomIndex } from "../helpers";
 
 export const db = firebase.firestore();
 export const storage = firebase.storage();

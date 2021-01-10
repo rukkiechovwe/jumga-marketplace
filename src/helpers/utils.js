@@ -54,6 +54,10 @@ export const getSlug = (payload) => {
   return null;
 };
 
+export const getRandomIndex = (max) => {
+  return Math.floor(Math.random() * (max + 1));
+};
+
 export const getFileSize = (number) => {
   if (number < 1024) {
     return number + "bytes";

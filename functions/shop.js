@@ -9,7 +9,6 @@ exports.createShop = functions.https.onRequest(async (req, res) => {
     const dispatchers = await (
       await admin.firestore().collection("dispatchers").get()
     ).docs.map((disp) => disp.data());
-    console.log(dispatchers);
     const picked = dispatchers[getRandomIndex(dispatchers.length - 1)];
     shop.dispatcherId = picked.userId;
     // prevent/overwrite injection from frontend
@@ -30,13 +29,17 @@ exports.createShop = functions.https.onRequest(async (req, res) => {
 exports.updateShop = functions.https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   try {
-    let shopId = req.body.shopId;
-    // TODO: notify dispatcher about the new shop
+    let { shopId, dispatcherId } = req.body;
     await admin
       .firestore()
       .collection("shops")
       .doc(shopId)
       .update({ status: "approved" });
+    await admin
+      .firestore()
+      .collection("dispatchers")
+      .doc(dispatcherId)
+      .update({ shopIds: admin.firestore.FieldValue.arrayUnion(shopId) });
     res.status(200).send({ status: "success" });
   } catch (error) {
     res.status(500).send({ err: error });

@@ -38,34 +38,46 @@ function Marketplace() {
   return (
     <div>
       <NavigationBar user={user} totalInCart={total} />
-      {/* <Spacer top="50px" /> */}
       {product.isLoading && <center>LOADING...</center>}
       {product.error && (
         <p className="text-red-400 text-center">{product.message}</p>
       )}
 
       {/* carousel */}
-      <div className="width-full overflow-hidden">
+      <div className="width-full mr-20 ml-20 overflow-hidden">
         <Slider {...settings}>
-          <div className="h-96 w-full bg-black flex items-center justify-center p-2">
-            <p className="w-full flex items-center text-4xl text-white">
-              jumga
-            </p>
+          <div className="h-96 w-full flex items-center justify-center p-2">
+            <img
+              className="h-full w-full object-contain"
+              src="https://media.istockphoto.com/photos/excited-women-with-shopping-bags-looking-aside-picture-id1087256702?k=6&m=1087256702&s=612x612&w=0&h=-aMxPHPz8zk1PsRKSVV9cPRdjr0QAlM-h1hfhuhevX0="
+              alt="bannerA"
+            />
           </div>
-          <div className="h-96 w-full bg-black flex items-center justify-center p-2">
-            <p className=" w-full flex items-center text-4xl text-white">
-              jumga
-            </p>
+          <div className="h-96 w-full flex items-center justify-center p-2">
+            <img
+              className="h-full w-full object-contain"
+              src="https://bengaltradingint.com/wp-content/uploads/2020/06/istockphoto-1033729610-612x612-1.jpg"
+              alt="bannerA"
+            />
+          </div>
+          <div className="h-96 w-full flex items-center justify-center p-2">
+            <img
+              className="h-full w-full object-contain"
+              src="https://www.divigear.com/wp-content/uploads/2018/10/product-carousel-image-01.jpg"
+              alt="bannerA"
+            />
           </div>
         </Slider>
       </div>
       {/* carousel */}
-
-      <div className="">
+      <p className="text-black text-xl text-left ml-24 font-semibold">
+        Vendors
+      </p>
+      <div className="flex flex-row flex-wrap width-full mr-20 ml-20">
         {product.shops &&
           product.shops.map((shop) => {
             return (
-              <div key={shop.shopId} className="mt-6 p-2">
+              <div key={shop.shopId} className="p-2 rounded-md">
                 <div
                   onClick={() => {
                     dispatch(getCurrentVendor(shop));
@@ -75,17 +87,16 @@ function Marketplace() {
                 >
                   <div className="w-full">
                     <img
-                      className="w-full"
+                      className="w-full h-56"
                       src={shop.featuredImage}
                       alt={shop.title}
                       loading="eager"
                     />
                   </div>
-                  <div className=" p-4">
+                  <div className="h-24 p-4 overflow-ellipsis">
                     <p className="font-bold uppercase">{shop.title}</p>
-                    <p className="py-4">{shop.description}</p>
-                    <p className="text-right text-green-500">
-                      {shop.tags.join(" ")}
+                    <p className="pb-4 truncate text-gray-600">
+                      {shop.description}
                     </p>
                   </div>
                 </div>

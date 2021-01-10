@@ -21,7 +21,7 @@ export default function CardPayment({
     // save charge reference
     setReference(res.res && res.res.data);
     setCard(res.card && res.card);
-    const authMode = res.res && res.res.meta.authorization.mode;
+    const authMode = res.res && res.res.meta && res.res.meta.authorization.mode;
     switch (authMode) {
       case "pin":
         setStep(1);
