@@ -94,7 +94,7 @@ function Marketplace() {
                     />
                   </div>
                   <div className="h-24 p-4 overflow-ellipsis">
-                    <p className="font-bold uppercase">{shop.title}</p>
+                    <p className="font-bold uppercase text-sm">{shop.title}</p>
                     <p className="pb-4 truncate text-gray-600">
                       {shop.description}
                     </p>
