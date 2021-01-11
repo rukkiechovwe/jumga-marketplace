@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { validatePayment } from "../../api/payment";
 
-export default function CardOtp({ reference, onSuccess }) {
+export default function CardOtp({ reference, onSuccess, onFailed }) {
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const validatePay = async () => {
     setLoading(true);
-    setError("");
     const payload = {
       flw_ref: reference.flw_ref,
       type: reference.payment_type,
@@ -17,7 +15,7 @@ export default function CardOtp({ reference, onSuccess }) {
     const res = await validatePayment(payload);
     setLoading(false);
     if (res.err) {
-      setError(res.err ?? "Something went wrong.");
+      onFailed(res.err ?? "Could not complete transaction, Try again");
     } else {
       onSuccess(res);
     }
@@ -30,9 +28,6 @@ export default function CardOtp({ reference, onSuccess }) {
         validatePay();
       }}
     >
-      {error && (
-        <span className="text-red-300 text-sm text-center w-full">{error}</span>
-      )}
       <input
         className="w-full p-2 my-3 focus:outline-none rounded text-black text-center text-lg"
         name="otp"

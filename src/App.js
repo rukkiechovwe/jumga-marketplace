@@ -7,12 +7,14 @@ import { Home } from "./pages/home";
 import { getUser } from "./redux/authentication/auth-actions";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
+import { CheckoutAddress, CheckoutPayment } from "./pages/checkout";
 import { getCart } from "./redux/cart/cart-slice";
 import { Marketplace } from "./pages/marketplace";
 import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
+import ShopActivity from "./pages/user/dashboard/shop";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ShopActivity from "./pages/user/dashboard/shop";
+
 export const history = createBrowserHistory();
 
 function App() {
@@ -29,14 +31,15 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/reset-password" component={ResetPassword} />
         <Route path="/cart" component={Cart} />
-        <Route path="/vendors/:id/products/:id" component={Product} />
+        <Route path="/checkout/address" component={CheckoutAddress} />
+        <Route path="/checkout/payment" component={CheckoutPayment} />
         <Route path="/vendors/:id" component={Home} />
+        <Route path="/vendors/:id/products/:id" component={Product} />
         <Route path="/sell" component={SellOnboarding} />
         <Route path="/create-shop" component={CreateShop} />
         <Route path="/shop-payment" component={ShopPayment} />
         <Route path="/user/dashboard" component={ShopActivity} />
-        <Route path="/user/shop/:shopId" component={ShopPayment} />
-        <Route path="/" component={Marketplace} />
+        <Route path="/" component={Marketplace} exact />
       </Switch>
     </Router>
   );

@@ -5,7 +5,7 @@ import { encrypt, getReference } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { useSelector } from "react-redux";
 
-export default function CardDetails({ currency, amount, onSuccess }) {
+export default function CardInfo({ currency, amount, onSuccess }) {
   const [card, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
       case "GET_INPUT":
@@ -25,27 +25,15 @@ export default function CardDetails({ currency, amount, onSuccess }) {
   const initPay = async (card) => {
     setLoading(true);
     setError("");
-    // const details = {
-    //   ...card,
-    //   email: user.email,
-    //   amount: amount,
-    //   currency: currency,
-    //   redirect_url: `${BASENAME}/confirm-payment`,
-    //   tx_ref: getReference(),
-    // };
-    const details = {
-      fullname: "Stanley Akpama",
-      card_number: "5531886652142950",
-      cvv: "564",
-      expiry_month: "09",
-      expiry_year: "32",
+    const payload = {
+      ...card,
       email: user.email,
       amount: amount,
       currency: currency,
       redirect_url: `${BASENAME}/confirm-payment`,
       tx_ref: getReference(),
     };
-    const res = await initPayment(encrypt(details));
+    const res = await initPayment(encrypt(payload));
     setLoading(false);
     if (res.err) {
       setError(res.err ?? "Something went wrong.");
@@ -58,7 +46,13 @@ export default function CardDetails({ currency, amount, onSuccess }) {
       className="flex flex-col justify-center items-center w-5/6"
       onSubmit={(event) => {
         event.preventDefault();
-        initPay(card);
+        let _card = {
+          cvv: card.cvv.replace(/\s/g, "").trim(),
+          card_number: card.card_number.replace(/\s/g, "").trim(),
+          expiry_month: card.expiry_date.substring(0, 2),
+          expiry_year: card.expiry_date.substring(3),
+        };
+        initPay(_card);
       }}
     >
       {error && (
@@ -115,8 +109,9 @@ export default function CardDetails({ currency, amount, onSuccess }) {
         className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
         type="submit"
       >
-        {loading && "Please wait..."}
-        {!loading && `PAY ${currency === "USD" && " $"}${amount}`}
+        {loading
+          ? "Please wait..."
+          : `PAY ${currency === "USD" && " $"}${amount}`}
       </button>
     </form>
   );

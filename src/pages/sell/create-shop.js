@@ -57,7 +57,7 @@ export default function CreateShop() {
   }
 
   return (
-    <div className="relative h-screen w-full sssss">
+    <div className="relative h-screen w-full">
       <div className="hidden sm:block w-1/2 h-full">
         <div
           className="h-full bg-no-repeat bg-center bg-cover"

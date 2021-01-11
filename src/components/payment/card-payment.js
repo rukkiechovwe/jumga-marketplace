@@ -1,7 +1,8 @@
 import { useState } from "react";
-import CardDetails from "./card-details";
 import CardPin from "./pin";
 import CardOtp from "./otp";
+import CardAddress from "./address";
+import CardInfo from "./card-info";
 
 export default function CardPayment({
   amount,
@@ -17,7 +18,6 @@ export default function CardPayment({
 
   // proceed based on the suggested authorization mode
   const decideNextStep = (res) => {
-    console.log(res);
     // save charge reference
     setReference(res.res && res.res.data);
     setCard(res.card && res.card);
@@ -40,6 +40,7 @@ export default function CardPayment({
         setStep(3);
         break;
       default:
+        setStep(0);
         onPaymentFailed(res);
     }
   };
@@ -50,9 +51,8 @@ export default function CardPayment({
           <h2 className="text-4xl ">{`${label && `${label} | `}`}Payment</h2>
           <span className="text-gray-500 text-sm">{note && note}</span>
         </div>
-        {}
         {step === 0 && (
-          <CardDetails
+          <CardInfo
             amount={amount}
             currency={currency}
             onSuccess={(res) => {
@@ -78,6 +78,20 @@ export default function CardPayment({
             }}
           />
         )}
+        {step === 2 && (
+          <CardAddress
+            card={card}
+            amount={amount}
+            currency={currency}
+            onSuccess={(res) => {
+              if (res.data && res.data.status === "successful") {
+                onPaymentSuccess(res.data);
+              } else {
+                decideNextStep(res);
+              }
+            }}
+          />
+        )}
         {step === 3 && (
           <CardOtp
             reference={reference}
@@ -87,6 +101,10 @@ export default function CardPayment({
               } else {
                 decideNextStep(res);
               }
+            }}
+            onFailed={(err) => {
+              setStep(0);
+              onPaymentFailed(err);
             }}
           />
         )}

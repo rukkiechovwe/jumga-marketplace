@@ -84,7 +84,10 @@ export const passwordReset = async (email) => {
 // SHOP API
 export const fetchShops = async () => {
   try {
-    const res = await db.collection("shops").get();
+    const res = await db
+      .collection("shops")
+      .where("status", "==", "approved")
+      .get();
     const shops = res.docs.map((p) => p.data());
     return { err: null, shops: shops };
   } catch (e) {

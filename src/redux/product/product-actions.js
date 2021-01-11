@@ -3,7 +3,6 @@ import {
   getProductsFailed,
   getProductInit,
   getProductsSuccess,
-  getCurrentVendor,
   getShopsFailed,
   getShopsSuccess,
 } from "./product-slice";

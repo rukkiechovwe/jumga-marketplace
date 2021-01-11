@@ -1,30 +1,30 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { updatePendingShop } from "../../api/shop";
 import { history } from "../../App";
 import loginImg from "../../assets/images/loginImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
 
-export default function ShopPayment() {
+export default function CheckoutPayment() {
   const location = useLocation();
-  const shop = location.state && location.state.payload;
+  const address = location.state && location.state.address;
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
-  const updateShop = async () => {
-    let payload = { shopId: shop.shopId, dispatcherId: shop.dispatcherId };
-    try {
-      const res = await updatePendingShop(payload);
-      if (res.err) {
-        setError(res.err ? res.err : "Something went wrong");
-      } else {
-        setStatus("success");
-      }
-    } catch (error) {
-      setError(error.toString());
-    }
-    setShow(true);
-  };
+
+  // const placeOrder = async () => {
+  //   let payload = { address: address, cart: {} };
+  //   try {
+  //     const res = await placeCheckoutOrder(payload);
+  //     if (res.err) {
+  //       setError(res.err ? res.err : "Something went wrong");
+  //     } else {
+  //       setStatus("success");
+  //     }
+  //   } catch (error) {
+  //     setError(error.toString());
+  //   }
+  //   setShow(true);
+  // };
   return (
     <div className="relative h-screen w-full">
       {show ? (
@@ -33,13 +33,10 @@ export default function ShopPayment() {
             state="success"
             title="Payment successful"
             message={`
-              Your shop "${shop.title}" was successfully created, You've been
-              assigned "${shop.dispatcher.fullname} (${shop.dispatcher.phoneNumber})}" as your dispatch rider.\n
-              You can start selling by adding products to your shop.
+              Your order "${""}" was successfully placed
             `}
-            callbackText="Start selling"
+            callbackText="Continue Shopping"
             callback={() => {
-              // history.push(`/shop/${shop.shopId}/add-product`);
               history.replace("/");
             }}
           />
@@ -60,8 +57,8 @@ export default function ShopPayment() {
           />
         )
       ) : null}
-      {!shop && <Error />}
-      {shop && (
+      {!address && <Error />}
+      {address && (
         <div>
           <div className="hidden sm:block w-1/2 h-full">
             <div
@@ -70,8 +67,8 @@ export default function ShopPayment() {
             ></div>
           </div>
           <CardPayment
-            label="Create Store"
-            note="You'll be charged a token of $20 to create a store"
+            label="Checkout"
+            note="Complete your order"
             amount={20}
             currency="USD"
             onPaymentFailed={(response) => {
@@ -83,9 +80,7 @@ export default function ShopPayment() {
                   "Could not complete transaction, Try again"
               );
             }}
-            onPaymentSuccess={(response) => {
-              updateShop(response);
-            }}
+            onPaymentSuccess={(response) => {}}
           />
         </div>
       )}
