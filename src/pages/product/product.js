@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { fetchProductById } from "../../api/firebase";
-import { history } from "../../App";
-import { NavigationBar, Spacer } from "../../components";
+import { Loading, NavigationBar } from "../../components";
 import { getLastPathname } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { addItemToCart, cartPipeline } from "../../redux/cart/cart-actions";
 import { selectCart, selectCartTotal } from "../../redux/cart/cart-slice";
 
-// new products would use camelCase
 function Product() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -60,16 +58,15 @@ function Product() {
   return (
     <div>
       <NavigationBar user={user} totalInCart={total} />
-      {/* <Spacer top="50px" /> */}
       <center>{cart.isLoading && `${cart.message}`}</center>
       <div>
-        {!product.shop && loading && <center>Loading Product</center>}
+        {!product.shop && loading && <Loading />}
         {product && !product.shop && error && (
           <center>
             Something went wrong, It's not you, it's us, Try again.
           </center>
         )}
-        {product && product.shop && !loading && (
+        {product && !loading && (
           <div className="h-full md:h-screen w-full">
             <div className="h-full w-full flex flex-col md:flex-row items-start overflow-auto">
               <div className="h-full flex items-center justify-center w-full md:w-1/2 py-8 px-4">
@@ -118,7 +115,7 @@ function Product() {
                         if (product.quantity > 0)
                           dispatch(addItemToCart(product, cart.cart));
                       }}
-                      className="border-solid border-2 border-green-400 w-full rounded-full py-1.5 my-1.5"
+                      className="border-solid bg-green-400 w-full rounded-full py-1.5 my-1.5"
                     >
                       Add To Cart
                     </button>

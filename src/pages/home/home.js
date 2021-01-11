@@ -7,8 +7,6 @@ import { selectCartTotal } from "../../redux/cart/cart-slice";
 import { getProducts } from "../../redux/product/product-actions";
 import { selectProduct } from "../../redux/product/product-slice";
 
-// new products would use camelCase
-// pipe the products through cart products to get the quantity
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector(selectProduct);

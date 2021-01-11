@@ -5,8 +5,6 @@ import loginImg from "../../assets/images/loginImg.jpg";
 import { selectUser } from "../../redux/authentication/auth-slice";
 
 export default function CheckoutAddress() {
-  const user = useSelector(selectUser);
-  const [error, setError] = useState("");
   const [address, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
       case "GET_INPUT":
@@ -43,11 +41,6 @@ export default function CheckoutAddress() {
               });
             }}
           >
-            {error && (
-              <span className="text-red-600 text-sm text-center w-full">
-                {error}
-              </span>
-            )}
             <input
               className="w-full p-2 my-3 focus:outline-none rounded text-black"
               name="city"

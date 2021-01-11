@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavigationBar } from "../../components";
-import Blehhh from "../../components/payments/payment-options";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import deleteIcon from "../../assets/images/deleteIcon.png";
 import addIcon from "../../assets/images/addIcon.png";
@@ -125,7 +124,6 @@ function Cart() {
             )}
           </div>
         </div>
-        <Blehhh />
       </div>
     </div>
   );

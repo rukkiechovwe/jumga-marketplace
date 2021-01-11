@@ -33,8 +33,8 @@ function App() {
         <Route path="/cart" component={Cart} />
         <Route path="/checkout/address" component={CheckoutAddress} />
         <Route path="/checkout/payment" component={CheckoutPayment} />
-        <Route path="/vendors/:id" component={Home} />
         <Route path="/vendors/:id/products/:id" component={Product} />
+        <Route path="/vendors/:id" component={Home} />
         <Route path="/sell" component={SellOnboarding} />
         <Route path="/create-shop" component={CreateShop} />
         <Route path="/shop-payment" component={ShopPayment} />
