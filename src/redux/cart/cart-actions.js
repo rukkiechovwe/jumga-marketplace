@@ -38,3 +38,6 @@ export const removeItemFromCart = (item, cart) => async (dispatch) => {
   const _cart = cart.filter((_item) => item.product_id !== _item.product_id);
   dispatch(removeFromCart(_cart));
 };
+export const clearCart = () => async (dispatch) => {
+  dispatch(removeFromCart([]));
+};

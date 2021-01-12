@@ -12,7 +12,6 @@ function Home() {
   const product = useSelector(selectProduct);
   const user = useSelector(selectUser);
   const total = useSelector(selectCartTotal);
-
   useEffect(() => {
     // just get products once okayy
     if (!product.products) {

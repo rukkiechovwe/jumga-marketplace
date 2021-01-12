@@ -1,8 +1,6 @@
 import { useReducer, useState } from "react";
-import { useSelector } from "react-redux";
 import { history } from "../../App";
 import loginImg from "../../assets/images/loginImg.jpg";
-import { selectUser } from "../../redux/authentication/auth-slice";
 
 export default function CheckoutAddress() {
   const [address, dispatchInputEvent] = useReducer((state, action) => {
@@ -42,16 +40,7 @@ export default function CheckoutAddress() {
             }}
           >
             <input
-              className="w-full p-2 my-3 focus:outline-none rounded text-black"
-              name="city"
-              placeholder="CITY"
-              onChange={(event) => {
-                event.persist();
-                dispatchInputEvent({ type: "GET_INPUT", payload: event });
-              }}
-            />
-            <input
-              className="w-full p-2 my-3 focus:outline-none rounded text-black"
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               placeholder="ADDRESS"
               name="address"
               onChange={(event) => {
@@ -60,7 +49,16 @@ export default function CheckoutAddress() {
               }}
             />
             <input
-              className="w-full p-2 my-3 focus:outline-none rounded text-black"
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
+              name="city"
+              placeholder="CITY"
+              onChange={(event) => {
+                event.persist();
+                dispatchInputEvent({ type: "GET_INPUT", payload: event });
+              }}
+            />
+            <input
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               name="state"
               placeholder="STATE"
               onChange={(event) => {
@@ -69,16 +67,7 @@ export default function CheckoutAddress() {
               }}
             />
             <input
-              className="w-full p-2 my-3 focus:outline-none rounded text-black"
-              placeholder="COUNTRY"
-              name="country"
-              onChange={(event) => {
-                event.persist();
-                dispatchInputEvent({ type: "GET_INPUT", payload: event });
-              }}
-            />
-            <input
-              className="w-full p-2 my-3 focus:outline-none rounded text-black"
+              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               name="zipcode"
               placeholder="ZIPCODE"
               onChange={(event) => {

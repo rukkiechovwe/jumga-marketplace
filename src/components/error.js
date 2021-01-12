@@ -1,6 +1,8 @@
-export default function Error({ message = "Something went wrong" }) {
+export default function Error({ message = "Something went wrong", mt = "44" }) {
   return (
-    <div className="h-full flex flex-col justify-center items-center">
+    <div
+      className={`h-full flex flex-col justify-center items-center mt-${mt}`}
+    >
       <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
         <svg
           className="h-6 w-6 text-red-600"

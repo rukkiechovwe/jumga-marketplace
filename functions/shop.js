@@ -17,7 +17,7 @@ exports.createShop = functions.https.onRequest(async (req, res) => {
       .firestore()
       .collection("users")
       .doc(shop.userId)
-      .update({ shopId: shop.shopId });
+      .update({ shopId: shop.shopId, isMerchant: true });
     await admin.firestore().collection("shops").doc(shop.shopId).set(shop);
     shop.dispatcher = picked;
     res.status(201).send({ status: "created", shop: shop });

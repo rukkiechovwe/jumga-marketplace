@@ -42,6 +42,7 @@ export const productSlice = createSlice({
 });
 
 export const selectProduct = (state) => state.product;
+export const selectVendor = (state) => state.product.currentVendor;
 export const {
   getProductInit,
   getProductsSuccess,

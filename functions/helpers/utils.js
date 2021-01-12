@@ -31,4 +31,17 @@ const getRandomIndex = (max) => {
   return Math.floor(Math.random() * (max + 1));
 };
 
-module.exports = { post, get, getRandomIndex };
+// this function splits the (payment and delivery amount) of an order into 4
+// 97.5% of the payment amount goes to the shop
+// 2.5% of the payment amount goes to JUMGA
+// 75% of the delivery fee goes to the dispatcher
+// 25% of the delivery fee goes to JUMGA
+const splitPayment = (total, deliveryFee) => {
+  const vendorAmount = (total * 0.975).toFixed(2);
+  const dispatcherAmount = (deliveryFee * 0.8).toFixed(2);
+  const jAmount = (total * 0.025).toFixed(2); // jumga amount
+  const jAmountForDelivery = (deliveryFee * 0.2).toFixed(2); // jumga amount from delivery fee
+  return { vendorAmount, dispatcherAmount, jAmount, jAmountForDelivery };
+};
+
+module.exports = { post, get, splitPayment, getRandomIndex };

@@ -59,24 +59,42 @@ function NavigationBar(props) {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="flex items-center justify-end space-x-4">
               <Link
-                // if already a merchant, goto shop
+                to={`/cart`}
+                className="flex flex-row items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="w-5 h-5 mr-1"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                  />
+                </svg>
+
+                {props.totalInCart > 0 && (
+                  <span class="bg-white -mt-4 -ml-2 pr-1 pl-1 rounded text-black text-xs">
+                    {props.totalInCart}
+                  </span>
+                )}
+              </Link>
+              <Link
                 to={`/sell`}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Sell
               </Link>
-              <Link
-                to={`/cart`}
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Cart
-                {props.totalInCart > 0 && <span>({props.totalInCart}) </span>}
-              </Link>
+
               <Link
                 to={
                   props.user ? `/account` : `/login?from=${location.pathname}`
                 }
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                className="flex flex-row items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 {props.user ? "My Account" : "Login"}
               </Link>

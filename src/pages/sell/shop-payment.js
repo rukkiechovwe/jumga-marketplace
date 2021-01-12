@@ -60,7 +60,7 @@ export default function ShopPayment() {
           />
         )
       ) : null}
-      {!shop && <Error />}
+      {!shop && <Error mt="0" />}
       {shop && (
         <div>
           <div className="hidden sm:block w-1/2 h-full">
