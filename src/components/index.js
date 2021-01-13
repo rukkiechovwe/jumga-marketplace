@@ -5,6 +5,7 @@ import Alert from "./alert/alert";
 import Spacer from "./spacer";
 import Loading from "./loading";
 import Error from "./error";
+import InputError from "./input-error";
 import { CardPayment } from "./payment";
 
 export {
@@ -14,6 +15,7 @@ export {
   Spacer,
   Loading,
   Error,
+  InputError,
   CardPayment,
   Dialog,
 };

@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "../../components";
+import { Alert, InputError } from "../../components";
 import { resetPassword } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import loginImg from "../../assets/images/loginImg.jpg";
-import validateForm from "../../helpers/validators";
+import { validateRPForm } from "../../helpers";
 
 export default function ResetPassword(props) {
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
   const [email, setEmail] = useState(null);
+
   return (
     <div className="relative h-screen w-full sssss">
       <div className="hidden sm:block w-1/2 h-full">
@@ -29,22 +30,28 @@ export default function ResetPassword(props) {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              if (validateForm({ name: "email", value: email })) {
-                dispatch(resetPassword(email));
+              const errors = validateRPForm({ email });
+              if (errors.atLeastAnError) {
+                setError(errors);
               } else {
-                setError("Invalid email address");
+                setError({});
+                dispatch(resetPassword(email));
               }
             }}
           >
-            <p>{auth.isLoading && "Please wait"}</p>
-            <p>{error && error}</p>
             {auth.error && (
               <Alert
                 label={auth.message}
                 callback={() => dispatch(authReset())}
               />
             )}
-            {auth.message && <small>{auth.message}</small>}
+            {!auth.error && auth.message && (
+              <Alert
+                label={auth.message}
+                type="success"
+                callback={() => dispatch(authReset())}
+              />
+            )}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               type="email"
@@ -54,12 +61,13 @@ export default function ResetPassword(props) {
                 event.persist();
                 setEmail(event.target.value);
               }}
-            ></input>
+            />
+            {error.email && <InputError message={error.email} />}
             <button
-              className="w-24 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
+              className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
               type="submit"
             >
-              RESET
+              {auth.isLoading ? "Please wait..." : "RESET"}
             </button>
           </form>
         </div>

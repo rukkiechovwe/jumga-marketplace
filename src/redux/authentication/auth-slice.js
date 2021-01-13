@@ -35,7 +35,9 @@ export const authSlice = createSlice({
       state.message = action.payload;
     },
     authReset: (state) => {
-      state = initialState;
+      state.isLoading = false;
+      state.error = false;
+      state.message = "";
     },
     resetPasswordSuccess: (state) => {
       state.isLoading = false;

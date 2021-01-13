@@ -13,6 +13,12 @@ import {
   getRandomIndex,
 } from "./utils";
 
+import {
+  validateLoginForm,
+  validateSignUpForm,
+  validateRPForm,
+} from "./validators";
+
 export {
   setItem,
   getReference,
@@ -26,4 +32,7 @@ export {
   getUrlParam,
   getLastPathname,
   getFileSize,
+  validateLoginForm,
+  validateSignUpForm,
+  validateRPForm,
 };

@@ -3,34 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { authenticateUser } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
-import { Alert } from "../../components";
+import { Alert, InputError } from "../../components";
 import loginImg from "../../assets/images/loginImg.jpg";
-import validateForm from "../../helpers/validators";
+import { validateSignUpForm } from "../../helpers";
 
 export default function Signup() {
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
-  const [error, setError] = useState("");
-  const [signup, dispatchInputEvent] = useReducer(
-    (state, action) => {
-      switch (action.type) {
-        case "INIT":
-          return { ...state, error: null, isLoading: true };
-        case "DONE":
-          return { ...state, success: true };
-        case "GET_INPUT":
-          const event = action.payload;
-          const { name, value } = event.target;
-          return { ...state, [name]: value };
-        case "ERROR":
-          return { ...state, error: action.payload, isLoading: false };
-        default:
-          throw new Error("No actionType");
-      }
-    },
-    { country: "NG" }
-  );
-  const { country } = signup;
+  const [error, setError] = useState({});
+  const [hasAgreedToTerms, setHasAgreedToTerms] = useState(false);
+  const [signup, dispatchInputEvent] = useReducer((state, action) => {
+    switch (action.type) {
+      case "INIT":
+        return { ...state, error: null, isLoading: true };
+      case "DONE":
+        return { ...state, success: true };
+      case "GET_INPUT":
+        const event = action.payload;
+        const { name, value } = event.target;
+        return { ...state, [name]: value };
+      case "ERROR":
+        return { ...state, error: action.payload, isLoading: false };
+      default:
+        throw new Error("No actionType");
+    }
+  }, {});
+
   return (
     <div className="relative h-screen w-full sssss">
       <div className="hidden sm:block w-1/2 h-full">
@@ -49,38 +47,22 @@ export default function Signup() {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              if (validateForm({ name: "fullname", value: signup.fullName })) {
-                if (validateForm({ name: "email", value: signup.email })) {
-                  if (
-                    validateForm({ name: "password", value: signup.password })
-                  ) {
-                    if (signup.confirmPassword === signup.password) {
-                      setError("");
-                      dispatch(authenticateUser(signup, ""));
-                    } else {
-                      setError("Invalid password, Could not confirm password");
-                    }
-                  } else {
-                    setError(
-                      "Invalid password, Password should be greater than 5 characters"
-                    );
-                  }
-                } else {
-                  setError("Invalid email address");
-                }
+              const errors = validateSignUpForm(signup);
+              if (errors.atLeastAnError) {
+                setError(errors);
               } else {
-                setError("Invalid name");
+                setError({});
+                if (hasAgreedToTerms)
+                  dispatch(authenticateUser(signup, "signup"));
               }
             }}
           >
-            <p>{auth.isLoading && "Please wait"}</p>
-            {auth.error && (
+            {auth.message && (
               <Alert
                 label={auth.message}
                 callback={() => dispatch(authReset())}
               />
             )}
-            <p>{error && error}</p>
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               type="text"
@@ -90,7 +72,8 @@ export default function Signup() {
                 event.persist();
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
-            ></input>
+            />
+            {error.fullname && <InputError message={error.fullname} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               type="email"
@@ -100,7 +83,9 @@ export default function Signup() {
                 event.persist();
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
-            ></input>
+            />
+            {error.email && <InputError message={error.email} />}
+
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               type="password"
@@ -110,8 +95,8 @@ export default function Signup() {
                 event.persist();
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
-            ></input>
-
+            />
+            {error.password && <InputError message={error.password} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               type="password"
@@ -122,83 +107,19 @@ export default function Signup() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             ></input>
-            {/* <div class="mt-2">
-              <span class="text-gray-700">Select Country</span>
-              <div class="mt-2">
-                <label class="inline-flex items-center">
-                  <input
-                    type="radio"
-                    class="form-radio"
-                    name="country"
-                    onChange={(event) => {
-                      event.persist();
-                      dispatchInputEvent({ type: "GET_INPUT", payload: event });
-                    }}
-                    value="NG"
-                    checked={country === "NG"}
-                  />
-                  <span class="ml-2">Nigeria</span>
-                </label>
-                <label class="inline-flex items-center ml-6">
-                  <input
-                    type="radio"
-                    class="form-radio"
-                    name="country"
-                    value="GH"
-                    checked={country === "GH"}
-                    onChange={(event) => {
-                      event.persist();
-                      dispatchInputEvent({ type: "GET_INPUT", payload: event });
-                    }}
-                  />
-                  <span class="ml-2">Ghana</span>
-                </label>
-                <label class="inline-flex items-center ml-6">
-                  <input
-                    type="radio"
-                    class="form-radio"
-                    name="country"
-                    value="KE"
-                    checked={country === "KE"}
-                    onChange={(event) => {
-                      event.persist();
-                      dispatchInputEvent({ type: "GET_INPUT", payload: event });
-                    }}
-                  />
-                  <span class="ml-2">Kenya</span>
-                </label>
-                <label class="inline-flex items-center ml-6">
-                  <input
-                    type="radio"
-                    class="form-radio"
-                    name="country"
-                    value="UK"
-                    checked={country === "UK"}
-                    onChange={(event) => {
-                      event.persist();
-                      dispatchInputEvent({ type: "GET_INPUT", payload: event });
-                    }}
-                  />
-                  <span class="ml-2">UK</span>
-                </label>
-              </div>
-            </div> */}
-            {/* <select
-              className="w-full border-solid border-b-2 border-gray-400 p-2 my-3"
-              name="country"
-              onChange={(event) => {
-                event.persist();
-                dispatchInputEvent({ type: "GET_INPUT", payload: event });
-              }}
-            >
-              <option value="NG">Nigeria</option>
-              <option value="GH">Ghana</option>
-              <option value="KE">Kenya</option>
-              <option value="UK">UK</option>
-            </select> */}
+            {error.confirmPassword && (
+              <InputError message={error.confirmPassword} />
+            )}
             <div class="flex mt-6">
               <label class="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
+                <input
+                  type="checkbox"
+                  className="form-checkbox"
+                  checked={hasAgreedToTerms}
+                  onChange={(e) => {
+                    setHasAgreedToTerms(!hasAgreedToTerms);
+                  }}
+                />
                 <span class="ml-2 text-sm">
                   I agree to the{" "}
                   <span className="underline cursor-pointer text-green-400">
@@ -208,10 +129,12 @@ export default function Signup() {
               </label>
             </div>
             <button
-              className="w-24 bg-green-400 p-2 my-3 rounded-full text-white"
+              className={`px-4 ${
+                hasAgreedToTerms ? `bg-green-400` : `bg-green-300`
+              } p-2 my-3 rounded-full text-white`}
               type="submit"
             >
-              SIGNUP
+              {auth.isLoading ? "Please wait..." : "SIGNUP"}
             </button>
             <p className="text-gray-500 my-3">
               Already have an account?
