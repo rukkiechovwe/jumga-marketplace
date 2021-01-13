@@ -21,7 +21,7 @@ const SETTINGS = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-
+// do your thing, okayyyyyyyy
 function Marketplace() {
   const dispatch = useDispatch();
   const product = useSelector(selectProduct);
@@ -75,17 +75,20 @@ function Marketplace() {
           <p className="text-black text-xl text-left ml-24 font-semibold">
             Vendors
           </p>
-          <div className="flex flex-row flex-wrap width-full mr-20 ml-20">
+          <div className="flex flex-row width-full justify-center flex-wrap mx-2 sm:mx-6 md:mx-20">
             {product.shops &&
               product.shops.map((shop) => {
                 return (
-                  <div key={shop.shopId} className="p-2 rounded-md">
+                  <div
+                    key={shop.shopId}
+                    className="m2 mr-6 phn:m-4 flex-grow rounded-md w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-lg"
+                  >
                     <div
                       onClick={() => {
                         dispatch(setCurrentVendor(shop));
                         history.push(`/vendors/${shop.shopId}`);
                       }}
-                      className="m-2 cursor-pointer w-72 shadow-lg rounded-md"
+                      className="cursor-pointer w-full"
                     >
                       <div className="w-full">
                         <img

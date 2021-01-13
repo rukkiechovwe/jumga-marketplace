@@ -1,20 +1,26 @@
 import { useReducer, useState } from "react";
 import { history } from "../../App";
 import loginImg from "../../assets/images/loginImg.jpg";
+import { InputError } from "../../components";
+import { validateAddressForm } from "../../helpers";
 
 export default function CheckoutAddress() {
-  const [address, dispatchInputEvent] = useReducer((state, action) => {
-    switch (action.type) {
-      case "GET_INPUT":
-        const event = action.payload;
-        const { name, value } = event.target;
-        return { ...state, [name]: value };
-      case "ERROR":
-        return { ...state, error: action.payload, isLoading: false };
-      default:
-        throw new Error("No actionType");
-    }
-  }, {});
+  const [error, setError] = useState({});
+  const [address, dispatchInputEvent] = useReducer(
+    (state, action) => {
+      switch (action.type) {
+        case "GET_INPUT":
+          const event = action.payload;
+          const { name, value } = event.target;
+          return { ...state, [name]: value };
+        case "ERROR":
+          return { ...state, error: action.payload, isLoading: false };
+        default:
+          throw new Error("No actionType");
+      }
+    },
+    { address: "", city: "", state: "", zipcode: "" }
+  );
 
   return (
     <div className="relative h-screen w-full">
@@ -34,9 +40,14 @@ export default function CheckoutAddress() {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              history.push(`/checkout/payment?step=2`, {
-                payload: address,
-              });
+              const errors = validateAddressForm(address);
+              if (errors.atLeastAnError) {
+                setError(errors);
+              } else {
+                history.push(`/checkout/payment?step=2`, {
+                  payload: address,
+                });
+              }
             }}
           >
             <input
@@ -48,6 +59,7 @@ export default function CheckoutAddress() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             />
+            {error.address && <InputError message={error.address} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               name="city"
@@ -57,6 +69,7 @@ export default function CheckoutAddress() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             />
+            {error.city && <InputError message={error.city} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               name="state"
@@ -66,6 +79,7 @@ export default function CheckoutAddress() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             />
+            {error.state && <InputError message={error.state} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               name="zipcode"
@@ -75,6 +89,7 @@ export default function CheckoutAddress() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             />
+            {error.zipcode && <InputError message={error.zipcode} />}
             <button
               className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
               type="submit"

@@ -13,14 +13,17 @@ export const createPendingShop = async (payload) => {
     shop.dispatcherId = picked.userId;
     // prevent/overwrite injection from frontend
     shop.status = "pending";
-    await db
-      .collection("users")
-      .doc(shop.userId)
-      .update({ shopId: shop.shopId, isMerchant: true });
-    await db.collection("shops").doc(shop.shopId).set(shop);
+    const batch = db.batch();
+    batch.update(db.collection("users").doc(shop.userId), {
+      shopId: shop.shopId,
+      isMerchant: true,
+    });
+    batch.set(db.collection("shops").doc(shop.shopId), shop);
+    await batch.commit();
     shop.dispatcher = picked;
     return { status: "created", shop: shop };
   } catch (error) {
+    console.log(error);
     return { err: error };
   }
   // try {
@@ -36,10 +39,18 @@ export const updatePendingShop = async (payload) => {
   try {
     let { shopId, dispatcherId } = payload;
     await db.collection("shops").doc(shopId).update({ status: "approved" });
-    await db
-      .collection("dispatchers")
-      .doc(dispatcherId)
-      .update({ shopIds: [shopId] });
+    const dispatcherReference = db.collection("dispatchers").doc(dispatcherId);
+    await db.runTransaction((transaction) => {
+      return transaction.get(dispatcherReference).then((dispatcher) => {
+        if (dispatcher.exists) {
+          let shopIds = dispatcher.data().shopIds;
+          shopIds.push(shopId);
+          transaction.update(dispatcherReference, {
+            shopIds,
+          });
+        }
+      });
+    });
     return { status: "success" };
   } catch (error) {
     return { err: error };
@@ -77,7 +88,7 @@ export const placeCheckoutOrder = async (payload) => {
           let wallet = fsVendor.data().walletBalance;
           let balance = wallet[currency] || 0.0;
           balance = parseFloat((balance + vendorAmount).toFixed(2));
-          transaction.update(fsVendor, {
+          transaction.update(fsVendorReference, {
             walletBalance: { ...wallet, [currency]: balance },
           });
         }

@@ -36,7 +36,7 @@ export default function ShopPayment() {
             title="Payment successful"
             message={`
               Your shop "${shop.title}" was successfully created, You've been
-              assigned "${shop.dispatcher.fullname} (${shop.dispatcher.phoneNumber})}" as your dispatch rider.\n
+              assigned "${shop.dispatcher.fullname} (${shop.dispatcher.phoneNumber})" as your dispatch rider.\n
               You can start selling by adding products to your shop.
             `}
             callbackText="Start selling"

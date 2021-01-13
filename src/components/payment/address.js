@@ -1,9 +1,10 @@
 import { useReducer, useState } from "react";
 import { BASENAME } from "../../api";
 import { initPayment } from "../../api/payment";
-import { encrypt, getReference } from "../../helpers";
+import { encrypt, getReference, validateAddressForm } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { useSelector } from "react-redux";
+import InputError from "../input-error";
 
 // TODO: use select for country field
 export default function CardAddress({ card, currency, amount, onSuccess }) {
@@ -22,6 +23,7 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
   const user = useSelector(selectUser);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [inputError, setInputError] = useState({});
 
   const initPay = async () => {
     setLoading(true);
@@ -47,12 +49,19 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
       onSuccess({ card, res });
     }
   };
+
   return (
     <form
       className="flex flex-col justify-center items-center w-5/6"
       onSubmit={(event) => {
         event.preventDefault();
-        initPay();
+        const errors = validateAddressForm(address);
+        if (errors.atLeastAnError) {
+          setInputError(errors);
+        } else {
+          setInputError({});
+          initPay();
+        }
       }}
     >
       {error && (
@@ -70,6 +79,7 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
           dispatchInputEvent({ type: "GET_INPUT", payload: event });
         }}
       />
+      {inputError.city && <InputError message={inputError.city} />}
       <input
         className="w-full p-2 my-3 focus:outline-none rounded text-black"
         placeholder="ADDRESS"
@@ -78,7 +88,8 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
           event.persist();
           dispatchInputEvent({ type: "GET_INPUT", payload: event });
         }}
-      />
+      />{" "}
+      {inputError.address && <InputError message={inputError.address} />}
       <input
         className="w-full p-2 my-3 focus:outline-none rounded text-black"
         name="state"
@@ -88,6 +99,7 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
           dispatchInputEvent({ type: "GET_INPUT", payload: event });
         }}
       />
+      {inputError.state && <InputError message={inputError.state} />}
       <input
         className="w-full p-2 my-3 focus:outline-none rounded text-black"
         placeholder="COUNTRY"
@@ -97,6 +109,7 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
           dispatchInputEvent({ type: "GET_INPUT", payload: event });
         }}
       />
+      {inputError.country && <InputError message={inputError.country} />}
       <input
         className="w-full p-2 my-3 focus:outline-none rounded text-black"
         name="zipcode"
@@ -106,6 +119,7 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
           dispatchInputEvent({ type: "GET_INPUT", payload: event });
         }}
       />
+      {inputError.zipcode && <InputError message={inputError.zipcode} />}
       <button
         className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
         type="submit"

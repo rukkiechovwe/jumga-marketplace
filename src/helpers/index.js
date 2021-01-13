@@ -17,6 +17,9 @@ import {
   validateLoginForm,
   validateSignUpForm,
   validateRPForm,
+  validateAddressForm,
+  validateCreateShopForm,
+  validatePaymentForm,
 } from "./validators";
 
 export {
@@ -35,4 +38,7 @@ export {
   validateLoginForm,
   validateSignUpForm,
   validateRPForm,
+  validateAddressForm,
+  validatePaymentForm,
+  validateCreateShopForm,
 };

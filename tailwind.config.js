@@ -6,6 +6,12 @@ module.exports = {
       sans: ["Brfirma"],
       serif: ["Brfirma"],
     },
+    maxWidth: {
+      '1/4': '27%'
+     },
+     minWidth: {
+      'sm': '25%'
+     },
     extend: {},
     screens: {
       phn: "450px",

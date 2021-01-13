@@ -3,9 +3,15 @@ import { useSelector } from "react-redux";
 import { history } from "../../App";
 import loginImg from "../../assets/images/loginImg.jpg";
 import { createPendingShop } from "../../api/shop";
-import { getFileSize, uuid, getSlug } from "../../helpers";
+import {
+  getFileSize,
+  uuid,
+  getSlug,
+  validateCreateShopForm,
+} from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { uploadFile } from "../../api/firebase";
+import { Alert, InputError } from "../../components";
 
 export default function CreateShop() {
   const user = useSelector(selectUser);
@@ -13,6 +19,7 @@ export default function CreateShop() {
   const [featuredImage, setFeaturedImage] = useState(null);
   const [hasAgreedToTerms, setHasAgreedToTerms] = useState(false);
   const [error, setError] = useState("");
+  const [inputError, setInputError] = useState({});
   const [loading, setLoading] = useState(false);
   const [shop, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
@@ -34,7 +41,7 @@ export default function CreateShop() {
       shop.featuredImage = featuredImage;
       shop.slug = getSlug(shop.title && shop.title);
       shop.shopId = uuid();
-      shop.userId = user.user_id;
+      shop.userId = user.userId;
       try {
         shop.featuredImage = await uploadFile(
           shop.featuredImage,
@@ -43,7 +50,7 @@ export default function CreateShop() {
         const res = await createPendingShop(shop);
         setLoading(false);
         if (res.err) {
-          setError(res.err.message ?? "Something went wrong");
+          setError(res.err || res.err.message || "Something went wrong");
         } else {
           shop.dispatcher = res.shop && res.shop.dispatcher;
           history.push(`/shop-payment?slug=${shop.slug}`, {
@@ -51,7 +58,7 @@ export default function CreateShop() {
           });
         }
       } catch (error) {
-        setError(error ?? "Something went wrong");
+        setError(error || "Something went wrong");
       }
     }
   }
@@ -74,14 +81,16 @@ export default function CreateShop() {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              createShop();
+              const errors = validateCreateShopForm(shop);
+              if (errors.atLeastAnError) {
+                setInputError(errors);
+              } else {
+                setInputError({});
+                if (hasAgreedToTerms) createShop();
+              }
             }}
           >
-            {error && (
-              <span className="text-red-600 text-sm text-center w-full">
-                {error}
-              </span>
-            )}
+            {error && <Alert message={error} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               placeholder="Shop title eg My Awesome Shoe shop"
@@ -91,6 +100,7 @@ export default function CreateShop() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             />
+            {inputError.title && <InputError message={inputError.title} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               placeholder="Description"
@@ -100,6 +110,10 @@ export default function CreateShop() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             />
+            {inputError.description && (
+              <InputError message={inputError.description} />
+            )}
+
             <label className="w-full text-left text-gray-400 ml-4 mt-3">
               Featured Image
             </label>
@@ -126,6 +140,7 @@ export default function CreateShop() {
                 } else {
                   file = event.dataTransfer.files[0];
                 }
+                shop.featuredImage = file;
                 setFeaturedImage(file);
               }}
             >
@@ -147,18 +162,22 @@ export default function CreateShop() {
                 className="hidden"
                 onChange={(event) => {
                   event.preventDefault();
+                  shop.featuredImage = event.target.files[0];
                   setFeaturedImage(event.target.files[0]);
                 }}
               />
             </div>
+            {inputError.featuredImage && (
+              <InputError message={inputError.featuredImage} />
+            )}
+
             <div className="flex mt-6">
               <label className="flex items-center">
                 <input
                   type="checkbox"
                   className="form-checkbox text-green-400"
                   checked={hasAgreedToTerms}
-                  onChange={(event) => {
-                    event.preventDefault();
+                  onChange={(e) => {
                     setHasAgreedToTerms(!hasAgreedToTerms);
                   }}
                 />

@@ -15,3 +15,8 @@ Pin: 3310
 OTP: 12345
 WRONG OTP: 5548
 INSUFFICIENT FUNDS: 6648
+
+<!--
+ Card validation
+ https://www.w3resource.com/javascript/form/credit-card-validation.php
+ -->
