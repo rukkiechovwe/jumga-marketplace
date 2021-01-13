@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "../../components";
 import { resetPassword } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
-import waves from "../../assets/images/waves.svg";
 import loginImg from "../../assets/images/loginImg.jpg";
 import validateForm from "../../helpers/validators";
 
@@ -30,10 +29,10 @@ export default function ResetPassword(props) {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              if (validateForm({ name: 'email', value: email })) {
+              if (validateForm({ name: "email", value: email })) {
                 dispatch(resetPassword(email));
               } else {
-                setError("Invalid email address")
+                setError("Invalid email address");
               }
             }}
           >

@@ -6,8 +6,8 @@ import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
 import { getShops } from "../../redux/product/product-actions";
 import {
-  getCurrentVendor,
   selectProduct,
+  setCurrentVendor,
 } from "../../redux/product/product-slice";
 import Slider from "react-slick";
 
@@ -82,7 +82,7 @@ function Marketplace() {
                   <div key={shop.shopId} className="p-2 rounded-md">
                     <div
                       onClick={() => {
-                        dispatch(getCurrentVendor(shop));
+                        dispatch(setCurrentVendor(shop));
                         history.push(`/vendors/${shop.shopId}`);
                       }}
                       className="m-2 cursor-pointer w-72 shadow-lg rounded-md"

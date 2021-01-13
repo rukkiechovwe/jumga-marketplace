@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import { Alert } from "../../components";
 import { authenticateUser } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
-import "./auth-svg.css";
 import loginImg from "../../assets/images/loginImg.jpg";
 import validateForm from "../../helpers/validators";
 
 export default function Login(props) {
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const [login, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
       case "INIT":
@@ -47,19 +46,19 @@ export default function Login(props) {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              if (validateForm({ name: 'email', value: login.email })) {
-                if (validateForm({ name: 'password', value: login.password })) {
+              if (validateForm({ name: "email", value: login.email })) {
+                if (validateForm({ name: "password", value: login.password })) {
                   dispatch(authenticateUser(login, "login"));
                 } else {
-                  setError("Invalid password, Password should be greater than 5 characters")
+                  setError(
+                    "Invalid password, Password should be greater than 5 characters"
+                  );
                 }
               } else {
-                setError("Invalid email address")
+                setError("Invalid email address");
               }
-            }
-            }
+            }}
           >
-
             <p>{auth.isLoading && "Please wait"}</p>
             <p>{error && error}</p>
             {auth.error && (

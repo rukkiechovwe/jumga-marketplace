@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItem, setItem } from "../../helpers";
 
 const initialState = {
   products: null,
@@ -36,6 +37,10 @@ export const productSlice = createSlice({
       state.message = action.payload;
     },
     getCurrentVendor: (state, action) => {
+      state.currentVendor = action.payload || getItem("vendor", "session");
+    },
+    setCurrentVendor: (state, action) => {
+      setItem("vendor", action.payload, "session");
       state.currentVendor = action.payload;
     },
   },
@@ -50,5 +55,6 @@ export const {
   getShopsSuccess,
   getShopsFailed,
   getCurrentVendor,
+  setCurrentVendor,
 } = productSlice.actions;
 export default productSlice.reducer;

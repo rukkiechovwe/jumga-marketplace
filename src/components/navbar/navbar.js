@@ -1,9 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Avatar from "../avatar/avatar";
+import logo from "../../assets/images/logo.png";
+import { useSelector } from "react-redux";
+import { selectCurrency } from "../../redux/app/app-slice";
 
 function NavigationBar(props) {
   const location = useLocation();
+  const currency = useSelector(selectCurrency);
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -48,12 +52,9 @@ function NavigationBar(props) {
           </div>
           <div className="flex sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
-              <span
-                className="text-white items-center"
-                style={{ fontFamily: "Pacifico", fontSize: "22px" }}
-              >
-                <Link to="/">Jumga</Link>
-              </span>
+              <Link to="/">
+                <img src={logo} className="h-28" alt="jumga-logo" />
+              </Link>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -102,6 +103,9 @@ function NavigationBar(props) {
             <button className="bg-gray-800 p-1 mr-4 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <Avatar />
             </button>
+            <span className="flex flex-row items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+              {currency}
+            </span>
             <div className="ml-3 relative">
               <div
                 className={`hidden origin-top-right absolute right-0 mt-4 w-36 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}

@@ -12,12 +12,14 @@ import {
   selectCartTotal,
   selectCartTotalAmount,
 } from "../../redux/cart/cart-slice";
+import { selectVendor } from "../../redux/product/product-slice";
 
 export default function Cart() {
   const total = useSelector(selectCartTotal);
   const totalAmount = useSelector(selectCartTotalAmount);
   const user = useSelector(selectUser);
   const { cart } = useSelector(selectCart);
+  const vendor = useSelector(selectVendor);
   const dispatch = useDispatch();
   return (
     <div className="h-full md:h-screen ">

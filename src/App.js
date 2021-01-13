@@ -13,6 +13,7 @@ import { Marketplace } from "./pages/marketplace";
 import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getCurrentVendor } from "./redux/product/product-slice";
 
 export const history = createBrowserHistory();
 
@@ -21,6 +22,7 @@ function App() {
   useEffect(() => {
     dispatch(getUser());
     dispatch(getCart());
+    dispatch(getCurrentVendor());
   }, []);
 
   return (

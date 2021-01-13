@@ -49,26 +49,28 @@ export default function Signup() {
             className="flex flex-col justify-center items-center w-5/6"
             onSubmit={(event) => {
               event.preventDefault();
-              if (validateForm({ name: 'fullName', value: signup.fullName })) {
-                if (validateForm({ name: 'email', value: signup.email })) {
-                  if (validateForm({ name: 'password', value: signup.password })) {
+              if (validateForm({ name: "fullname", value: signup.fullName })) {
+                if (validateForm({ name: "email", value: signup.email })) {
+                  if (
+                    validateForm({ name: "password", value: signup.password })
+                  ) {
                     if (signup.confirmPassword === signup.password) {
+                      setError("");
                       dispatch(authenticateUser(signup, ""));
-                    }
-                    else {
-                      setError("Invalid password, Could not confirm password")
+                    } else {
+                      setError("Invalid password, Could not confirm password");
                     }
                   } else {
-                    setError("Invalid password, Password should be greater than 5 characters")
+                    setError(
+                      "Invalid password, Password should be greater than 5 characters"
+                    );
                   }
                 } else {
-                  setError("Invalid email address")
+                  setError("Invalid email address");
                 }
+              } else {
+                setError("Invalid name");
               }
-              else {
-                setError("Invalid name")
-              }
-
             }}
           >
             <p>{auth.isLoading && "Please wait"}</p>
@@ -120,7 +122,7 @@ export default function Signup() {
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
               }}
             ></input>
-            <div class="mt-2">
+            {/* <div class="mt-2">
               <span class="text-gray-700">Select Country</span>
               <div class="mt-2">
                 <label class="inline-flex items-center">
@@ -180,7 +182,7 @@ export default function Signup() {
                   <span class="ml-2">UK</span>
                 </label>
               </div>
-            </div>
+            </div> */}
             {/* <select
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3"
               name="country"

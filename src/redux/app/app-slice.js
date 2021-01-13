@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItem, setItem } from "../../helpers";
 
-const initialState = {};
+const initialState = {
+  currency: "NGN",
+};
 export const appSlice = createSlice({
   name: "app",
   initialState: initialState,
@@ -8,9 +11,17 @@ export const appSlice = createSlice({
     getNextRoute: (state, action) => {
       state.nextRoute = action.payload;
     },
+    getCurrency: (state) => {
+      state.currency = getItem("currency", "local") || "NGN";
+    },
+    setCurrency: (state, action) => {
+      setItem("currency", action.payload, "local");
+      state.currency = action.payload;
+    },
   },
 });
 
 export const selectNextRoute = (state) => state.app.nextRoute;
+export const selectCurrency = (state) => state.app.currency;
 export const { getNextRoute } = appSlice.actions;
 export default appSlice.reducer;

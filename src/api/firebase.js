@@ -57,12 +57,11 @@ export const createUser = async (user) => {
     const userModel = {
       email: user.email,
       fullname: user.fullname,
-      country: user.country,
       isMerchant: false,
-      user_id: res.user.uid,
-      wallet_balance: 0.0,
+      userId: res.user.uid,
+      walletBalance: { NGN: 0.0, GHS: 0.0, KSH: 0.0, EUR: 0.0 },
       cart: [],
-      shipping_address: {},
+      shippingAddress: {},
     };
     await db.collection("users").doc(res.user.uid).set(userModel);
     return { user: userModel };
@@ -130,7 +129,7 @@ export const fetchProductById = async (id) => {
     const shop = await (
       await db.collection("shops").doc(product.shop_id).get()
     ).data();
-    const productMd = { ...product, shop: shop };
+    const productMd = { ...product, shop: shop || {} };
     return productMd;
   } catch (e) {
     return { err: e };

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../App";
 import { NavigationBar, Spacer, Loading } from "../../components";
+import SearchBox from "../../components/search";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
 import { getProducts } from "../../redux/product/product-actions";
@@ -21,6 +22,7 @@ function Home() {
   return (
     <div>
       <NavigationBar user={user} totalInCart={total} />
+      {/* <SearchBox /> */}
       <Spacer top="50px" />
       {product.isLoading && <Loading />}
       {product.error && (

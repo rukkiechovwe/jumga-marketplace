@@ -9,10 +9,12 @@ export default function CardPayment({
   label,
   currency,
   note,
+  loading,
   onPaymentSuccess,
   onPaymentFailed,
 }) {
   const [step, setStep] = useState(0);
+  const [stepNote, setStepNote] = useState("");
   const [reference, setReference] = useState({});
   const [card, setCard] = useState({});
 
@@ -21,10 +23,12 @@ export default function CardPayment({
     // save charge reference
     setReference(res.res && res.res.data);
     setCard(res.card && res.card);
+    setStepNote("");
     const authMode = res.res && res.res.meta && res.res.meta.authorization.mode;
     switch (authMode) {
       case "pin":
         setStep(1);
+        setStepNote("Enter card pin");
         break;
       case "avs_noauth":
         setStep(2);
@@ -49,7 +53,10 @@ export default function CardPayment({
       <div className="p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
         <div className="py-8">
           <h2 className="text-4xl ">{`${label && `${label} | `}`}Payment</h2>
-          <span className="text-gray-500 text-sm">{note && note}</span>
+          <span className="text-gray-500 text-sm">
+            {note && note} {`${stepNote && `( ${stepNote.toUpperCase()} )`}`}
+          </span>
+          <p className="text-white">{loading && "Please wait..."}</p>
         </div>
         {step === 0 && (
           <CardInfo

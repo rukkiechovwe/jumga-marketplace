@@ -11,10 +11,13 @@ export default function ShopPayment() {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const updateShop = async () => {
     let payload = { shopId: shop.shopId, dispatcherId: shop.dispatcherId };
     try {
       const res = await updatePendingShop(payload);
+      setShow(true);
+      setLoading(false);
       if (res.err) {
         setError(res.err ? res.err : "Something went wrong");
       } else {
@@ -23,7 +26,6 @@ export default function ShopPayment() {
     } catch (error) {
       setError(error.toString());
     }
-    setShow(true);
   };
   return (
     <div className="relative h-screen w-full">
@@ -74,16 +76,18 @@ export default function ShopPayment() {
             note="You'll be charged a token of $20 to create a store"
             amount={20}
             currency="USD"
+            loading={loading}
             onPaymentFailed={(response) => {
               setShow(true);
               setStatus("failed");
               setError(
-                response ||
+                response.toString() ||
                   response.message ||
                   "Could not complete transaction, Try again"
               );
             }}
             onPaymentSuccess={(response) => {
+              setLoading(true);
               updateShop(response);
             }}
           />

@@ -109,9 +109,7 @@ export default function CardInfo({ currency, amount, onSuccess }) {
         className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
         type="submit"
       >
-        {loading
-          ? "Please wait..."
-          : `PAY ${currency === "USD" && " $"}${amount}`}
+        {loading ? "Please wait..." : `PAY ${currency} ${amount}`}
       </button>
     </form>
   );

@@ -4,7 +4,7 @@ const BASE_URL =
     : "http://localhost:5001/jumga-marketplace/us-central1";
 const BASENAME =
   process.env.NODE_ENV === "production"
-    ? "https://jumga-marketplace.netlify.app"
+    ? "https://jumga.xyz"
     : "https://localhost:3000";
 
 const sendHttpRequest = async (method, endpoint, data) => {
