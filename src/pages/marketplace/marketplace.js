@@ -21,7 +21,7 @@ const SETTINGS = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-// do your thing, okayyyyyyyy
+
 function Marketplace() {
   const dispatch = useDispatch();
   const product = useSelector(selectProduct);
