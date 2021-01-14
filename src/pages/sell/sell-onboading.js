@@ -1,12 +1,13 @@
 import { history } from "../../App";
 import loginImg from "../../assets/images/loginImg.jpg";
+import "../../bg-color.css";
 
 export default function SellOnboarding() {
   return (
     <div className="relative h-screen w-full sssss">
       <div className="hidden sm:block w-1/2 h-full">
         <div
-          className="h-full bg-no-repeat bg-center bg-cover"
+          className="h-full bg-no-repeat bg-center bg-cover bg-img"
           style={{ backgroundImage: `url(${loginImg})` }}
         ></div>
       </div>

@@ -6,6 +6,7 @@ import Spacer from "./spacer";
 import Loading from "./loading";
 import Error from "./error";
 import InputError from "./input-error";
+import Footer from "./footer";
 import { CardPayment } from "./payment";
 
 export {
@@ -17,5 +18,6 @@ export {
   Error,
   InputError,
   CardPayment,
+  Footer,
   Dialog,
 };

@@ -5,6 +5,7 @@ import { resetPassword } from "../../redux/authentication/auth-actions";
 import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import loginImg from "../../assets/images/loginImg.jpg";
 import { validateRPForm } from "../../helpers";
+import "../../bg-color.css";
 
 export default function ResetPassword(props) {
   const auth = useSelector(selectAuth);
@@ -16,7 +17,7 @@ export default function ResetPassword(props) {
     <div className="relative h-screen w-full sssss">
       <div className="hidden sm:block w-1/2 h-full">
         <div
-          className="h-full bg-no-repeat bg-center bg-cover"
+          className="h-full bg-no-repeat bg-center bg-cover bg-img"
           style={{ backgroundImage: `url(${loginImg})` }}
         ></div>
       </div>
@@ -64,7 +65,7 @@ export default function ResetPassword(props) {
             />
             {error.email && <InputError message={error.email} />}
             <button
-              className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
+              className="w-24 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg hover:bg--green-300 transition duration-500 ease-in-out"
               type="submit"
             >
               {auth.isLoading ? "Please wait..." : "RESET"}

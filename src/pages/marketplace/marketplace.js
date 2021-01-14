@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../App";
-import { Loading, NavigationBar } from "../../components";
+import { Footer, Loading, NavigationBar } from "../../components";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
 import { getShops } from "../../redux/product/product-actions";
@@ -30,7 +30,6 @@ function Marketplace() {
   const user = useSelector(selectUser);
   const total = useSelector(selectCartTotal);
 
-  // use it as background image
   useEffect(() => {
     if (!product.shops) {
       dispatch(getShops());
@@ -114,6 +113,7 @@ function Marketplace() {
           </div>
         </div>
       )}
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -87,7 +87,8 @@ export default function Cart() {
                       />
                     </svg>
                   </button>
-
+                  {/* sorry,lalalalalala, not here, where's it tho??
+                  won't it be better to make it lighter instead, idg, show me instead of turning it white */}
                   {/* item price and increse quantity */}
                   {/* <div className="flex items-center justify-between w-full">
                     <div className="flex flex-col items-start justify-center p-2 text-sm">
@@ -140,6 +141,7 @@ export default function Cart() {
                   </div> */}
                   {/* item rice and increse quantity */}
                 </div>
+                {/* nice */}
               </div>
             );
           })
@@ -162,7 +164,7 @@ export default function Cart() {
                 onClick={() => {
                   history.push("/checkout/address?step=1");
                 }}
-                className="w-auto rounded-md border border-transparent shadow-sm mt-4 px-4 py-2 bg-green-400 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
+                className="w-auto rounded-md border border-transparent shadow-sm mt-4 px-4 py-2 bg-green-400 text-base font-medium text-white hover:bg-green-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
               >
                 PROCEED TO CHECKOUT
               </button>

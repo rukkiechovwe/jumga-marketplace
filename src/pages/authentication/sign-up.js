@@ -6,6 +6,7 @@ import { authReset, selectAuth } from "../../redux/authentication/auth-slice";
 import { Alert, InputError } from "../../components";
 import loginImg from "../../assets/images/loginImg.jpg";
 import { validateSignUpForm } from "../../helpers";
+import "../../bg-color.css";
 
 export default function Signup() {
   const auth = useSelector(selectAuth);
@@ -33,7 +34,7 @@ export default function Signup() {
     <div className="relative h-screen w-full sssss">
       <div className="hidden sm:block w-1/2 h-full">
         <div
-          className="h-full bg-no-repeat bg-center bg-cover"
+          className="h-full bg-no-repeat bg-center bg-cover bg-img"
           style={{ backgroundImage: `url(${loginImg})` }}
         ></div>
       </div>

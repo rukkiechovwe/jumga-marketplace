@@ -11,6 +11,7 @@ import { CheckoutAddress, CheckoutPayment } from "./pages/checkout";
 import { getCart } from "./redux/cart/cart-slice";
 import { Marketplace } from "./pages/marketplace";
 import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
+import { UserDashboard } from "./pages/account";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getCurrentVendor } from "./redux/product/product-slice";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/sell" component={SellOnboarding} />
         <Route path="/create-shop" component={CreateShop} />
         <Route path="/shop-payment" component={ShopPayment} />
+        <Route path="/account" component={UserDashboard} />
         <Route path="/" component={Marketplace} exact />
       </Switch>
     </Router>

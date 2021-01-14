@@ -4,6 +4,7 @@ import { updatePendingShop } from "../../api/shop";
 import { history } from "../../App";
 import loginImg from "../../assets/images/loginImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
+import "../../bg-color.css";
 
 export default function ShopPayment() {
   const location = useLocation();
@@ -67,7 +68,7 @@ export default function ShopPayment() {
         <div>
           <div className="hidden sm:block w-1/2 h-full">
             <div
-              className="h-full bg-no-repeat bg-center bg-cover"
+              className="h-full bg-no-repeat bg-center bg-cover bg-img"
               style={{ backgroundImage: `url(${loginImg})` }}
             ></div>
           </div>
