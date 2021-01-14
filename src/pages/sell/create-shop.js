@@ -12,6 +12,7 @@ import {
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { uploadFile } from "../../api/firebase";
 import { Alert, InputError } from "../../components";
+import "../../bg-color.css";
 
 export default function CreateShop() {
   const user = useSelector(selectUser);
@@ -65,9 +66,9 @@ export default function CreateShop() {
 
   return (
     <div className="relative h-screen w-full">
-      <div className="hidden sm:block w-1/2 h-full">
+      <div className="hidden sm:block w-1/2 h-full bg-green-100 z-10">
         <div
-          className="h-full bg-no-repeat bg-center bg-cover"
+          className="h-full bg-no-repeat bg-center bg-cover bg-img"
           style={{ backgroundImage: `url(${loginImg})` }}
         ></div>
       </div>

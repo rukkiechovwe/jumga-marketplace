@@ -10,6 +10,8 @@ import {
   setCurrentVendor,
 } from "../../redux/product/product-slice";
 import Slider from "react-slick";
+import bannerA from "../../assets/images/banner-1.jpg";
+import bannerB from "../../assets/images/banner-2.jpg";
 
 const SETTINGS = {
   dots: true,
@@ -28,8 +30,8 @@ function Marketplace() {
   const user = useSelector(selectUser);
   const total = useSelector(selectCartTotal);
 
+  // use it as background image
   useEffect(() => {
-    // just get shops once okayy
     if (!product.shops) {
       dispatch(getShops());
     }
@@ -48,24 +50,23 @@ function Marketplace() {
           {/* carousel */}
           <div className="width-full mr-20 ml-20 overflow-hidden">
             <Slider {...SETTINGS}>
-              <div className="h-96 w-full flex items-center justify-center p-2">
+              <div
+                className="h-96 w-full flex items-center justify-center p-2"
+                // className="w-full bg-no-repeat bg-center bg-cover"
+                // style={{
+                //   backgroundImage: `url(${bannerA})`,
+                // }}
+              >
                 <img
                   className="h-full w-full object-contain"
-                  src="https://media.istockphoto.com/photos/excited-women-with-shopping-bags-looking-aside-picture-id1087256702?k=6&m=1087256702&s=612x612&w=0&h=-aMxPHPz8zk1PsRKSVV9cPRdjr0QAlM-h1hfhuhevX0="
+                  src={bannerA}
                   alt="bannerA"
                 />
               </div>
               <div className="h-96 w-full flex items-center justify-center p-2">
                 <img
                   className="h-full w-full object-contain"
-                  src="https://bengaltradingint.com/wp-content/uploads/2020/06/istockphoto-1033729610-612x612-1.jpg"
-                  alt="bannerA"
-                />
-              </div>
-              <div className="h-96 w-full flex items-center justify-center p-2">
-                <img
-                  className="h-full w-full object-contain"
-                  src="https://www.divigear.com/wp-content/uploads/2018/10/product-carousel-image-01.jpg"
+                  src={bannerB}
                   alt="bannerA"
                 />
               </div>
