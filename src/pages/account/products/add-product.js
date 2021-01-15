@@ -85,7 +85,7 @@ function AddProduct() {
                 }}
               >
                 <option value="NGN">NGN</option>
-                <option value="KSH">KSH</option>
+                <option value="KES">KES</option>
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
               </select>

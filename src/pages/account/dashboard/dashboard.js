@@ -78,7 +78,7 @@ function Dashboard() {
           12,024 <span className="text-sm text-gray-500">NGN</span>
         </span>
         <span className="text-lg text-black">
-          24 <span className="text-sm text-gray-500">KSH</span>
+          24 <span className="text-sm text-gray-500">KES</span>
         </span>
         <span className="text-lg text-black">
           2,390 <span className="text-sm text-gray-500">USD</span>

@@ -59,7 +59,7 @@ export const createUser = async (user) => {
       fullname: user.fullname,
       isMerchant: false,
       userId: res.user.uid,
-      walletBalance: { NGN: 0.0, GHS: 0.0, KSH: 0.0, EUR: 0.0 },
+      walletBalance: { NGN: 0.0, GHS: 0.0, KES: 0.0, EUR: 0.0 },
       cart: [],
       shippingAddress: {},
     };
