@@ -20,6 +20,7 @@ import {
   validateAddressForm,
   validateCreateShopForm,
   validatePaymentForm,
+  validateAddProductForm,
 } from "./validators";
 
 export {
@@ -41,4 +42,5 @@ export {
   validateAddressForm,
   validatePaymentForm,
   validateCreateShopForm,
+  validateAddProductForm,
 };

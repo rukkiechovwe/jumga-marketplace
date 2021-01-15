@@ -1,11 +1,13 @@
-import Dashboard from "./dashboard";
-import UserDashboard from "./dashboard/dashboard";
-import Shop from "./shop/shop";
+import Dashboard from "./dashboard/dashboard";
+import Orders from "./orders/orders";
+import Logout from "../logout";
+import Sales from "./sales/sales";
+import ShopProducts from "./products/products";
 
 export default [
   {
     label: "Dashboard",
-    route: "/dashboard",
+    route: "",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +27,8 @@ export default [
     component: Dashboard,
   },
   {
-    label: "Shop",
-    route: "/shop",
+    label: "Sales",
+    route: "/sales",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -39,15 +41,36 @@ export default [
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
         />
       </svg>
     ),
-    component: Shop,
+    component: Sales,
   },
   {
-    label: "Order",
-    route: "/order",
+    label: "Products",
+    route: "/products",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        className="w-5 h-5"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+        />
+      </svg>
+    ),
+    component: ShopProducts,
+  },
+  {
+    label: "Orders",
+    route: "/orders",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +92,7 @@ export default [
       </svg>
     ),
 
-    component: Shop,
+    component: Orders,
   },
   {
     label: "Logout",
@@ -90,6 +113,6 @@ export default [
         />
       </svg>
     ),
-    component: null,
+    component: Logout,
   },
 ];

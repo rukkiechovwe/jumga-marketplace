@@ -42,8 +42,7 @@ export default function ShopPayment() {
             `}
             callbackText="Start selling"
             callback={() => {
-              // history.push(`/shop/${shop.shopId}/add-product`);
-              history.replace("/");
+              history.replace("/account/dashboard/products/add-product");
             }}
           />
         ) : (

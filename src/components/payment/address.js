@@ -14,10 +14,7 @@ export default function CardAddress({ card, currency, amount, onSuccess }) {
         const event = action.payload;
         const { name, value } = event.target;
         return { ...state, [name]: value };
-      case "ERROR":
-        return { ...state, error: action.payload, isLoading: false };
       default:
-        throw new Error("No actionType");
     }
   }, {});
   const user = useSelector(selectUser);

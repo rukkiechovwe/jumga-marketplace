@@ -1,3 +1,3 @@
-import UserDashboard from "./dashboard/dashboard";
+import Dashboard from "./dashboard";
 
-export { UserDashboard };
+export { Dashboard };

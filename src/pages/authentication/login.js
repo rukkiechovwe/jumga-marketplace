@@ -14,16 +14,11 @@ export default function Login() {
   const [error, setError] = useState({});
   const [login, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
-      case "INIT":
-        return { ...state, error: null, isLoading: true };
       case "GET_INPUT":
         const event = action.payload;
         const { name, value } = event.target;
         return { ...state, [name]: value };
-      case "ERROR":
-        return { ...state, error: action.payload, isLoading: false };
       default:
-        throw new Error("No actionType");
     }
   }, {});
 

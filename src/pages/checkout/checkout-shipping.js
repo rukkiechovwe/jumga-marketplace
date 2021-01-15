@@ -13,10 +13,7 @@ export default function CheckoutAddress() {
           const event = action.payload;
           const { name, value } = event.target;
           return { ...state, [name]: value };
-        case "ERROR":
-          return { ...state, error: action.payload, isLoading: false };
         default:
-          throw new Error("No actionType");
       }
     },
     { address: "", city: "", state: "", zipcode: "" }

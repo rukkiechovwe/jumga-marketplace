@@ -1,69 +1,94 @@
-import React from "react";
-import { withRouter, useLocation, Link, Switch, Route } from "react-router-dom";
-import { history } from "../../../App";
-import items from "../sidebar-items";
-import logo from "../../../assets/images/logo.png";
-import { selectUser } from "../../../redux/authentication/auth-slice";
-import { useSelector } from "react-redux";
-import { Avatar, Error } from "../../../components";
-
-function UserDashboard(props) {
-  const {
-    match: { path },
-  } = props;
-  const pathname = useLocation().pathname;
-  const user = useSelector(selectUser);
+function Dashboard() {
   return (
-    <div className="flex justify-between">
-      <div className="hidden md:block w-1/6 bg-white h-screen shadow-sm">
-        <div className="h-20 w-full flex-shrink-0 flex items-center">
-          <Link to={path}>
-            <img src={logo} className="h-28" alt="jumga-logo" />
-          </Link>
-        </div>
-        <div className="flex flex-col mt-4">
-          {items.map((item) => {
-            return (
-              <div
-                className={`p-2 mx-2 mt-1 flex flex-row justify-start items-center rounded-md ${
-                  pathname === `${path}${item.route}` && `bg-gray-100`
-                }
-            ${
-              pathname === `${path}${item.route}`
-                ? `text-black`
-                : `text-gray-500`
-            } cursor-pointer`}
+    <div className="">
+      <div className="flex flex-col phn:flex-row justify-between w-full px-8 mt-8">
+        <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
+          <div className="h-full flex flex-row justify-between items-center px-8">
+            <div className="flex flex-col justify-start items-start">
+              <span className="text-xl text-black">$ 2,390</span>
+              <span className="text-gray-600">Balance</span>
+            </div>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                className="text-gray-200 h-12"
+                fill="currentColor"
               >
-                <span className="mr-2">{item.icon}</span>
-                <span onClick={() => history.push(`${path}${item.route}`)}>
-                  {item.label}
-                </span>
-              </div>
-            );
-          })}
+                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                <path
+                  fillRule="evenodd"
+                  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
+          <div className="h-full flex flex-row justify-between items-center px-8">
+            <div className="flex flex-col justify-start items-start">
+              <span className="text-xl text-black">86</span>
+              <span className="text-gray-600">Sales</span>
+            </div>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="text-gray-200 h-12"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
+          <div className="h-full flex flex-row justify-between items-center px-8">
+            <div className="flex flex-col justify-start items-start">
+              <span className="text-xl text-black">32</span>
+              <span className="text-gray-600">Products</span>
+            </div>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                className="text-gray-200 h-12"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="w-full md:w-5/6">
-        <div className="flex justify-end pr-8 items-center w-full h-12 shadow-sm bg-white">
-          <div>
-            <p className="mr-4">{(user && user.email) || ""}</p>
-          </div>
-          <Avatar />
-        </div>
-        <div>{/* illustration */}</div>
-        <Switch>
-          {items.map((item) => {
-            return (
-              <Route
-                path={`${path}${item.route}`}
-                component={item.component || Error}
-              />
-            );
-          })}
-        </Switch>
+      <div className="flex flex-col justify-between w-full px-9 mt-8">
+        <p className="text-lg text-black mb-2">ALL WALLETS</p>
+        <span className="text-lg text-black">
+          12,024 <span className="text-sm text-gray-500">NGN</span>
+        </span>
+        <span className="text-lg text-black">
+          24 <span className="text-sm text-gray-500">KSH</span>
+        </span>
+        <span className="text-lg text-black">
+          2,390 <span className="text-sm text-gray-500">USD</span>
+        </span>
+        <span className="text-lg text-black">
+          624 <span className="text-sm text-gray-500">EUR</span>
+        </span>
       </div>
     </div>
   );
 }
 
-export default withRouter(UserDashboard);
+export default Dashboard;

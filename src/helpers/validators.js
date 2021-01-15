@@ -133,3 +133,43 @@ export function validateCreateShopForm(fields) {
   }
   return errors;
 }
+
+export function validateAddProductForm(fields) {
+  let errors = { atLeastAnError: false };
+  if (!regexText.test(fields.title) || fields.title === undefined) {
+    errors.atLeastAnError = true;
+    errors.title =
+      fields.title === undefined
+        ? "Product title is required"
+        : "Invalid text format";
+  }
+  if (fields.description === undefined || fields.description.length === 0) {
+    errors.atLeastAnError = true;
+    errors.description =
+      fields.title === undefined
+        ? "Product description is required"
+        : "Invalid text format";
+  }
+  if (fields.price === undefined || !regexNumber.test(fields.price)) {
+    errors.atLeastAnError = true;
+    errors.price =
+      fields.price === undefined
+        ? "Price is required"
+        : "Invalid number format";
+  }
+  if (
+    fields.quantityAvailable === undefined ||
+    !regexNumber.test(fields.quantityAvailable)
+  ) {
+    errors.atLeastAnError = true;
+    errors.quantityAvailable =
+      fields.quantityAvailable === undefined
+        ? "Quantity available is required"
+        : "Invalid number format";
+  }
+  if (fields.productImage === undefined) {
+    errors.atLeastAnError = true;
+    errors.productImage = "Product image is required";
+  }
+  return errors;
+}
