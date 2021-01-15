@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { updatePendingShop } from "../../api/shop";
 import { history } from "../../App";
-import loginImg from "../../assets/images/loginImg.jpg";
+import paymentImg from "../../assets/images/paymentImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
 import "../../bg-color.css";
 
@@ -28,8 +28,9 @@ export default function ShopPayment() {
       setError(error.toString());
     }
   };
+
   return (
-    <div className="relative h-screen w-full">
+    <div>
       {show ? (
         status === "success" ? (
           <Dialog
@@ -64,12 +65,15 @@ export default function ShopPayment() {
       ) : null}
       {!shop && <Error mt="0" />}
       {shop && (
-        <div>
+        <div className="relative h-screen w-full">
           <div className="hidden sm:block w-1/2 h-full">
             <div
-              className="h-full bg-no-repeat bg-center bg-cover bg-img"
-              style={{ backgroundImage: `url(${loginImg})` }}
+              className="h-full bg-no-repeat bg-cover bg-img"
+              style={{ backgroundImage: `url(${paymentImg})` }}
             ></div>
+            {/* this one or we look for something else i lie that girl, i'm right here ohh lolll, we use the girl then, okayyys
+            can we use it as banner also, ?okayyyy, let's use it for login first okayy
+            */}
           </div>
           <CardPayment
             label="Create Store"

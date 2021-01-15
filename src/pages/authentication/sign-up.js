@@ -27,7 +27,7 @@ export default function Signup() {
     <div className="relative h-screen w-full sssss">
       <div className="hidden sm:block w-1/2 h-full">
         <div
-          className="h-full bg-no-repeat bg-center bg-cover bg-img"
+          className="h-full bg-no-repeat bg-right bg-cover bg-img"
           style={{ backgroundImage: `url(${loginImg})` }}
         ></div>
       </div>
@@ -125,7 +125,7 @@ export default function Signup() {
             <button
               className={`px-4 ${
                 hasAgreedToTerms ? `bg-green-400` : `bg-green-300`
-              } p-2 my-3 rounded-full text-white`}
+              } p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg hover:bg-green-300 transition duration-500 ease-in-out`}
               type="submit"
             >
               {auth.isLoading ? "Please wait..." : "SIGNUP"}

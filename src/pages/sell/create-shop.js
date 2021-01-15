@@ -1,7 +1,7 @@
 import { useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import { history } from "../../App";
-import loginImg from "../../assets/images/loginImg.jpg";
+import storeImg from "../../assets/images/storeImg.jpg";
 import { createPendingShop } from "../../api/shop";
 import {
   getFileSize,
@@ -66,7 +66,7 @@ export default function CreateShop() {
       <div className="hidden sm:block w-1/2 h-full bg-green-100 z-10">
         <div
           className="h-full bg-no-repeat bg-center bg-cover bg-img"
-          style={{ backgroundImage: `url(${loginImg})` }}
+          style={{ backgroundImage: `url(${storeImg})` }}
         ></div>
       </div>
       <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-white h-full">
@@ -188,7 +188,7 @@ export default function CreateShop() {
               </label>
             </div>
             <button
-              className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
+              className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg hover:bg--green-300 transition duration-500 ease-in-out"
               type="submit"
             >
               {loading ? "Please wait..." : "CREATE STORE"}

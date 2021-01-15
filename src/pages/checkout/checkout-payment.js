@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { placeCheckoutOrder } from "../../api/shop";
 import { history } from "../../App";
-import loginImg from "../../assets/images/loginImg.jpg";
+import storeImg from "../../assets/images/storeImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
 import { getReference, splitPayment } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
@@ -57,7 +57,7 @@ export default function CheckoutPayment() {
   };
 
   return (
-    <div className="relative h-screen w-full">
+    <div>
       {show ? (
         status === "success" ? (
           <Dialog
@@ -90,11 +90,11 @@ export default function CheckoutPayment() {
       ) : null}
       {!address && <Error mt="0" />}
       {address && (
-        <div>
+        <div className="relative h-screen w-full">
           <div className="hidden sm:block w-1/2 h-full">
             <div
               className="h-full bg-no-repeat bg-center bg-cover"
-              style={{ backgroundImage: `url(${loginImg})` }}
+              style={{ backgroundImage: `url(${storeImg})` }}
             ></div>
           </div>
           <CardPayment

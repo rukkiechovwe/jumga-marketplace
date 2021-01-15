@@ -1,5 +1,5 @@
 import { history } from "../../App";
-import loginImg from "../../assets/images/loginImg.jpg";
+import sellImg from "../../assets/images/sellImg.jpg";
 import "../../bg-color.css";
 
 export default function SellOnboarding() {
@@ -8,7 +8,7 @@ export default function SellOnboarding() {
       <div className="hidden sm:block w-1/2 h-full">
         <div
           className="h-full bg-no-repeat bg-center bg-cover bg-img"
-          style={{ backgroundImage: `url(${loginImg})` }}
+          style={{ backgroundImage: `url(${sellImg})` }}
         ></div>
       </div>
       <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-white h-full">
@@ -32,7 +32,7 @@ export default function SellOnboarding() {
             </li>
           </ol>
           <button
-            className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
+            className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg hover:bg--green-300 transition duration-500 ease-in-out"
             onClick={() => {
               history.push("/create-shop");
             }}

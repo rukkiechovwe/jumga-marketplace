@@ -24,7 +24,9 @@ export default function CheckoutAddress() {
       <div className="hidden sm:block w-1/2 h-full">
         <div
           className="h-full bg-no-repeat bg-center bg-cover"
-          style={{ backgroundImage: `url(${loginImg})` }}
+          style={{
+            backgroundImage: `url(https://image.freepik.com/free-vector/delivery-service-with-masks-concept_23-2148535315.jpg)`,
+          }}
         ></div>
       </div>
       <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-white h-full">
@@ -88,7 +90,7 @@ export default function CheckoutAddress() {
             />
             {error.zipcode && <InputError message={error.zipcode} />}
             <button
-              className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
+              className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg  transition duration-500 ease-in-out"
               type="submit"
             >
               CONTINUE

@@ -164,7 +164,7 @@ export default function Cart() {
                 onClick={() => {
                   history.push("/checkout/address?step=1");
                 }}
-                className="w-auto rounded-md border border-transparent shadow-sm mt-4 px-4 py-2 bg-green-400 text-base font-medium text-white hover:bg-green-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
+                className="w-auto rounded-md border border-transparent shadow-sm mt-4 px-4 py-2 bg-green-400 text-base font-medium text-white  hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
               >
                 PROCEED TO CHECKOUT
               </button>
