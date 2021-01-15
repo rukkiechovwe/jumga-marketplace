@@ -3,7 +3,7 @@
 ## APPS
 
 - [Jumga Marketplace](https://jumga.xyz) -> Uses flw live keys (Use this if you want to dash me small moneyy)
-- [Jumga Marketplace ( Development )](https://dev.jumga.xyz) -> Uses flw test keys
+- [Jumga Marketplace ( Staging )](https://staging.jumga.xyz) -> Uses flw test keys
 - [Jumga Admin](https://admin.jumga.xyz): -> Jumga admin showing sales, revenue and profit
 
 ###### Test card information
