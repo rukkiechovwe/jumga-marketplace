@@ -12,14 +12,14 @@ import {
   selectCartTotal,
   selectCartTotalAmount,
 } from "../../redux/cart/cart-slice";
-import { selectVendor } from "../../redux/product/product-slice";
+import { selectMerchant } from "../../redux/product/product-slice";
 
 export default function Cart() {
   const total = useSelector(selectCartTotal);
   const totalAmount = useSelector(selectCartTotalAmount);
   const user = useSelector(selectUser);
   const { cart } = useSelector(selectCart);
-  const vendor = useSelector(selectVendor);
+  const merchant = useSelector(selectMerchant);
   const dispatch = useDispatch();
   return (
     <div className="h-full md:h-screen ">
@@ -55,7 +55,7 @@ export default function Cart() {
                         className="p-1 w-5/6 text-gray-600 cursor-pointer hover:text-green-400"
                         onClick={() => {
                           history.push(
-                            `/vendors/${item.shop_id}/products/${item.product_id}`
+                            `/vendors/${item.shopId}/products/${item.productId}`
                           );
                         }}
                       >

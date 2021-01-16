@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../App";
-import { Footer, Loading, NavigationBar } from "../../components";
+import { Loading, NavigationBar } from "../../components";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
 import { getShops } from "../../redux/product/product-actions";
 import {
   selectProduct,
-  setCurrentVendor,
+  setCurrentMerchant,
 } from "../../redux/product/product-slice";
 import Slider from "react-slick";
 import bannerA from "../../assets/images/banner-1.jpg";
@@ -49,13 +49,7 @@ function Marketplace() {
           {/* carousel */}
           <div className="width-full mr-20 ml-20 overflow-hidden">
             <Slider {...SETTINGS}>
-              <div
-                className="h-96 w-full flex items-center justify-center p-2"
-                // className="w-full bg-no-repeat bg-center bg-cover"
-                // style={{
-                //   backgroundImage: `url(${bannerA})`,
-                // }}
-              >
+              <div className="h-96 w-full flex items-center justify-center p-2">
                 <img
                   className="h-full w-full object-contain"
                   src={bannerA}
@@ -81,11 +75,11 @@ function Marketplace() {
                 return (
                   <div
                     key={shop.shopId}
-                    className="m2 mr-6 phn:m-4 flex-grow rounded-md w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-lg"
+                    className="m2 mr-6 phn:m-4 flex-grow rounded-lg w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-sm border"
                   >
                     <div
                       onClick={() => {
-                        dispatch(setCurrentVendor(shop));
+                        dispatch(setCurrentMerchant(shop));
                         history.push(`/vendors/${shop.shopId}`);
                       }}
                       className="cursor-pointer w-full"
@@ -113,7 +107,6 @@ function Marketplace() {
           </div>
         </div>
       )}
-      {/* <Footer /> */}
     </div>
   );
 }

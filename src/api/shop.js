@@ -23,7 +23,6 @@ export const createPendingShop = async (payload) => {
     shop.dispatcher = picked;
     return { status: "created", shop: shop };
   } catch (error) {
-    console.log(error);
     return { err: error };
   }
   // try {
@@ -68,7 +67,7 @@ export const placeCheckoutOrder = async (payload) => {
   let {
     orderId,
     currency,
-    vendorId,
+    merchantId,
     dispatcherId,
     totalAmount,
     vendorAmount,
@@ -77,7 +76,7 @@ export const placeCheckoutOrder = async (payload) => {
     jAmountForDelivery,
   } = payload;
   try {
-    const fsVendorReference = db.collection("users").doc(`${vendorId}`);
+    const fsVendorReference = db.collection("users").doc(`${merchantId}`);
     const fsDispatcherReference = db
       .collection("dispatchers")
       .doc(`${dispatcherId}`);

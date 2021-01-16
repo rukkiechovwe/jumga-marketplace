@@ -1,46 +1,66 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { fetchProducts } from "../../api/firebase";
 import { history } from "../../App";
-import { NavigationBar, Spacer, Loading } from "../../components";
-import SearchBox from "../../components/search";
+import { NavigationBar, Spacer, Loading, Error } from "../../components";
+import { getLastPathname } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
-import { getProducts } from "../../redux/product/product-actions";
-import { selectProduct } from "../../redux/product/product-slice";
 
 function Home() {
-  const dispatch = useDispatch();
-  const product = useSelector(selectProduct);
+  const location = useLocation();
   const user = useSelector(selectUser);
   const total = useSelector(selectCartTotal);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [products, setProducts] = useState(null);
+
   useEffect(() => {
-    // just get products once okayy
-    if (!product.products) {
-      dispatch(getProducts());
-    }
+    getProducts();
   }, []);
+
+  const getProducts = async () => {
+    setLoading(true);
+    setError(false);
+    const product = await fetchProducts(getLastPathname(location.pathname));
+    if (product.err) {
+      setError(true);
+    } else {
+      setProducts(product.products);
+    }
+    setLoading(false);
+  };
+
   return (
     <div>
       <NavigationBar user={user} totalInCart={total} />
-      {/* <SearchBox /> */}
       <Spacer top="50px" />
-      {product.isLoading && <Loading />}
-      {product.error && (
-        <center style={{ color: "red" }}>{product.message}</center>
+      {loading && <Loading />}
+      {error && (
+        <Error
+          message={error || `Something went wrong, it's not you, it's us.`}
+        />
       )}
       <div className="flex flex-wrap p-5 w-full">
-        {product.products &&
-          product.products.map((product) => {
+        {products && products.length === 0 && (
+          <span className="w-full h-screen text-center text-black">
+            No Product available on this store, check back later while we notify
+            the merchant.
+          </span>
+        )}
+        {products &&
+          products.map((product) => {
             return (
               <div
-                key={product.product_id}
+                key={product.productId}
                 className="text-center w-1/3 sm:2/5 mx:w-1/4 lg:w-1/5 py-3 px-2 m-3 rounded-lg shadow-sm cursor-pointer bg-white"
               >
                 <div
                   className="flex flex-col items-center justify-between h-full"
                   onClick={() => {
                     history.push(
-                      `/vendors/${product.shop_id}/products/${product.product_id}`
+                      `/vendors/${product.shopId}/products/${product.productId}`
                     );
                   }}
                 >

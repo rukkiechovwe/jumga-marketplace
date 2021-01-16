@@ -1,8 +1,7 @@
-const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { getRandomIndex } = require("./helpers/utils");
 
-exports.createShop = functions.https.onRequest(async (req, res) => {
+exports.createShop = async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   try {
     let shop = req.body;
@@ -24,9 +23,9 @@ exports.createShop = functions.https.onRequest(async (req, res) => {
   } catch (error) {
     res.status(500).send({ err: error });
   }
-});
+};
 
-exports.updateShop = functions.https.onRequest(async (req, res) => {
+exports.updateShop = async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   try {
     let { shopId, dispatcherId } = req.body;
@@ -44,4 +43,4 @@ exports.updateShop = functions.https.onRequest(async (req, res) => {
   } catch (error) {
     res.status(500).send({ err: error });
   }
-});
+};

@@ -5,23 +5,6 @@ export const storage = firebase.storage();
 export const auth = firebase.auth();
 export const user = auth.currentUser;
 
-export const getTimestamp = (date) => {
-  if (date) return firebase.firestore.Timestamp.fromDate(date);
-  else return firebase.firestore.Timestamp.fromDate(new Date());
-};
-
-export const getIncrement = (number) => {
-  return firebase.firestore.FieldValue.increment(number);
-};
-
-export const firebaseObject = () => {
-  return firebase;
-};
-
-export const getGeoLatitude = (latitude, longitude) => {
-  return new firebase.firestore.GeoPoint(latitude, longitude);
-};
-
 export const fetchUser = async () => {
   const user = auth.currentUser;
   try {
@@ -108,10 +91,13 @@ export const fetchShopById = async (id) => {
 };
 
 //  PRODUCTS API
-
-export const fetchProducts = async () => {
+export const fetchProducts = async (shopId) => {
   try {
-    const res = await db.collection("products").get();
+    const res = await db
+      .collection("products")
+      .where("shop_id", "==", shopId)
+      // .where("shopId", "==", shopId)
+      .get();
     const products = res.docs.map((p) => {
       return { ...p.data(), quantity: 0 };
     });
@@ -127,7 +113,7 @@ export const fetchProductById = async (id) => {
       await db.collection("products").doc(id).get()
     ).data();
     const shop = await (
-      await db.collection("shops").doc(product.shop_id).get()
+      await db.collection("shops").doc(product.shopId).get()
     ).data();
     const productMd = { ...product, shop: shop || {} };
     return productMd;
@@ -150,42 +136,12 @@ export const uploadFile = async (file, folder) => {
   }
 };
 
-export const getResizedImageUrl = async (file, folderPath, name, locId) => {
-  try {
-    let fileType = file.name.split(".");
-    let filename = folderPath + name + "." + fileType[1];
-    filename = filename.replace(/\s/g, "").trim();
-    let filenameArray = filename.split(".");
-
-    if (Array.isArray(fileType)) {
-      setTimeout(async () => {
-        filename = filenameArray[0] + "_350x250"; //+ '.' + filenameArray[1];
-        let fileRef = storage.ref().child(filename.trim());
-        let url = await fileRef.getDownloadURL();
-
-        await db
-          .collection("locations")
-          .doc(locId)
-          .update({
-            resizedImages: firebase.firestore.FieldValue.arrayUnion(url),
-          });
-        return { err: null, url };
-      }, 6500);
-    }
-    return { err: "Cannot get filename array" };
-  } catch (e) {
-    console.log(e);
-    return { err: e };
-  }
-};
-
 export const deleteFile = async (filePath) => {
   try {
     let fileRef = storage.ref().child(filePath);
     await fileRef.delete();
     return { err: null };
   } catch (e) {
-    console.log(e);
     return { err: e };
   }
 };

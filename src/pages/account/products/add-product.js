@@ -91,7 +91,7 @@ function AddProduct() {
               </select>
               <input
                 className="w-full ml-2 p-2 focus:outline-none rounded border text-black"
-                placeholder="Price"
+                placeholder="0.0"
                 name="price"
                 onChange={(event) => {
                   event.persist();
