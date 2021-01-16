@@ -86,10 +86,10 @@ export default function CardInfo({ currency, amount, onSuccess }) {
         <InputError message={inputError.card_number} />
       )}
 
-      <div className="w-full my-3 flex flex-row justify-between sm:flex-column">
-        <div className="w-full mr-3 flex flex-col justify-start">
+      <div className="w-full my-0 phn:my-3 flex flex-col phn:flex-row justify-between sm:flex-column">
+        <div className="w-full mr-0 phn:mr-3 flex flex-col justify-start">
           <input
-            className="w-full p-2 focus:outline-none rounded text-black"
+            className="w-full p-2 my-3 phn:my-0 focus:outline-none rounded text-black"
             placeholder="EXPIRY DATE"
             maxLength="5"
             name="expiry_date"
@@ -107,9 +107,9 @@ export default function CardInfo({ currency, amount, onSuccess }) {
             <InputError message={inputError.expiry_date} />
           )}
         </div>
-        <div className="w-full ml-3 flex flex-col justify-start">
+        <div className="w-full ml-0 phn:ml-3 flex flex-col justify-start">
           <input
-            className="w-full p-2 focus:outline-none rounded text-black"
+            className="w-full p-2 my-3 phn:my-0 focus:outline-none rounded text-black"
             placeholder="CVV"
             name="cvv"
             maxLength="4"
