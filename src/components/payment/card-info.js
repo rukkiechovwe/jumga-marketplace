@@ -36,7 +36,7 @@ export default function CardInfo({ currency, amount, onSuccess }) {
     const res = await initPayment(encrypt(payload));
     setLoading(false);
     if (res.err) {
-      setError(res.err ?? "Something went wrong.");
+      setError(res.err || "Something went wrong.");
     } else {
       onSuccess({ card, res });
     }

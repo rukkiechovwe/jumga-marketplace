@@ -71,9 +71,6 @@ export default function ShopPayment() {
               className="h-full bg-no-repeat bg-cover bg-img"
               style={{ backgroundImage: `url(${paymentImg})` }}
             ></div>
-            {/* this one or we look for something else i lie that girl, i'm right here ohh lolll, we use the girl then, okayyys
-            can we use it as banner also, ?okayyyy, let's use it for login first okayy
-            */}
           </div>
           <CardPayment
             label="Create Store"
@@ -85,8 +82,8 @@ export default function ShopPayment() {
               setShow(true);
               setStatus("failed");
               setError(
-                response.toString() ||
-                  response.message ||
+                response.message.toString() ||
+                  response.toString() ||
                   "Could not complete transaction, Try again"
               );
             }}
