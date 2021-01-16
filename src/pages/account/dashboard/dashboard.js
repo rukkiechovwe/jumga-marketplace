@@ -2,7 +2,7 @@ function Dashboard() {
   return (
     <div className="">
       <div className="flex flex-col phn:flex-row justify-between w-full px-8 mt-8">
-        <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
+        <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 uiuui mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
           <div className="h-full flex flex-row justify-between items-center px-8">
             <div className="flex flex-col justify-start items-start">
               <span className="text-xl text-black">$ 2,390</span>
