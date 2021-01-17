@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import { history } from "../../App";
 import storeImg from "../../assets/images/storeImg.jpg";
-import { createPendingShop } from "../../api/shop";
+import { createPendingShop,uploadFile } from "../../api";
 import {
   getFileSize,
   uuid,
@@ -10,7 +10,6 @@ import {
   validateCreateShopForm,
 } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
-import { uploadFile } from "../../api/firebase";
 import { Alert, InputError } from "../../components";
 import "../../bg-color.css";
 

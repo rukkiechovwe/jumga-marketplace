@@ -2,12 +2,15 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Avatar from "../avatar/avatar";
 import logo from "../../assets/images/logo.png";
-import { useSelector } from "react-redux";
-import { selectCurrency } from "../../redux/app/app-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrency, setCurrency } from "../../redux/app/app-slice";
 
 function NavigationBar(props) {
   const location = useLocation();
   const currency = useSelector(selectCurrency);
+  const dispatch = useDispatch();
+  const user = props.user;
+
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -58,7 +61,7 @@ function NavigationBar(props) {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <div className="flex items-center justify-end space-x-4">
+            <div className="flex items-center justify-end space-x-4 mr-2">
               <Link
                 to={`/cart`}
                 className="flex flex-row items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -84,30 +87,41 @@ function NavigationBar(props) {
                   </span>
                 )}
               </Link>
-              <Link
-                to={`/sell`}
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Sell
-              </Link>
-
+              {user && !user.isMerchant && (
+                <Link
+                  to={`/sell`}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Sell
+                </Link>
+              )}
               <Link
                 to={
-                  props.user
+                  user
                     ? `/account/dashboard`
                     : `/login?from=${location.pathname}`
                 }
                 className="flex flex-row items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                {props.user ? "My Account" : "Login"}
+                {user ? "My Account" : "Login"}
               </Link>
             </div>
             <button className="bg-gray-800 p-1 mr-4 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <Avatar />
             </button>
-            <span className="flex flex-row items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-              {currency}
-            </span>
+            <select
+              value={currency}
+              name="currency"
+              className="appearance-none p-2 focus:outline-none rounded border text-white bg-black border-none"
+              onChange={(event) => {
+                dispatch(setCurrency(event.target.value));
+              }}
+            >
+              <option value="NGN">NGN</option>
+              <option value="GHS">GHS</option>
+              <option value="KES">KES</option>
+              <option value="EUR">EUR</option>
+            </select>
             <div className="ml-3 relative">
               <div
                 className={`hidden origin-top-right absolute right-0 mt-4 w-36 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
@@ -168,7 +182,7 @@ function NavigationBar(props) {
               to={`/login?from=${location.pathname}`}
               className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
-              {props.user ? props.user.email : "Login"}
+              {user ? user.email : "Login"}
             </Link>
           </a>
         </div>

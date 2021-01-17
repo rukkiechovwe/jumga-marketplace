@@ -1,6 +1,5 @@
 import { useReducer, useState } from "react";
-import { BASENAME } from "../../api";
-import { initPayment } from "../../api/payment";
+import { initPayment, BASENAME } from "../../api";
 import { encrypt, getReference, validatePaymentForm } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { useSelector } from "react-redux";
@@ -36,7 +35,7 @@ export default function CardInfo({ currency, amount, onSuccess }) {
     const res = await initPayment(encrypt(payload));
     setLoading(false);
     if (res.err) {
-      setError(res.err ?? "Something went wrong.");
+      setError(res.err || "Something went wrong.");
     } else {
       onSuccess({ card, res });
     }

@@ -125,7 +125,7 @@ export default function Signup() {
             <button
               className={`px-4 ${
                 hasAgreedToTerms ? `bg-green-400` : `bg-green-300`
-              } p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg hover:bg-green-300 transition duration-500 ease-in-out`}
+              } p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg transition duration-500 ease-in-out`}
               type="submit"
             >
               {auth.isLoading ? "Please wait..." : "SIGNUP"}

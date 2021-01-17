@@ -45,7 +45,7 @@ export default function CardPayment({
         break;
       default:
         setStep(0);
-        onPaymentFailed(res);
+        onPaymentFailed(res.res ?? "Payment failed, Try again");
     }
   };
   return (

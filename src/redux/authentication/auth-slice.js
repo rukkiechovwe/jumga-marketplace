@@ -50,13 +50,34 @@ export const authSlice = createSlice({
       state.message = action.payload;
     },
     logOut: (state) => {
-      state = initialState;
+      state.user = null;
+      state.isLoading = false;
+      state.error = false;
+      state.isAuthenticated = false;
+      state.message = "";
     },
   },
 });
 
 export const selectUser = (state) => state.auth.user;
 export const selectAuth = (state) => state.auth;
+export const selectHighestPerformer = (state) => {
+  let max = { currency: "NGN", value: 0 };
+  if (state.auth.user) {
+    let user = state.auth.user;
+    let balance = user.walletBalance;
+    for (let i = 0; i < Object.values(balance).length; i++) {
+      const key = Object.keys(balance)[i];
+      const value = Object.values(balance)[i];
+      if (value > max.value) {
+        max.value = value;
+        max.currency = key;
+      }
+    }
+  }
+  return max;
+};
+
 export const {
   getUserSuccess,
   getUserFailed,

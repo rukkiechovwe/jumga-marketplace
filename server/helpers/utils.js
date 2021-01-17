@@ -37,11 +37,11 @@ const getRandomIndex = (max) => {
 // 75% of the delivery fee goes to the dispatcher
 // 25% of the delivery fee goes to JUMGA
 const splitPayment = (total, deliveryFee) => {
-  const vendorAmount = (total * 0.975).toFixed(2);
+  const merchantAmount = (total * 0.975).toFixed(2);
   const dispatcherAmount = (deliveryFee * 0.8).toFixed(2);
   const jAmount = (total * 0.025).toFixed(2); // jumga amount
   const jAmountForDelivery = (deliveryFee * 0.2).toFixed(2); // jumga amount from delivery fee
-  return { vendorAmount, dispatcherAmount, jAmount, jAmountForDelivery };
+  return { merchantAmount, dispatcherAmount, jAmount, jAmountForDelivery };
 };
 
 module.exports = { post, get, splitPayment, getRandomIndex };

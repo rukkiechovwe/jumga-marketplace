@@ -2,8 +2,7 @@
 
 ## APPS
 
-- [Jumga](https://jumga.xyz) -> Uses flw live keys (Use this if you want to dash me small moneyy)
-- [Jumga ( Staging )](https://staging.jumga.xyz) -> Uses flw test keys
+- [Jumga](https://jumga.xyz) -> Uses flw test keys
 - [Jumga Admin](https://admin.jumga.xyz): -> Jumga admin showing sales, revenue and profit
 
 ###### Test card information
@@ -16,6 +15,7 @@ OTP: 12345
 WRONG OTP: 5548
 INSUFFICIENT FUNDS: 6648
 
+<!-- TODO: Add delivery fee to create shop form -->
 <!--
  Card validation
  https://www.w3resource.com/javascript/form/credit-card-validation.php

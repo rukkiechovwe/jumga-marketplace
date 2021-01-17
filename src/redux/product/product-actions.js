@@ -1,4 +1,4 @@
-import { fetchProducts, fetchShops } from "../../api/firebase";
+import { fetchProducts, fetchShops } from "../../api";
 import {
   getProductsFailed,
   getProductInit,
@@ -7,9 +7,9 @@ import {
   getShopsSuccess,
 } from "./product-slice";
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (shopId) => async (dispatch) => {
   dispatch(getProductInit());
-  const products = await fetchProducts();
+  const products = await fetchProducts(shopId);
   if (products.err) {
     dispatch(getProductsFailed(products.err.message));
   } else {
@@ -25,8 +25,3 @@ export const getShops = () => async (dispatch) => {
     dispatch(getShopsSuccess(shops.shops));
   }
 };
-
-// export const getProductById = async (productId) => {
-// };
-// export const getProductShop = (shopId) => async (dispatch) => {
-// };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { fetchProductById } from "../../api/firebase";
+import { fetchProductById } from "../../api";
 import { Error, Loading, NavigationBar } from "../../components";
 import { getLastPathname } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";

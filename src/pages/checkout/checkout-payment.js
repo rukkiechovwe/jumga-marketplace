@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { placeCheckoutOrder } from "../../api/shop";
+import { placeCheckoutOrder } from "../../api";
 import { history } from "../../App";
 import storeImg from "../../assets/images/storeImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
 import { getReference, splitPayment } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCart, selectCartTotalAmount } from "../../redux/cart/cart-slice";
-import { selectVendor } from "../../redux/product/product-slice";
+import { selectMerchant } from "../../redux/product/product-slice";
 import { selectCurrency } from "../../redux/app/app-slice";
 import { clearCart } from "../../redux/cart/cart-actions";
 
@@ -21,7 +21,7 @@ export default function CheckoutPayment() {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const totalAmount = useSelector(selectCartTotalAmount);
-  const vendor = useSelector(selectVendor);
+  const merchant = useSelector(selectMerchant);
   const user = useSelector(selectUser);
   const currency = useSelector(selectCurrency);
   const { cart } = useSelector(selectCart);
@@ -32,13 +32,13 @@ export default function CheckoutPayment() {
       status: "paid",
       orderId: `${response.tx_ref}`,
       userId: user && user.userId,
-      vendorId: vendor && vendor.userId,
-      dispatcherId: vendor && vendor.dispatcherId,
+      merchantId: merchant && merchant.userId,
+      dispatcherId: merchant && merchant.dispatcherId,
       address: address,
       order: cart,
       totalAmount: totalAmount,
       currency: currency,
-      ...splitPayment(totalAmount, vendor.deliveryFee || 150),
+      ...splitPayment(totalAmount, merchant.deliveryFee || 0),
     };
     try {
       const res = await placeCheckoutOrder(payload);

@@ -12,9 +12,10 @@ import { getCart } from "./redux/cart/cart-slice";
 import { Marketplace } from "./pages/marketplace";
 import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
 import { Dashboard } from "./pages/account";
-import { getCurrentVendor } from "./redux/product/product-slice";
+import { getCurrentMerchant } from "./redux/product/product-slice";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getCurrency } from "./redux/app/app-slice";
 
 export const history = createBrowserHistory();
 
@@ -23,7 +24,8 @@ function App() {
   useEffect(() => {
     dispatch(getUser());
     dispatch(getCart());
-    dispatch(getCurrentVendor());
+    dispatch(getCurrentMerchant());
+    dispatch(getCurrency());
   }, []);
 
   return (
