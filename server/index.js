@@ -1,12 +1,12 @@
 const express = require("express");
 const admin = require("firebase-admin");
-const firebase = require("./fb-admin.json"); // firebase service account
 const flw = require("./flw");
 const shop = require("./shop");
 const cors = require("cors");
+const { SERVICE_ACCOUNT } = require("./helpers/CONSTANTS");
 
 admin.initializeApp({
-  credential: admin.credential.cert(firebase),
+  credential: admin.credential.cert(SERVICE_ACCOUNT),
 });
 
 const app = express();
