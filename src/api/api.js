@@ -1,6 +1,6 @@
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "https://api.jumga.xyz/api"
+    ? "https://cryptic-everglades-67691.herokuapp.com/api"
     : "http://localhost:8080/api";
 const BASENAME =
   process.env.NODE_ENV === "production"
