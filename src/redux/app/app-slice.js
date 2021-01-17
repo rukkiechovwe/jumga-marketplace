@@ -23,5 +23,5 @@ export const appSlice = createSlice({
 
 export const selectNextRoute = (state) => state.app.nextRoute;
 export const selectCurrency = (state) => state.app.currency;
-export const { getNextRoute } = appSlice.actions;
+export const { getNextRoute, setCurrency, getCurrency } = appSlice.actions;
 export default appSlice.reducer;

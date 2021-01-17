@@ -27,8 +27,9 @@ function ShopProducts(props) {
         </svg>
       </div>
       <p className="text-center">
-        Did you know that Dolphins sleep with one eyes open? Well, now you know
-        😅
+        <span className="text-sm text-gray-600">
+          If we shouldn't eat at night, why is there a light in the fridge? 😅
+        </span>
         <br />
         Store is empty,
         <Link to={`${path}/add-product`}>
@@ -84,6 +85,12 @@ function ShopProducts(props) {
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
+                        Product reference
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
                         Price
                       </th>
                       <th
@@ -96,18 +103,17 @@ function ShopProducts(props) {
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Status
+                        Action
                       </th>
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
                     {dashboard.products.map((product) => {
                       const {
-                        orderId,
-                        order,
-                        totalAmount,
-                        currency,
-                        status,
+                        title,
+                        price,
+                        quantityAvailable,
+                        productId,
                       } = product;
                       return (
                         <tr>
@@ -115,24 +121,36 @@ function ShopProducts(props) {
                             <div class="flex items-center">
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                  {orderId}
+                                  {title}
                                 </div>
                               </div>
                             </div>
                           </td>
                           <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">
-                              {currency} {formatToNumber(totalAmount)}
-                            </div>
+                            <div class="text-sm text-gray-900">{productId}</div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{price}</div>
                           </td>
 
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {order && order.length}
+                            {quantityAvailable}
                           </td>
                           <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 rounded-full bg-green-100 text-green-800">
-                              {status}
-                            </span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              className="text-red-600 h-5 w-5"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                              />
+                            </svg>
                           </td>
                         </tr>
                       );

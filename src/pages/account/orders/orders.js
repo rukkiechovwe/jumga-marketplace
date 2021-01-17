@@ -22,8 +22,9 @@ function Orders() {
         </svg>
       </div>
       <p className="text-center">
-        Did you know that Dolphins sleep with one eyes open? Well, now you know
-        😅
+        <span className="text-sm text-gray-600">
+          Sometimes when I close my eyes, I can't see. 😅
+        </span>
         <br />
         You've not made an order on Jumga
       </p>

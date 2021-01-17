@@ -32,8 +32,10 @@ function Dashboard() {
         </svg>
       </div>
       <p className="text-center">
-        Did you know that Dolphins sleep with one eyes open? Well, now you know
-        😅
+        <span className="text-sm text-gray-600">
+          Did you know that Dolphins sleep with one eyes open? Well, now you
+          know 😅
+        </span>
         <br />
         <Link to="/sell">
           <span className="text-blue-600 cursor-pointer">

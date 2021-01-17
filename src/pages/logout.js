@@ -10,7 +10,7 @@ import { clearCart } from "../redux/cart/cart-actions";
 function Logout() {
   const dispatch = useDispatch();
   useEffect(() => {
-    // logout();
+    logout();
   }, []);
 
   const logout = async () => {

@@ -22,8 +22,10 @@ function Sales() {
         </svg>
       </div>
       <p className="text-center">
-        Did you know that Dolphins sleep with one eyes open? Well, now you know
-        😅
+        <span className="text-sm text-gray-600">
+          Dear Math, please grow up and solve your own problems, I'm tired of
+          solving them for you. 😅
+        </span>
         <br />
         You've not made a single sale, C'mon tell people about your store on
         jumga
