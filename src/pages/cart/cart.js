@@ -42,8 +42,8 @@ export default function Cart() {
         ) : (
           cart.map((item) => {
             return (
-              <div className="w-1/2 m-1 flex items-center ">
-                <div className="w-full p-2 flex flex-row items-center justify-between bg-white rounded-md">
+              <div className="w-full md:w-1/2 m-1 flex items-center ">
+                <div className="w-full mx-4 md:mx-0 p-0 phn:p-2 flex flex-row items-center justify-between bg-white rounded-md">
                   <div className="flex items-center w-full">
                     <img
                       className="w-20 p-2 object-contain"
@@ -52,7 +52,7 @@ export default function Cart() {
                     />
                     <div>
                       <p
-                        className="p-1 w-5/6 text-gray-600 cursor-pointer hover:text-green-400"
+                        className="p-1 w-full phn:w-5/6 text-gray-600 cursor-pointer hover:text-green-400"
                         onClick={() => {
                           history.push(
                             `/vendors/${item.shop_id}/products/${item.product_id}`
@@ -148,7 +148,7 @@ export default function Cart() {
         )}
         {cart.length !== 0 && (
           <>
-            <div className="w-1/2 mt-4 flex flex-row items-center justify-end">
+            <div className="w-full md:w-1/2 mt-4 flex flex-row items-center justify-end">
               <div className="flex flex-col items-end">
                 <span className="text-black text-lg mx-4">
                   NGN {totalAmount}
@@ -158,13 +158,13 @@ export default function Cart() {
                 </span>
               </div>
             </div>
-            <div className="w-1/2 mt-4 flex flex-row items-center justify-end">
+            <div className="w-full md:w-1/2 mt-4 flex flex-row items-center justify-end">
               <button
                 type="button"
                 onClick={() => {
                   history.push("/checkout/address?step=1");
                 }}
-                className="w-auto rounded-md border border-transparent shadow-sm mt-4 px-4 py-2 bg-green-400 text-base font-medium text-white  hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
+                className="w-60 md:w-auto rounded-md border border-transparent shadow-sm mt-2 mx-3 md:mx-0 px-4 py-2 bg-green-400 text-base font-medium text-white  hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
               >
                 PROCEED TO CHECKOUT
               </button>

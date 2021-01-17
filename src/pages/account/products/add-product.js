@@ -29,7 +29,7 @@ function AddProduct() {
     >
       <div className="w-full px-8 mt-4">
         <div class="flex flex-col w-full justify-center items-center">
-          <label className="block w-1/2 mt-4">
+          <label className="block w-full sm:w-1/2 mt-4">
             <span className="text-gray-600">Title</span>
             <input
               className="w-full p-2 focus:outline-none rounded border text-black"
@@ -42,7 +42,7 @@ function AddProduct() {
             />
             {inputError.title && <InputError message={inputError.title} />}
           </label>
-          <label className="block w-1/2 mt-4">
+          <label className="block w-full sm:w-1/2 mt-4">
             <span className="text-gray-600">Description</span>
             <input
               className="w-full p-2 focus:outline-none rounded border text-black"
@@ -57,7 +57,7 @@ function AddProduct() {
               <InputError message={inputError.description} />
             )}
           </label>
-          <label className="block w-1/2 mt-4">
+          <label className="block w-full sm:w-1/2 mt-4">
             <span className="text-gray-600">Quantity Available</span>
             <input
               className="w-full p-2 focus:outline-none rounded border text-black"
@@ -72,9 +72,9 @@ function AddProduct() {
               <InputError message={inputError.quantityAvailable} />
             )}
           </label>
-          <label className="block w-1/2 mt-4">
+          <label className="block w-full sm:w-1/2 mt-4">
             <span className="text-gray-600">Price</span>
-            <div className="flex flex-row w-full">
+            <div className="flex flex-col phn:flex-row w-full">
               <select
                 defaultValue="NGN"
                 name="currency"
@@ -90,7 +90,7 @@ function AddProduct() {
                 <option value="EUR">EUR</option>
               </select>
               <input
-                className="w-full ml-2 p-2 focus:outline-none rounded border text-black"
+                className="w-full mt-4 phn:mt-0 ml-0 phn:ml-2 p-2 focus:outline-none rounded border text-black"
                 placeholder="Price"
                 name="price"
                 onChange={(event) => {
@@ -101,11 +101,11 @@ function AddProduct() {
             </div>
             {inputError.price && <InputError message={inputError.price} />}
           </label>
-          <label className="block w-1/2 mt-4 text-gray-600">
+          <label className="block w-full sm:w-1/2 mt-4 text-gray-600">
             Product Image
           </label>
           <div
-            className={`w-1/2 p-2 my-3 cursor-pointer flex items-center justify-center rounded-lg border-2 border-dashed ${
+            className={`w-ful sm:w-1/2 p-2 my-3 cursor-pointer flex items-center justify-center rounded-lg border-2 border-dashed ${
               drag ? "border-green-400" : "border-gray-200"
             } text-sm font-medium py-4`}
             onDragOver={(event) => {
@@ -152,14 +152,14 @@ function AddProduct() {
               }}
             />
           </div>
-          <div className="w-1/2">
+          <div className="w-full sm:w-1/2">
             {inputError.productImage && (
               <InputError message={inputError.productImage} />
             )}
           </div>
           <button
             type="submit"
-            className="w-1/2 flex flex-row items-center justify-center px-4 bg-green-400 p-2 mt-8 rounded shadow-md text-white focus:outline-none"
+            className="w-44 phn:w-1/2 flex flex-row items-center justify-center px-4 bg-green-400 p-2 mt-8 rounded shadow-md text-white focus:outline-none"
           >
             <span className="text-sm"> ADD PRODUCT</span>
           </button>

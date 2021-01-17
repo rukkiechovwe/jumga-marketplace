@@ -72,16 +72,16 @@ function Marketplace() {
             </Slider>
           </div>
           {/* carousel */}
-          <p className="text-black text-xl text-left ml-24 font-semibold">
+          <p className="text-black text-xl text-left mb-8  ml-8 sm:ml-24 font-semibold">
             Vendors
           </p>
-          <div className="flex flex-row width-full justify-center flex-wrap mx-2 sm:mx-6 md:mx-20">
+          <div className="flex flex-row width-full justify-center flex-wrap mx-4 sm:mx-6 md:mx-20">
             {product.shops &&
               product.shops.map((shop) => {
                 return (
                   <div
                     key={shop.shopId}
-                    className="m2 mr-6 phn:m-4 flex-grow rounded-md w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-lg"
+                    className="m2 mb-10 phn:m-4 flex-grow rounded-md w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-lg"
                   >
                     <div
                       onClick={() => {
