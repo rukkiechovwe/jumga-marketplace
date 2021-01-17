@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { fetchProducts } from "../../api/firebase";
+import { fetchProducts } from "../../api";
 import { history } from "../../App";
 import { NavigationBar, Spacer, Loading, Error } from "../../components";
 import { getLastPathname } from "../../helpers";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validatePayment } from "../../api/payment";
+import { validatePayment } from "../../api";
 
 export default function CardOtp({ reference, onSuccess, onFailed }) {
   const [otp, setOtp] = useState("");

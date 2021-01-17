@@ -15,6 +15,7 @@ OTP: 12345
 WRONG OTP: 5548
 INSUFFICIENT FUNDS: 6648
 
+<!-- TODO: Add delivery fee to create shop form -->
 <!--
  Card validation
  https://www.w3resource.com/javascript/form/credit-card-validation.php

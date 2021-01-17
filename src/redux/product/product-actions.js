@@ -1,4 +1,4 @@
-import { fetchProducts, fetchShops } from "../../api/firebase";
+import { fetchProducts, fetchShops } from "../../api";
 import {
   getProductsFailed,
   getProductInit,

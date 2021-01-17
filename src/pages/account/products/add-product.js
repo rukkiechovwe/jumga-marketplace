@@ -1,5 +1,9 @@
 import React, { useReducer, useState } from "react";
-import { getFileSize, validateAddProductForm } from "../../../helpers";
+import {
+  formatToNumber,
+  getFileSize,
+  validateAddProductForm,
+} from "../../../helpers";
 import { InputError } from "../../../components";
 function AddProduct() {
   const [drag, setDrag] = useState(false);
@@ -14,6 +18,9 @@ function AddProduct() {
       default:
     }
   }, {});
+
+  const addProduct = async () => {};
+
   return (
     <form
       onSubmit={(event) => {
@@ -23,7 +30,7 @@ function AddProduct() {
           setInputError(errors);
         } else {
           setInputError({});
-          console.log(product);
+          addProduct();
         }
       }}
     >
@@ -85,8 +92,8 @@ function AddProduct() {
                 }}
               >
                 <option value="NGN">NGN</option>
+                <option value="GHS">GHS</option>
                 <option value="KES">KES</option>
-                <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
               </select>
               <input

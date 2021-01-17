@@ -2,7 +2,6 @@ import {
   setItem,
   getReference,
   getItem,
-  download,
   uuid,
   getLastPathname,
   getUrlParam,
@@ -11,6 +10,8 @@ import {
   getSlug,
   splitPayment,
   getRandomIndex,
+  formatToNumber,
+  clearLocalStorage,
 } from "./utils";
 
 import {
@@ -27,11 +28,12 @@ export {
   setItem,
   getReference,
   getRandomIndex,
+  formatToNumber,
   splitPayment,
   getItem,
   uuid,
+  clearLocalStorage,
   getSlug,
-  download,
   encrypt,
   getUrlParam,
   getLastPathname,

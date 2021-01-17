@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { placeCheckoutOrder } from "../../api/shop";
+import { placeCheckoutOrder } from "../../api";
 import { history } from "../../App";
 import storeImg from "../../assets/images/storeImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
@@ -38,7 +38,7 @@ export default function CheckoutPayment() {
       order: cart,
       totalAmount: totalAmount,
       currency: currency,
-      ...splitPayment(totalAmount, merchant.deliveryFee || 150),
+      ...splitPayment(totalAmount, merchant.deliveryFee || 0),
     };
     try {
       const res = await placeCheckoutOrder(payload);

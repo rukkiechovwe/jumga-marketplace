@@ -1,6 +1,5 @@
 import { useReducer, useState } from "react";
-import { BASENAME } from "../../api";
-import { initPayment } from "../../api/payment";
+import { initPayment, BASENAME } from "../../api";
 import { encrypt, getReference, validatePaymentForm } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { useSelector } from "react-redux";

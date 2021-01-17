@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { updatePendingShop } from "../../api/shop";
+import { updatePendingShop } from "../../api";
 import { history } from "../../App";
 import paymentImg from "../../assets/images/paymentImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
