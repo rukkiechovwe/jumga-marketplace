@@ -30,7 +30,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "deploy": "yarn build; firebase deploy --only hosting;cd server/;git subtree push --prefix server heroku main"
+    "deploy": "yarn build; firebase deploy --only hosting;git subtree push --prefix server heroku main"
   },
   "eslintConfig": {
     "extends": "react-app"
