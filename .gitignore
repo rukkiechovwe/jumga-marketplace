@@ -15,6 +15,7 @@
 *-debug.log
 firestore.rules
 firestore.indexes.json
+.firebase
 
 
 # misc
