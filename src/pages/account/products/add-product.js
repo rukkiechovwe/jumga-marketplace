@@ -1,25 +1,54 @@
 import React, { useReducer, useState } from "react";
-import {
-  formatToNumber,
-  getFileSize,
-  validateAddProductForm,
-} from "../../../helpers";
-import { InputError } from "../../../components";
-function AddProduct() {
+import { getFileSize, validateAddProductForm } from "../../../helpers";
+import { Dialog, InputError } from "../../../components";
+import { withRouter } from "react-router-dom";
+
+const INITIAL_STATE = {
+  title: "",
+  description: "",
+  price: "",
+  quantityAvailable: "",
+};
+
+function AddProduct(props) {
+  const {
+    match: { path },
+  } = props;
   const [drag, setDrag] = useState(false);
   const [productImage, setProductImage] = useState(null);
   const [inputError, setInputError] = useState({});
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [status, setStatus] = useState("");
   const [product, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
       case "GET_INPUT":
         const event = action.payload;
         const { name, value } = event.target;
         return { ...state, [name]: value };
+      case "CLEAR":
+        return INITIAL_STATE;
       default:
     }
-  }, {});
+  }, INITIAL_STATE);
 
-  const addProduct = async () => {};
+  const addProduct = async () => {
+    setError("");
+    setLoading(false);
+    try {
+      //   const res = await placeCheckoutOrder(payload);
+      //   setShow(true);
+      //   setLoading(false);
+      //   if (res.err) {
+      //     setError(res.err ? res.err.toString() : "Something went wrong");
+      //   } else {
+      //     setStatus("success");
+      //   }
+    } catch (error) {
+      setError(error.toString());
+    }
+  };
 
   return (
     <form
@@ -34,6 +63,43 @@ function AddProduct() {
         }
       }}
     >
+      {show ? (
+        status === "success" ? (
+          <Dialog
+            state="success"
+            title="Successful"
+            message={`
+              Product was successfully added to store and would be available on jumga immediately
+            `}
+            callbackText="Add New Product"
+            cancel={() => {
+              setShow(false);
+              setStatus("");
+            }}
+            callback={() => {
+              setProductImage(null);
+              dispatchInputEvent({ type: "CLEAR" });
+              setShow(false);
+              setStatus("");
+            }}
+          />
+        ) : (
+          <Dialog
+            state="failed"
+            title="Payment failed"
+            message={error}
+            callbackText="Try again"
+            cancel={() => {
+              setShow(false);
+              setStatus("");
+            }}
+            callback={() => {
+              setShow(false);
+              setStatus("");
+            }}
+          />
+        )
+      ) : null}
       <div className="w-full px-8 mt-4">
         <div class="flex flex-col w-full justify-center items-center">
           <label className="block w-full sm:w-1/2 mt-4">
@@ -42,6 +108,7 @@ function AddProduct() {
               className="w-full p-2 focus:outline-none rounded border text-black"
               placeholder="Title"
               name="title"
+              value={product.title}
               onChange={(event) => {
                 event.persist();
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
@@ -55,6 +122,7 @@ function AddProduct() {
               className="w-full p-2 focus:outline-none rounded border text-black"
               placeholder="Product description"
               name="description"
+              value={product.description}
               onChange={(event) => {
                 event.persist();
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
@@ -70,6 +138,7 @@ function AddProduct() {
               className="w-full p-2 focus:outline-none rounded border text-black"
               placeholder="Quantity Available"
               name="quantityAvailable"
+              value={product.quantityAvailable}
               onChange={(event) => {
                 event.persist();
                 dispatchInputEvent({ type: "GET_INPUT", payload: event });
@@ -100,6 +169,7 @@ function AddProduct() {
                 className="w-full mt-4 phn:mt-0 ml-0 phn:ml-2 p-2 focus:outline-none rounded border text-black"
                 placeholder="Price"
                 name="price"
+                value={product.price}
                 onChange={(event) => {
                   event.persist();
                   dispatchInputEvent({ type: "GET_INPUT", payload: event });
@@ -168,7 +238,9 @@ function AddProduct() {
             type="submit"
             className="w-44 phn:w-1/2 flex flex-row items-center justify-center px-4 bg-green-400 p-2 mt-8 rounded shadow-md text-white focus:outline-none"
           >
-            <span className="text-sm"> ADD PRODUCT</span>
+            <span className="text-sm">
+              {loading ? "Please wait" : "ADD PRODUCT"}
+            </span>
           </button>
         </div>
       </div>
@@ -176,4 +248,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default withRouter(AddProduct);
