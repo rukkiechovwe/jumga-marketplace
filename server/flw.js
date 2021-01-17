@@ -38,13 +38,26 @@ exports.validatePayment = async (req, res) => {
 
 exports.getExchangeRate = async (req, res) => {
   try {
-    const payload = req.body;
-    const flwRes = await post(`${FLW_URL}/rates`, JSON.stringify(payload), {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.FLW_SK}`,
-    });
-    //
-    res.status(200).send(flwRes);
+    let prices = { [`price${from}`]: amount };
+    const { to, from, amount } = req.body;
+    for (let i = 0; i < to.length; i++) {
+      const currency = to[i];
+      const flwRes = await post(
+        `${FLW_URL}/rates`,
+        JSON.stringify({ to: currency, from: from, amount: amount }),
+        {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.FLW_SK}`,
+        }
+      );
+      if (flwRes.status === "success") {
+        prices[`price${currency}`] = flwRes.data && flwRes.data.to.amount;
+      } else {
+        res.status(500).send({ err: flwRes });
+        break;
+      }
+    }
+    res.status(200).send({ status: "success", data: prices });
   } catch (error) {
     res.status(500).send({ err: error });
   }
