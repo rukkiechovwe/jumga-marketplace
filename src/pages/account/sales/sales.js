@@ -34,14 +34,14 @@ function Sales() {
   );
 
   return (
-    <div className="w-full px-8 mt-8">
+    <div className="w-full px-2 phn:px-8 mt-8">
       {dashboard.sales && dashboard.sales.length === 0 ? (
         empty
       ) : (
         <div class="flex flex-col w-full">
-          <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="-my-2 sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
-              <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <div class="shadow overflow-x-auto border-b border-gray-200 sm:rounded-lg">
                 <table class="w-full divide-y divide-gray-200">
                   <thead class="bg-gray-50">
                     <tr>
