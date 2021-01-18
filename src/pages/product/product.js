@@ -85,7 +85,7 @@ function Product() {
                     {price && price.amount && price.amount.toFixed(2)}
                   </p>
                   <p className="bg-green-400 px-2 text-white rounded-full py-1">
-                    {product.quantitiyAvailable} in stock
+                    {product.quantityAvailable} in stock
                   </p>
                 </div>
                 <div className="py-3 flex items-start flex-col">

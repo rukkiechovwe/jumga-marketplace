@@ -128,17 +128,15 @@ function Dashboard() {
           <div className="flex flex-col justify-between w-full px-9 mt-8">
             <p className="text-lg text-black mb-2">ALL WALLETS</p>
             {user &&
-              Object.values(user.walletBalance)
-                .sort((a, b) => a - b)
-                .map((balance, i) => {
-                  let currency = Object.keys(user.walletBalance)[i];
-                  return (
-                    <span className="text-lg text-black">
-                      <span className="text-gray-500">{currency} </span>
-                      {formatToNumber(balance)}
-                    </span>
-                  );
-                })}
+              Object.values(user.walletBalance).map((balance, i) => {
+                let currency = Object.keys(user.walletBalance)[i];
+                return (
+                  <span className="text-lg text-black">
+                    <span className="text-gray-500">{currency} </span>
+                    {formatToNumber(balance)}
+                  </span>
+                );
+              })}
           </div>
         </>
       ) : (

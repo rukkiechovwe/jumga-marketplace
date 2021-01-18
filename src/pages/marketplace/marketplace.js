@@ -6,12 +6,14 @@ import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
 import { getShops } from "../../redux/product/product-actions";
 import {
+  selectMerchant,
   selectProduct,
   setCurrentMerchant,
 } from "../../redux/product/product-slice";
 import Slider from "react-slick";
 import bannerA from "../../assets/images/banner-1.jpg";
 import bannerB from "../../assets/images/banner-2.jpg";
+import { clearCart } from "../../redux/cart/cart-actions";
 
 const SETTINGS = {
   dots: true,
@@ -29,6 +31,7 @@ function Marketplace() {
   const product = useSelector(selectProduct);
   const user = useSelector(selectUser);
   const total = useSelector(selectCartTotal);
+  const merchant = useSelector(selectMerchant);
 
   useEffect(() => {
     if (!product.shops) {
@@ -69,7 +72,7 @@ function Marketplace() {
           <p className="text-black text-xl text-left mb-8  ml-8 sm:ml-24 font-semibold">
             Vendors
           </p>
-          <div className="flex flex-row width-full justify-center flex-wrap mx-4 sm:mx-6 md:mx-20">
+          <div className="flex flex-row w-full flex-wrap mx-4 sm:mx-6 md:mx-20">
             {product.shops &&
               product.shops.map((shop) => {
                 return (
@@ -80,6 +83,8 @@ function Marketplace() {
                     <div
                       onClick={() => {
                         dispatch(setCurrentMerchant(shop));
+                        if (merchant.shopId !== shop.shopId)
+                          dispatch(clearCart());
                         history.push(`/vendors/${shop.shopId}`);
                       }}
                       className="cursor-pointer w-full"

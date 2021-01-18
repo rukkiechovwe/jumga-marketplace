@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import { history } from "../../App";
 import storeImg from "../../assets/images/storeImg.jpg";
-import { createPendingShop,uploadFile } from "../../api";
+import { createPendingShop, uploadFile } from "../../api";
 import {
   getFileSize,
   uuid,
@@ -87,7 +87,7 @@ export default function CreateShop() {
               }
             }}
           >
-            {error && <Alert message={error} />}
+            {error && <Alert label={error} />}
             <input
               className="w-full border-solid border-b-2 border-gray-400 p-2 my-3 focus:outline-none"
               placeholder="Shop title eg My Awesome Shoe shop"

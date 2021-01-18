@@ -60,7 +60,7 @@ export default function CardInfo({ currency, amount, onSuccess }) {
         }
       }}
     >
-      {error && <Alert message={error} />}
+      {error && <Alert label={error} />}
       <input
         className="w-full p-2 my-3 focus:outline-none rounded text-black"
         name="fullname"

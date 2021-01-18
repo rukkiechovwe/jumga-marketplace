@@ -81,7 +81,7 @@ function Home() {
                       {price.currency} {price.amount.toFixed(2)}
                     </p>
                     <p className="bg-green-400 py-1 px-4 ml-2 text-white rounded-full">
-                      {product.quantityAavailable} in stock
+                      {product.quantityAvailable} in stock
                     </p>
                   </div>
                 </div>

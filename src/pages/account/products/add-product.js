@@ -5,6 +5,7 @@ import { addProductToShop, uploadFile } from "../../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../../redux/authentication/auth-slice";
 import { getDashboardProducts } from "../../../redux/dashboard/dashboard-actions";
+import { getUser } from "../../../redux/authentication/auth-actions";
 
 const INITIAL_STATE = {
   title: "",
@@ -53,6 +54,7 @@ function AddProduct() {
       if (res.err) {
         setError(res.err ? res.err.toString() : "Something went wrong");
       } else {
+        dispatch(getUser);
         dispatch(getDashboardProducts);
         setStatus("success");
       }
