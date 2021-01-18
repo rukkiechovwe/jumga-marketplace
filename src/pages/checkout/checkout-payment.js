@@ -20,10 +20,12 @@ export default function CheckoutPayment() {
   const [orderId, setOrderId] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const totalAmount = useSelector(selectCartTotalAmount);
+  const currency = useSelector(selectCurrency);
+  const totalAmount = useSelector((state) =>
+    selectCartTotalAmount(state, currency)
+  );
   const merchant = useSelector(selectMerchant);
   const user = useSelector(selectUser);
-  const currency = useSelector(selectCurrency);
   const { cart } = useSelector(selectCart);
   const dispatch = useDispatch();
 

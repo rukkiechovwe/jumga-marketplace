@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getItem, setItem } from "../../helpers";
+import { getItem, getPriceInXCurrency, setItem } from "../../helpers";
 
 const initialState = {
   cart: [],
@@ -50,11 +50,12 @@ export const selectCartTotal = (state) => {
   }
   return total;
 };
-export const selectCartTotalAmount = (state) => {
+export const selectCartTotalAmount = (state, currency) => {
   let cart = state.cart.cart || [];
   let total = 0;
   for (const item of cart) {
-    total += item.price_ngn * item.quantity;
+    let price = getPriceInXCurrency(currency, item);
+    total += price.amount * item.quantity;
   }
   return total.toFixed(2);
 };

@@ -96,3 +96,23 @@ export function splitPayment(total, deliveryFee) {
   const jAmountForDelivery = parseFloat((deliveryFee * 0.2).toFixed(2)); // jumga amount from delivery fee
   return { merchantAmount, dispatcherAmount, jAmount, jAmountForDelivery };
 }
+
+export function getPriceInXCurrency(currency, product) {
+  let price = { currency, amount: product.priceNGN }; // defaults to NGN
+  switch (currency) {
+    case "GHS":
+      price.currency = "GHS";
+      price.amount = product.priceGHS;
+      break;
+    case "KES":
+      price.currency = "KES";
+      price.amount = product.priceKES;
+      break;
+    case "EUR":
+      price.currency = "EUR";
+      price.amount = product.priceEUR;
+      break;
+    default:
+  }
+  return price;
+}

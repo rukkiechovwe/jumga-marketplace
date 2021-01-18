@@ -1,9 +1,21 @@
 # Jumga Marketplace
 
-## APPS
+# APP
 
-- [Jumga](https://jumga.xyz) -> Uses flw test keys
-- [Jumga Admin](https://admin.jumga.xyz): -> Jumga admin showing sales, revenue and profit
+- [Jumga](https://jumga.xyz) -> Uses flw test keys, so only test cards would work
+
+<!-- - [Jumga Admin](https://admin.jumga.xyz): -> Jumga admin showing sales, revenue and profit -->
+
+# TECH STACK
+
+- Frontend
+  - ReactJs
+  - Redux
+  - Tailwindcss
+- Backend
+  - Firebase
+  - Nodejs (Express)
+  - Heroku
 
 ###### Test card information
 
@@ -14,6 +26,8 @@ Pin: 3310
 OTP: 12345
 WRONG OTP: 5548
 INSUFFICIENT FUNDS: 6648
+
+- more test cards [here](https://developer.flutterwave.com/docs/test-cards)
 
 <!-- TODO: Add delivery fee to create shop form -->
 <!--

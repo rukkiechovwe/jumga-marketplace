@@ -22,12 +22,10 @@ export const validatePayment = async (payload) => {
 export const exchangeRate = async (payload) => {
   const { from } = payload;
   const toOptions = ["NGN", "GHS", "KES", "EUR"];
-  const to = toOptions.filter((option) => option !== from);
-  payload.to = to;
+  payload.to = toOptions.filter((option) => option !== from);
   try {
     const res = await post("/exchange-rate", payload);
-    console.log(res);
-    if (res.status === "error") return { err: res.message };
+    if (res.status === "error" || res.err) return { err: res.message };
     return res;
   } catch (error) {
     return { err: error };

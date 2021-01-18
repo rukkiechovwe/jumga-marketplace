@@ -72,42 +72,50 @@ function Sales() {
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                    {dashboard.sales.map((sale) => {
-                      const {
-                        orderId,
-                        order,
-                        totalAmount,
-                        currency,
-                        status,
-                      } = sale;
-                      return (
-                        <tr>
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                              <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                  {orderId}
+                    {dashboard.sales &&
+                      dashboard.sales.map((sale) => {
+                        const {
+                          orderId,
+                          order,
+                          totalAmount,
+                          currency,
+                          status,
+                        } = sale;
+
+                        let total = 0;
+                        if (order && order.length) {
+                          order.forEach((item) => {
+                            total += item.quantity;
+                          });
+                        }
+                        return (
+                          <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                              <div class="flex items-center">
+                                <div class="ml-4">
+                                  <div class="text-sm font-medium text-gray-900">
+                                    {orderId}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">
-                              {currency} {formatToNumber(totalAmount)}
-                            </div>
-                          </td>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                              <div class="text-sm text-gray-900">
+                                {currency} {formatToNumber(totalAmount)}
+                              </div>
+                            </td>
 
-                          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {order && order.length}
-                          </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 rounded-full bg-green-100 text-green-800">
-                              {status}
-                            </span>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {total}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                              <span class="px-2 inline-flex text-xs leading-5 rounded-full bg-green-100 text-green-800">
+                                {status}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>

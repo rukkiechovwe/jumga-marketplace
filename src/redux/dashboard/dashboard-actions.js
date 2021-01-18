@@ -1,8 +1,9 @@
-import { fetchDashboard } from "../../api";
+import { fetchDashboard, fetchDashboardProducts } from "../../api";
 import {
   getDashboardInit,
   getDashboard,
   getDashboardFailed,
+  getProducts,
 } from "./dashboard-slice";
 
 export const getUserDashboard = (user) => async (dispatch) => {
@@ -17,6 +18,15 @@ export const getUserDashboard = (user) => async (dispatch) => {
       );
     } else {
       dispatch(getDashboard(dashboard));
+    }
+  }
+};
+export const getDashboardProducts = (user) => async (dispatch) => {
+  if (user) {
+    const products = await fetchDashboardProducts(user);
+    if (products.err) {
+    } else {
+      dispatch(getProducts(products));
     }
   }
 };

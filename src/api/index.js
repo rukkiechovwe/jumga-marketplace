@@ -15,6 +15,7 @@ import {
   db,
   auth,
   fetchDashboard,
+  fetchDashboardProducts,
 } from "./firebase";
 import { validatePayment, initPayment, exchangeRate } from "./flw";
 
@@ -27,6 +28,7 @@ export {
   uploadFile,
   placeCheckoutOrder,
   fetchProducts,
+  fetchDashboardProducts,
   fetchShops,
   passwordReset,
   userLogin,

@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { fetchProductById } from "../../api";
 import { Error, Loading, NavigationBar } from "../../components";
-import { getLastPathname } from "../../helpers";
+import { getLastPathname, getPriceInXCurrency } from "../../helpers";
+import { selectCurrency } from "../../redux/app/app-slice";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { addItemToCart, cartPipeline } from "../../redux/cart/cart-actions";
 import { selectCart, selectCartTotal } from "../../redux/cart/cart-slice";
@@ -14,6 +15,7 @@ function Product() {
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser);
   const total = useSelector(selectCartTotal);
+  const currency = useSelector(selectCurrency);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [product, setProduct] = useState({});
@@ -25,11 +27,10 @@ function Product() {
   const getProduct = async () => {
     setLoading(true);
     setError(false);
-    const product = await fetchProductById(getLastPathname(location.pathname));
+    let product = await fetchProductById(getLastPathname(location.pathname));
     if (product.err) {
       setError(true);
     } else {
-      // pipe through cart list to get quantity
       setProduct(cartPipeline(cart.cart, product));
     }
     setLoading(false);
@@ -38,7 +39,7 @@ function Product() {
   const handleProductQuantity = (action) => {
     switch (action) {
       case "add":
-        if (product.quantity < product.quantities_available) {
+        if (product.quantity < product.quantityAvailable) {
           let p = { ...product };
           p.quantity++;
           setProduct(p);
@@ -55,6 +56,8 @@ function Product() {
         break;
     }
   };
+  // pipe through exchange function
+  let price = getPriceInXCurrency(currency, product);
   return (
     <div>
       <NavigationBar user={user} totalInCart={total} />
@@ -67,15 +70,22 @@ function Product() {
         <div className="h-full md:h-screen w-full">
           <div className="h-full w-full flex flex-col md:flex-row items-start overflow-auto">
             <div className="h-full flex items-center justify-center w-full md:w-1/2 py-8 px-4">
-              <img className="w-1/2" src={product.images} alt={product.title} />
+              <img
+                className="w-1/2"
+                src={product.productImage}
+                alt={product.title}
+              />
             </div>
             <div className="w-full md:w-1/2 h-full bg-gray-800 text-white text-left">
               <div className="p-9 w-full h-full flex flex-col justify-center">
                 <p className="text-3xl font-semibold py-3">{product.title}</p>
                 <div className="flex items-center w-full py-3 justify-between">
-                  <p className="text-xl font-medium">NGN {product.price_ngn}</p>
+                  <p className="text-xl font-medium">
+                    {price && price.currency}{" "}
+                    {price && price.amount && price.amount.toFixed(2)}
+                  </p>
                   <p className="bg-green-400 px-2 text-white rounded-full py-1">
-                    {product.quantities_available} in stock
+                    {product.quantitiyAvailable} in stock
                   </p>
                 </div>
                 <div className="py-3 flex items-start flex-col">

@@ -1,19 +1,20 @@
 import React, { useReducer, useState } from "react";
-import { getFileSize, validateAddProductForm } from "../../../helpers";
+import { getFileSize, uuid, validateAddProductForm } from "../../../helpers";
 import { Dialog, InputError } from "../../../components";
-import { withRouter } from "react-router-dom";
+import { addProductToShop, uploadFile } from "../../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../../redux/authentication/auth-slice";
+import { getDashboardProducts } from "../../../redux/dashboard/dashboard-actions";
 
 const INITIAL_STATE = {
   title: "",
   description: "",
   price: "",
   quantityAvailable: "",
+  currency: "NGN",
 };
 
-function AddProduct(props) {
-  const {
-    match: { path },
-  } = props;
+function AddProduct() {
   const [drag, setDrag] = useState(false);
   const [productImage, setProductImage] = useState(null);
   const [inputError, setInputError] = useState({});
@@ -21,6 +22,8 @@ function AddProduct(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [product, dispatchInputEvent] = useReducer((state, action) => {
     switch (action.type) {
       case "GET_INPUT":
@@ -35,16 +38,24 @@ function AddProduct(props) {
 
   const addProduct = async () => {
     setError("");
-    setLoading(false);
+    setLoading(true);
     try {
-      //   const res = await placeCheckoutOrder(payload);
-      //   setShow(true);
-      //   setLoading(false);
-      //   if (res.err) {
-      //     setError(res.err ? res.err.toString() : "Something went wrong");
-      //   } else {
-      //     setStatus("success");
-      //   }
+      product.productId = uuid();
+      product.shopId = user.shopId;
+      product.productImage = await uploadFile(
+        product.productImage,
+        "products",
+        product.productId
+      );
+      const res = await addProductToShop(product);
+      setShow(true);
+      setLoading(false);
+      if (res.err) {
+        setError(res.err ? res.err.toString() : "Something went wrong");
+      } else {
+        dispatch(getDashboardProducts);
+        setStatus("success");
+      }
     } catch (error) {
       setError(error.toString());
     }
@@ -86,7 +97,7 @@ function AddProduct(props) {
         ) : (
           <Dialog
             state="failed"
-            title="Payment failed"
+            title="Error"
             message={error}
             callbackText="Try again"
             cancel={() => {
@@ -154,6 +165,7 @@ function AddProduct(props) {
               <select
                 defaultValue="NGN"
                 name="currency"
+                value={product.currency}
                 className="appearance-none p-2 focus:outline-none rounded border text-black"
                 onChange={(event) => {
                   event.persist();
@@ -167,7 +179,7 @@ function AddProduct(props) {
               </select>
               <input
                 className="w-full mt-4 phn:mt-0 ml-0 phn:ml-2 p-2 focus:outline-none rounded border text-black"
-                placeholder="Price"
+                placeholder="0.0"
                 name="price"
                 value={product.price}
                 onChange={(event) => {
@@ -239,7 +251,7 @@ function AddProduct(props) {
             className="w-44 phn:w-1/2 flex flex-row items-center justify-center px-4 bg-green-400 p-2 mt-8 rounded shadow-md text-white focus:outline-none"
           >
             <span className="text-sm">
-              {loading ? "Please wait" : "ADD PRODUCT"}
+              {loading ? "Please wait..." : "ADD PRODUCT"}
             </span>
           </button>
         </div>
@@ -248,4 +260,4 @@ function AddProduct(props) {
   );
 }
 
-export default withRouter(AddProduct);
+export default AddProduct;

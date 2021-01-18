@@ -4,7 +4,8 @@ import { useLocation } from "react-router-dom";
 import { fetchProducts } from "../../api";
 import { history } from "../../App";
 import { NavigationBar, Spacer, Loading, Error } from "../../components";
-import { getLastPathname } from "../../helpers";
+import { getLastPathname, getPriceInXCurrency } from "../../helpers";
+import { selectCurrency } from "../../redux/app/app-slice";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
 
@@ -15,6 +16,7 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [products, setProducts] = useState(null);
+  const currency = useSelector(selectCurrency);
 
   useEffect(() => {
     getProducts();
@@ -51,6 +53,7 @@ function Home() {
         )}
         {products &&
           products.map((product) => {
+            let price = getPriceInXCurrency(currency, product);
             return (
               <div
                 key={product.productId}
@@ -64,21 +67,21 @@ function Home() {
                     );
                   }}
                 >
-                  <div className="w-20">
+                  <div className="flex items-center">
                     <img
-                      className="w-full"
-                      src={product.images}
+                      className="w-28 h-28"
+                      src={product.productImage}
                       alt={product.title}
                       loading="eager"
                     />
                   </div>
-                  <p className="text-sm py-6 px-2">
-                    {product.title}
-                  </p>
+                  <p className="text-sm py-6 px-2">{product.title}</p>
                   <div className="flex justify-between items-center w-full">
-                    <p className="mr-2">NGN {product.price_ngn}</p>
+                    <p className="mr-2">
+                      {price.currency} {price.amount.toFixed(2)}
+                    </p>
                     <p className="bg-green-400 py-1 px-4 ml-2 text-white rounded-full">
-                      {product.quantities_available} in stock
+                      {product.quantityAavailable} in stock
                     </p>
                   </div>
                 </div>

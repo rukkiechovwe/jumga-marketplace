@@ -1,5 +1,7 @@
 import firebase from "../firebase-config";
 import { getRandomIndex } from "../helpers/";
+import { post } from "./api";
+import { exchangeRate } from "./flw";
 
 export const db = firebase.firestore();
 export const storage = firebase.storage();
@@ -96,8 +98,7 @@ export const fetchProducts = async (shopId) => {
   try {
     const res = await db
       .collection("products")
-      .where("shop_id", "==", shopId)
-      // .where("shopId", "==", shopId)
+      .where("shopId", "==", shopId)
       .get();
     const products = res.docs.map((p) => {
       return { ...p.data(), quantity: 0 };
@@ -123,11 +124,18 @@ export const fetchProductById = async (id) => {
   }
 };
 
-export const addProductToShop = async (product) => {
-  const { productId } = product;
+export const addProductToShop = async (payload) => {
+  const { productId, price, currency } = payload;
   try {
-    await db.collection("products").doc(productId).set(product);
-    return { product, err: null };
+    const res = await exchangeRate({ from: currency, amount: price });
+    if (res.status === "success") {
+      let product = { ...payload, ...res.data };
+      delete product.price;
+      await db.collection("products").doc(productId).set(product);
+      return { product, err: null };
+    } else {
+      return { err: res.err || "Something went wrong" };
+    }
   } catch (e) {
     return { err: e };
   }
@@ -290,10 +298,24 @@ export const fetchDashboard = async (user) => {
   }
 };
 
-// STORAGE API
-export const uploadFile = async (file, folder) => {
+export const fetchDashboardProducts = async (user) => {
+  const { shopId, isMerchant } = user;
   try {
-    let filename = `${folder}/${file.name}`;
+    let products;
+    if (isMerchant && products) {
+      products = await (
+        await db.collection("products").where("shopId", "==", shopId).get()
+      ).docs.map((product) => product.data());
+    }
+    return { products };
+  } catch (error) {
+    return { err: error };
+  }
+};
+// STORAGE API
+export const uploadFile = async (file, folder, id) => {
+  try {
+    let filename = id ? `${folder}/${id}` : `${folder}/${file.name}`;
     filename = filename.replace(/\s/g, "").trim();
     let fileReference = storage.ref().child(filename);
     await fileReference.put(file);

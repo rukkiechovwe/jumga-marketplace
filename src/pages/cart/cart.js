@@ -13,12 +13,17 @@ import {
   selectCartTotalAmount,
 } from "../../redux/cart/cart-slice";
 import { selectMerchant } from "../../redux/product/product-slice";
+import { selectCurrency } from "../../redux/app/app-slice";
+import { getPriceInXCurrency } from "../../helpers";
 
 export default function Cart() {
   const total = useSelector(selectCartTotal);
-  const totalAmount = useSelector(selectCartTotalAmount);
+  const currency = useSelector(selectCurrency);
   const user = useSelector(selectUser);
   const { cart } = useSelector(selectCart);
+  const totalAmount = useSelector((state) =>
+    selectCartTotalAmount(state, currency)
+  );
   const merchant = useSelector(selectMerchant);
   const dispatch = useDispatch();
   return (
@@ -41,13 +46,14 @@ export default function Cart() {
           </div>
         ) : (
           cart.map((item) => {
+            let price = getPriceInXCurrency(currency, item);
             return (
               <div className="w-full md:w-1/2 m-1 flex items-center ">
                 <div className="w-full mx-4 md:mx-0 p-0 phn:p-2 flex flex-row items-center justify-between bg-white rounded-md">
                   <div className="flex items-center w-full">
                     <img
                       className="w-20 p-2 object-contain"
-                      src={item.images}
+                      src={item.productImage}
                       alt={item.title}
                     />
                     <div>
@@ -62,7 +68,7 @@ export default function Cart() {
                         {item.title}
                       </p>
                       <span className="p-1 text-sm font-medium text-black">
-                        {item.quantity} x NGN {item.price_ngn}
+                        {item.quantity} x {currency} {price.amount.toFixed(2)}
                       </span>
                     </div>
                   </div>
@@ -151,7 +157,7 @@ export default function Cart() {
             <div className="w-full md:w-1/2 mt-4 flex flex-row items-center justify-end">
               <div className="flex flex-col items-end">
                 <span className="text-black text-lg mx-4">
-                  NGN {totalAmount}
+                  {currency} {totalAmount}
                 </span>
                 <span className="text-gray-500 text-sm mx-4">
                   Delivery fee included ( NGN 200 )

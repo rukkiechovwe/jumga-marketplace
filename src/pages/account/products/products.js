@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { history } from "../../../App";
-import { formatToNumber } from "../../../helpers";
+import { formatToNumber, getPriceInXCurrency } from "../../../helpers";
 import { selectDashboard } from "../../../redux/dashboard/dashboard-slice";
 
 function ShopProducts(props) {
@@ -108,53 +108,59 @@ function ShopProducts(props) {
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                    {dashboard.products.map((product) => {
-                      const {
-                        title,
-                        price,
-                        quantityAvailable,
-                        productId,
-                      } = product;
-                      return (
-                        <tr>
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                              <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                  {title}
+                    {dashboard.products &&
+                      dashboard.products.map((product) => {
+                        const {
+                          title,
+                          quantityAvailable,
+                          productId,
+                          currency,
+                        } = product;
+                        let price = getPriceInXCurrency(currency, product);
+                        return (
+                          <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                              <div class="flex items-center">
+                                <div class="ml-4">
+                                  <div class="text-sm font-medium text-gray-900">
+                                    {title}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{productId}</div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{price}</div>
-                          </td>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                              <div class="text-sm text-gray-900">
+                                {productId}
+                              </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                              <div class="text-sm text-gray-900">
+                                {currency} {price.amount}
+                              </div>
+                            </td>
 
-                          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {quantityAvailable}
-                          </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              className="text-red-600 h-5 w-5"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                              />
-                            </svg>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {quantityAvailable}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                className="text-red-600 h-5 w-5"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>

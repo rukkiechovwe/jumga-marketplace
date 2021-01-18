@@ -11,6 +11,7 @@ import {
   splitPayment,
   getRandomIndex,
   formatToNumber,
+  getPriceInXCurrency,
   clearLocalStorage,
 } from "./utils";
 
@@ -38,6 +39,7 @@ export {
   getUrlParam,
   getLastPathname,
   getFileSize,
+  getPriceInXCurrency,
   validateLoginForm,
   validateSignUpForm,
   validateRPForm,

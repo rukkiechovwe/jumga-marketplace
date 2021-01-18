@@ -18,7 +18,7 @@ app.use(cors());
 
 router.get("/", (req, res) => {
   res.json({
-    data: "Hello Human",
+    note: "Hello Human, How'd you get here ?",
   });
   res.end();
 });
