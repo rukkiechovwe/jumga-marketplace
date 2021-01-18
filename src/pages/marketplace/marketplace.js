@@ -10,21 +10,8 @@ import {
   selectProduct,
   setCurrentMerchant,
 } from "../../redux/product/product-slice";
-import Slider from "react-slick";
-import bannerA from "../../assets/images/banner-1.jpg";
-import bannerB from "../../assets/images/banner-2.jpg";
+import landingImg from "../../assets/images/landingImg.png";
 import { clearCart } from "../../redux/cart/cart-actions";
-
-const SETTINGS = {
-  dots: true,
-  infinite: true,
-  autoplay: true,
-  speed: 700,
-  autoplaySpeed: 4000,
-  cssEase: "linear",
-  slidesToShow: 1,
-  slidesToScroll: 1,
-};
 
 function Marketplace() {
   const dispatch = useDispatch();
@@ -49,28 +36,18 @@ function Marketplace() {
         <Loading />
       ) : (
         <div>
-          {/* carousel */}
-          <div className="width-full mr-20 ml-20 overflow-hidden">
-            <Slider {...SETTINGS}>
-              <div className="h-96 w-full flex items-center justify-center p-2">
-                <img
-                  className="h-full w-full object-contain"
-                  src={bannerA}
-                  alt="bannerA"
-                />
+          <div className="w-full overflow-hidden h-screen">
+            <div className="h-screen p-3 w-full flex flex-col items-center justify-center md:flex-row p-2">
+              <h1 className="w-full md:w-1/2 text-7xl px-10 text-left">
+                The #1 place to buy and sell online, Seriously.
+              </h1>
+              <div className="w-full md:w-1/2">
+                <img className="w-full" alt="landingImg" src={landingImg} />
               </div>
-              <div className="h-96 w-full flex items-center justify-center p-2">
-                <img
-                  className="h-full w-full object-contain"
-                  src={bannerB}
-                  alt="bannerA"
-                />
-              </div>
-            </Slider>
+            </div>
           </div>
-          {/* carousel */}
-          <p className="text-black text-xl text-left mb-8  ml-8 sm:ml-24 font-semibold">
-            Vendors
+          <p className="text-black text-lg text-left mb-8 uppercase ml-8 sm:ml-24 font-semibold">
+            vendors
           </p>
           <div className="flex flex-row w-full flex-wrap mx-4 sm:mx-6 md:mx-20">
             {product.shops &&
@@ -78,13 +55,15 @@ function Marketplace() {
                 return (
                   <div
                     key={shop.shopId}
-                    className="m2 mr-6 phn:m-4 flex-grow rounded-lg w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-sm border"
+                    className="m2 mr-6  phn:m-4 flex-grow rounded-lg w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-sm border"
                   >
                     <div
                       onClick={() => {
                         dispatch(setCurrentMerchant(shop));
-                        if (merchant.shopId !== shop.shopId)
-                          dispatch(clearCart());
+                        if (merchant) {
+                          if (merchant.shopId !== shop.shopId)
+                            dispatch(clearCart());
+                        }
                         history.push(`/vendors/${shop.shopId}`);
                       }}
                       className="cursor-pointer w-full"

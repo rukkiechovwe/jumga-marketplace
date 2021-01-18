@@ -51,8 +51,8 @@ function Dashboard() {
     <div className="">
       {user && user.isMerchant ? (
         <>
-          <div className="flex flex-col phn:flex-row justify-between w-full px-8 mt-8">
-            <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
+          <div className="flex flex-col phn:flex-row justify-between w-full px-3 phn:px-8 mt-8">
+            <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 m-2">
               <div className="h-full flex flex-row justify-between items-center px-8">
                 <div className="flex flex-col justify-start items-start">
                   <span className="text-xl text-black">
@@ -78,7 +78,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
+            <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 m-2">
               <div className="h-full flex flex-row justify-between items-center px-8">
                 <div className="flex flex-col justify-start items-start">
                   <span className="text-xl text-black">{salesCount}</span>
@@ -102,7 +102,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 mr-4 pr-0 md:pr-4 pb-4 md:pb-0">
+            <div className="w-full h-24 bg-white rounded-md shadow-sm md:w-1/2 m-2">
               <div className="h-full flex flex-row justify-between items-center px-8">
                 <div className="flex flex-col justify-start items-start">
                   <span className="text-xl text-black">{productsCount}</span>
