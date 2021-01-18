@@ -3,7 +3,7 @@ export default function Loading({ message = "Please wait..." }) {
     <div className="h-full flex flex-col justify-center items-center mt-44">
       <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
         <svg
-          className="animate-spin h-8 w-8 text-green-400"
+          className="animate-spin p-1 h-8 w-8 text-green-400"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"

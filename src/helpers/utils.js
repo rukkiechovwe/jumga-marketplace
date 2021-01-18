@@ -80,16 +80,8 @@ export const encrypt = (payload) => {
   return forge.util.encode64(encrypted.getBytes());
 };
 
-// export function formatDate(date) {
-//    return moment(date).format('MMMM Do YYYY, h:mm:ss a');
-// }
-
-export function download(content, fileName, contentType) {
-  var a = document.createElement("a");
-  var file = new Blob([content], { type: contentType });
-  a.href = URL.createObjectURL(file);
-  a.download = fileName;
-  a.click();
+export function formatToNumber(value) {
+  return new Intl.NumberFormat().format(value);
 }
 
 // this function splits the (payment and delivery amount) of an order into 4
@@ -98,9 +90,29 @@ export function download(content, fileName, contentType) {
 // 75% of the delivery fee goes to the dispatcher
 // 25% of the delivery fee goes to JUMGA
 export function splitPayment(total, deliveryFee) {
-  const vendorAmount = parseFloat((total * 0.975).toFixed(2));
+  const merchantAmount = parseFloat((total * 0.975).toFixed(2));
   const dispatcherAmount = parseFloat((deliveryFee * 0.8).toFixed(2));
   const jAmount = parseFloat((total * 0.025).toFixed(2)); // jumga amount
   const jAmountForDelivery = parseFloat((deliveryFee * 0.2).toFixed(2)); // jumga amount from delivery fee
-  return { vendorAmount, dispatcherAmount, jAmount, jAmountForDelivery };
+  return { merchantAmount, dispatcherAmount, jAmount, jAmountForDelivery };
+}
+
+export function getPriceInXCurrency(currency, product) {
+  let price = { currency, amount: product.priceNGN }; // defaults to NGN
+  switch (currency) {
+    case "GHS":
+      price.currency = "GHS";
+      price.amount = product.priceGHS;
+      break;
+    case "KES":
+      price.currency = "KES";
+      price.amount = product.priceKES;
+      break;
+    case "EUR":
+      price.currency = "EUR";
+      price.amount = product.priceEUR;
+      break;
+    default:
+  }
+  return price;
 }

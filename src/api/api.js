@@ -1,7 +1,7 @@
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "https://us-central1-jumga-marketplace.cloudfunctions.net/jumga-marketplace/us-central1"
-    : "http://localhost:5001/jumga-marketplace/us-central1";
+    ? "https://cryptic-everglades-67691.herokuapp.com/api"
+    : "http://localhost:8080/api";
 const BASENAME =
   process.env.NODE_ENV === "production"
     ? "https://jumga.xyz"
@@ -12,11 +12,17 @@ const sendHttpRequest = async (method, endpoint, data) => {
     if (method === "GET" || method === "DELETE") {
       const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       return await response.json();
     }
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     });
     return await response.json();

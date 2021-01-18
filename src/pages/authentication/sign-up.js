@@ -32,7 +32,7 @@ export default function Signup() {
         ></div>
       </div>
       <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-white h-full">
-        <div className="p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
+        <div className="p-0 sm:p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
           <div className="py-8">
             <h2 className="text-4xl">SignUp</h2>
             <p className="text-gray-500 py-1">Create an account to continue</p>
@@ -125,7 +125,7 @@ export default function Signup() {
             <button
               className={`px-4 ${
                 hasAgreedToTerms ? `bg-green-400` : `bg-green-300`
-              } p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg hover:bg-green-300 transition duration-500 ease-in-out`}
+              } p-2 my-3 rounded-full text-white focus:outline-none hover:shadow-lg transition duration-500 ease-in-out`}
               type="submit"
             >
               {auth.isLoading ? "Please wait..." : "SIGNUP"}

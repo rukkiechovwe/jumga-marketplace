@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import { history } from "../../App";
 import storeImg from "../../assets/images/storeImg.jpg";
-import { createPendingShop } from "../../api/shop";
+import { createPendingShop,uploadFile } from "../../api";
 import {
   getFileSize,
   uuid,
@@ -10,7 +10,6 @@ import {
   validateCreateShopForm,
 } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
-import { uploadFile } from "../../api/firebase";
 import { Alert, InputError } from "../../components";
 import "../../bg-color.css";
 
@@ -70,9 +69,9 @@ export default function CreateShop() {
         ></div>
       </div>
       <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-white h-full">
-        <div className="p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
-          <div className="py-8">
-            <h2 className="text-4xl">Create Store</h2>
+        <div className="p-0 sm:p-9 w-full h-full relative flex flex-col items-center justify-center text-left sm:text-center">
+          <div className="py-4 sm:py-8 text-center">
+            <h2 className="text-3xl phn:text-4xl">Create Store</h2>
             <span className="text-gray-500 text-sm">Step 1 of 2</span>
           </div>
           <form

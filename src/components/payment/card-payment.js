@@ -45,14 +45,14 @@ export default function CardPayment({
         break;
       default:
         setStep(0);
-        onPaymentFailed(res);
+        onPaymentFailed(res.res ?? "Payment failed, Try again");
     }
   };
   return (
     <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-gray-800 text-white h-full">
-      <div className="p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
-        <div className="py-8">
-          <h2 className="text-4xl ">{`${label && `${label} | `}`}Payment</h2>
+      <div className="p-0 sm:p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
+        <div className="p-4 sm:py-8">
+          <h2 className="text-3xl phn:text-4xl ">{`${label && `${label} | `}`}Payment</h2>
           <span className="text-gray-500 text-sm">
             {note && note} {`${stepNote && `( ${stepNote.toUpperCase()} )`}`}
           </span>

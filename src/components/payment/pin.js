@@ -1,8 +1,7 @@
 import { useState } from "react";
 import PinInput from "react-pin-input";
 import { useSelector } from "react-redux";
-import { BASENAME } from "../../api";
-import { initPayment } from "../../api/payment";
+import { BASENAME, initPayment } from "../../api";
 import { encrypt, getReference } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 

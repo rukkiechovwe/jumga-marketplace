@@ -3,8 +3,9 @@ import { getItem, setItem } from "../../helpers";
 
 const initialState = {
   products: null,
+  merchantProduct: null,
   shops: null,
-  currentVendor: null,
+  currentMerchant: null,
   isLoading: false,
   error: false,
   message: "",
@@ -36,25 +37,25 @@ export const productSlice = createSlice({
       state.error = true;
       state.message = action.payload;
     },
-    getCurrentVendor: (state, action) => {
-      state.currentVendor = action.payload || getItem("vendor", "session");
+    getCurrentMerchant: (state, action) => {
+      state.currentMerchant = action.payload || getItem("merchant", "session");
     },
-    setCurrentVendor: (state, action) => {
-      setItem("vendor", action.payload, "session");
-      state.currentVendor = action.payload;
+    setCurrentMerchant: (state, action) => {
+      setItem("merchant", action.payload, "session");
+      state.currentMerchant = action.payload;
     },
   },
 });
 
 export const selectProduct = (state) => state.product;
-export const selectVendor = (state) => state.product.currentVendor;
+export const selectMerchant = (state) => state.product.currentMerchant;
 export const {
   getProductInit,
   getProductsSuccess,
   getProductsFailed,
   getShopsSuccess,
   getShopsFailed,
-  getCurrentVendor,
-  setCurrentVendor,
+  getCurrentMerchant,
+  setCurrentMerchant,
 } = productSlice.actions;
 export default productSlice.reducer;

@@ -1,13 +1,7 @@
-import {
-  createUser,
-  passwordReset,
-  userLogin,
-  db,
-  auth,
-} from "../../api/firebase";
+import { createUser, passwordReset, userLogin, db, auth } from "../../api";
 import { history } from "../../App";
 import { getUrlParam } from "../../helpers";
-import { getCart } from "../cart/cart-slice";
+
 import {
   getUserSuccess,
   getUserFailed,

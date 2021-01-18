@@ -11,7 +11,6 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "autoprefixer": "^9.8.6",
-    "crypto-js": "^4.0.0",
     "firebase": "^8.2.1",
     "node-forge": "^0.10.0",
     "postcss": "^7.0.35",
@@ -30,7 +29,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "yarn build; firebase deploy --only hosting;git subtree push --prefix server heroku main"
   },
   "eslintConfig": {
     "extends": "react-app"
