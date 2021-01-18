@@ -44,7 +44,7 @@ function Home() {
           message={error || `Something went wrong, it's not you, it's us.`}
         />
       )}
-      <div className="flex flex-wrap p-5 w-full">
+      <div className="flex flex-wrap p-2 sm:p-5 w-full">
         {products && products.length === 0 && (
           <span className="w-full h-screen text-center text-black">
             No Product available on this store, check back later while we notify
