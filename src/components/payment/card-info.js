@@ -1,6 +1,11 @@
 import { useReducer, useState } from "react";
 import { initPayment, BASENAME } from "../../api";
-import { encrypt, getReference, validatePaymentForm } from "../../helpers";
+import {
+  encrypt,
+  formatToNumber,
+  getReference,
+  validatePaymentForm,
+} from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { useSelector } from "react-redux";
 import Alert from "../alert/alert";
@@ -124,7 +129,9 @@ export default function CardInfo({ currency, amount, onSuccess }) {
         className="px-4 bg-green-400 p-2 my-3 rounded-full text-white focus:outline-none"
         type="submit"
       >
-        {loading ? "Please wait..." : `PAY ${currency} ${amount}`}
+        {loading
+          ? "Please wait..."
+          : `PAY ${currency} ${formatToNumber(amount)}`}
       </button>
     </form>
   );

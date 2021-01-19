@@ -54,8 +54,8 @@ function AddProduct() {
       if (res.err) {
         setError(res.err ? res.err.toString() : "Something went wrong");
       } else {
-        dispatch(getUser());
-        dispatch(getDashboardProducts());
+        // dispatch(getUser());
+        // dispatch(getDashboardProducts());
         setStatus("success");
       }
     } catch (error) {

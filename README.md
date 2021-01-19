@@ -4,8 +4,6 @@
 
 - [Jumga](https://jumga.xyz) -> Uses flw test keys, so only test cards would work
 
-<!-- - [Jumga Admin](https://admin.jumga.xyz): -> Jumga admin showing sales, revenue and profit -->
-
 # TECH STACK
 
 - Frontend
@@ -28,8 +26,6 @@
 - INSUFFICIENT FUNDS: 6648
 
 - More cards from [flw](https://developer.flutterwave.com/docs/test-cards)
-
-<!-- TODO: Add delivery fee to create shop form -->
 <!--
  Card validation
  https://www.w3resource.com/javascript/form/credit-card-validation.php

@@ -12,7 +12,11 @@ import {
   selectCartTotal,
   selectCartTotalAmount,
 } from "../../redux/cart/cart-slice";
-import { getNextRoute, selectCurrency } from "../../redux/app/app-slice";
+import {
+  getNextRoute,
+  selectCurrency,
+  selectDeliveryFee,
+} from "../../redux/app/app-slice";
 import {
   formatToNumber,
   getFeeInXCurrency,
@@ -20,23 +24,17 @@ import {
 } from "../../helpers";
 import { useLocation } from "react-router-dom";
 
-const DELIVERY_FEE = {
-  NGN: 2000,
-  EUR: 4.34,
-  KES: 577.75,
-  GHS: 30.59,
-};
-
 export default function Cart() {
   const location = useLocation();
   const total = useSelector(selectCartTotal);
   const currency = useSelector(selectCurrency);
   const user = useSelector(selectUser);
   const { cart } = useSelector(selectCart);
+  const dispatch = useDispatch();
   const totalAmount = useSelector((state) =>
     selectCartTotalAmount(state, currency)
   );
-  const dispatch = useDispatch();
+  const DELIVERY_FEE = useSelector(selectDeliveryFee);
   const fee = getFeeInXCurrency(currency, DELIVERY_FEE);
   return (
     <div className="h-full md:h-screen ">

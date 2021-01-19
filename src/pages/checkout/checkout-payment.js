@@ -5,11 +5,11 @@ import { placeCheckoutOrder } from "../../api";
 import { history } from "../../App";
 import storeImg from "../../assets/images/storeImg.jpg";
 import { CardPayment, Dialog, Error } from "../../components";
-import { getReference, splitPayment } from "../../helpers";
+import { getFeeInXCurrency, getReference, splitPayment } from "../../helpers";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCart, selectCartTotalAmount } from "../../redux/cart/cart-slice";
 import { selectMerchant } from "../../redux/product/product-slice";
-import { selectCurrency } from "../../redux/app/app-slice";
+import { selectCurrency, selectDeliveryFee } from "../../redux/app/app-slice";
 import { clearCart } from "../../redux/cart/cart-actions";
 
 export default function CheckoutPayment() {
@@ -20,13 +20,15 @@ export default function CheckoutPayment() {
   const [orderId, setOrderId] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const merchant = useSelector(selectMerchant);
+  const user = useSelector(selectUser);
+  const { cart } = useSelector(selectCart);
   const currency = useSelector(selectCurrency);
   const totalAmount = useSelector((state) =>
     selectCartTotalAmount(state, currency)
   );
-  const merchant = useSelector(selectMerchant);
-  const user = useSelector(selectUser);
-  const { cart } = useSelector(selectCart);
+  const DELIVERY_FEE = useSelector(selectDeliveryFee);
+  const fee = getFeeInXCurrency(currency, DELIVERY_FEE);
   const dispatch = useDispatch();
 
   const placeOrder = async (response) => {
@@ -38,9 +40,9 @@ export default function CheckoutPayment() {
       dispatcherId: merchant && merchant.dispatcherId,
       address: address,
       order: cart,
-      totalAmount: totalAmount,
+      totalAmount: parseFloat(totalAmount) + fee.amount,
       currency: currency,
-      ...splitPayment(totalAmount, merchant.deliveryFee || 0),
+      ...splitPayment(totalAmount, fee.amount),
     };
     try {
       const res = await placeCheckoutOrder(payload);
@@ -102,7 +104,7 @@ export default function CheckoutPayment() {
           <CardPayment
             label="Checkout"
             note="Complete your order"
-            amount={totalAmount}
+            amount={parseFloat(totalAmount) + fee.amount}
             currency={currency}
             loading={loading}
             onPaymentFailed={(response) => {

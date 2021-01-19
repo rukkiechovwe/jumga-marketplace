@@ -3,6 +3,12 @@ import { getItem, setItem } from "../../helpers";
 
 const initialState = {
   currency: "NGN",
+  DELIVERY_FEE: {
+    NGN: 2000,
+    EUR: 4.34,
+    KES: 577.75,
+    GHS: 30.59,
+  },
 };
 export const appSlice = createSlice({
   name: "app",
@@ -23,5 +29,6 @@ export const appSlice = createSlice({
 
 export const selectNextRoute = (state) => state.app.nextRoute;
 export const selectCurrency = (state) => state.app.currency;
+export const selectDeliveryFee = (state) => state.app.DELIVERY_FEE;
 export const { getNextRoute, setCurrency, getCurrency } = appSlice.actions;
 export default appSlice.reducer;
