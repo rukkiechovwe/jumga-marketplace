@@ -54,8 +54,8 @@ function AddProduct() {
       if (res.err) {
         setError(res.err ? res.err.toString() : "Something went wrong");
       } else {
-        dispatch(getUser);
-        dispatch(getDashboardProducts);
+        dispatch(getUser());
+        dispatch(getDashboardProducts());
         setStatus("success");
       }
     } catch (error) {
@@ -85,6 +85,8 @@ function AddProduct() {
               Product was successfully added to store and would be available on jumga immediately
             `}
             callbackText="Add New Product"
+            cancelText="Awesome"
+            hasCancel
             cancel={() => {
               setShow(false);
               setStatus("");
@@ -97,21 +99,21 @@ function AddProduct() {
             }}
           />
         ) : (
-            <Dialog
-              state="failed"
-              title="Error"
-              message={error}
-              callbackText="Try again"
-              cancel={() => {
-                setShow(false);
-                setStatus("");
-              }}
-              callback={() => {
-                setShow(false);
-                setStatus("");
-              }}
-            />
-          )
+          <Dialog
+            state="failed"
+            title="Error"
+            message={error}
+            callbackText="Try again"
+            cancel={() => {
+              setShow(false);
+              setStatus("");
+            }}
+            callback={() => {
+              setShow(false);
+              setStatus("");
+            }}
+          />
+        )
       ) : null}
       <div className="w-full px-3 phn:px-8 my-4">
         <div class="flex flex-col w-full justify-center items-center">
@@ -196,8 +198,9 @@ function AddProduct() {
             Product Image
           </label>
           <div
-            className={`w-ful sm:w-1/2 p-2 my-3 cursor-pointer flex items-center justify-center rounded-lg border-2 border-dashed ${drag ? "border-green-400" : "border-gray-200"
-              } text-sm font-medium py-4`}
+            className={`w-ful sm:w-1/2 p-2 my-3 cursor-pointer flex items-center justify-center rounded-lg border-2 border-dashed ${
+              drag ? "border-green-400" : "border-gray-200"
+            } text-sm font-medium py-4`}
             onDragOver={(event) => {
               event.preventDefault();
               setDrag(true);

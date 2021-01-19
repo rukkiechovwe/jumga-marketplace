@@ -46,10 +46,10 @@ function Marketplace() {
               </div>
             </div>
           </div>
-          <p className="text-black text-lg text-left mb-8 uppercase ml-8 sm:ml-24 font-semibold">
+          <p className="text-black text-lg text-left mb-8 uppercase ml-8 sm:ml-24 font-bold">
             vendors
           </p>
-          <div className="flex flex-row w-full flex-wrap mx-4 sm:mx-6 md:mx-20">
+          <div className="flex flex-row w-full flex-wrap mx-4 sm:mx-6 md:mx-20 mb-20">
             {product.shops &&
               product.shops.map((shop) => {
                 return (
@@ -70,7 +70,7 @@ function Marketplace() {
                     >
                       <div className="w-full">
                         <img
-                          className="w-full h-56"
+                          className="w-full h-56 object-cover"
                           src={shop.featuredImage}
                           alt={shop.title}
                           loading="eager"

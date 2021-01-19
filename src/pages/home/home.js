@@ -4,7 +4,11 @@ import { useLocation } from "react-router-dom";
 import { fetchProducts } from "../../api";
 import { history } from "../../App";
 import { NavigationBar, Spacer, Loading, Error } from "../../components";
-import { getLastPathname, getPriceInXCurrency } from "../../helpers";
+import {
+  formatToNumber,
+  getLastPathname,
+  getPriceInXCurrency,
+} from "../../helpers";
 import { selectCurrency } from "../../redux/app/app-slice";
 import { selectUser } from "../../redux/authentication/auth-slice";
 import { selectCartTotal } from "../../redux/cart/cart-slice";
@@ -45,13 +49,14 @@ function Home() {
         />
       )}
       <div className="flex flex-wrap p-2 sm:p-5 w-full">
-        {products && products.length === 0 && (
+        {!loading && products && products.length === 0 && (
           <span className="w-full h-screen text-center text-black">
             No Product available on this store, check back later while we notify
             the merchant.
           </span>
         )}
-        {products &&
+        {!loading &&
+          products &&
           products.map((product) => {
             let price = getPriceInXCurrency(currency, product);
             return (
@@ -67,18 +72,16 @@ function Home() {
                     );
                   }}
                 >
-                  <div className="flex items-center">
-                    <img
-                      className="w-28 h-28"
-                      src={product.productImage}
-                      alt={product.title}
-                      loading="eager"
-                    />
-                  </div>
+                  <img
+                    className="w-full h-40 object-contain"
+                    src={product.productImage}
+                    alt={product.title}
+                    loading="eager"
+                  />
                   <p className="text-sm py-6 px-2">{product.title}</p>
                   <div className="flex justify-between items-center w-full">
                     <p className="mr-2">
-                      {price.currency} {price.amount.toFixed(2)}
+                      {price.currency} {formatToNumber(price.amount.toFixed(2))}
                     </p>
                     <p className="bg-green-400 py-1 px-4 ml-2 text-white rounded-full">
                       {product.quantityAvailable} in stock

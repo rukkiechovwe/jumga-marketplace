@@ -12,11 +12,23 @@ import {
   selectCartTotal,
   selectCartTotalAmount,
 } from "../../redux/cart/cart-slice";
-import { selectMerchant } from "../../redux/product/product-slice";
-import { selectCurrency } from "../../redux/app/app-slice";
-import { getPriceInXCurrency } from "../../helpers";
+import { getNextRoute, selectCurrency } from "../../redux/app/app-slice";
+import {
+  formatToNumber,
+  getFeeInXCurrency,
+  getPriceInXCurrency,
+} from "../../helpers";
+import { useLocation } from "react-router-dom";
+
+const DELIVERY_FEE = {
+  NGN: 2000,
+  EUR: 4.34,
+  KES: 577.75,
+  GHS: 30.59,
+};
 
 export default function Cart() {
+  const location = useLocation();
   const total = useSelector(selectCartTotal);
   const currency = useSelector(selectCurrency);
   const user = useSelector(selectUser);
@@ -24,8 +36,8 @@ export default function Cart() {
   const totalAmount = useSelector((state) =>
     selectCartTotalAmount(state, currency)
   );
-  const merchant = useSelector(selectMerchant);
   const dispatch = useDispatch();
+  const fee = getFeeInXCurrency(currency, DELIVERY_FEE);
   return (
     <div className="h-full md:h-screen ">
       <NavigationBar user={user} totalInCart={total} />
@@ -33,13 +45,13 @@ export default function Cart() {
         {cart.length === 0 ? (
           <div className="w-full h-full flex flex-col justify-center items-center mt-20">
             <img src={emptySvg} className="object-contain h-80 w-80" />
-            <p className="w-full text-center">No item in cart</p>
+            <p className="w-full text-center text-lg">Your cart is empty!</p>
             <button
               type="button"
               onClick={() => {
                 history.replace("/");
               }}
-              className="w-auto inline-flex justify-center rounded-md border border-transparent shadow-sm mt-4 px-4 py-2 bg-green-400 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
+              className="w-auto inline-flex justify-center rounded-lg border border-transparent shadow-lg mt-4 px-4 py-2 bg-green-400 text-base text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
             >
               START SHOPPING
             </button>
@@ -68,7 +80,8 @@ export default function Cart() {
                         {item.title}
                       </p>
                       <span className="p-1 text-sm font-medium text-black">
-                        {item.quantity} x {currency} {price.amount.toFixed(2)}
+                        {item.quantity} x {currency}{" "}
+                        {formatToNumber(price.amount.toFixed(2))}
                       </span>
                     </div>
                   </div>
@@ -157,10 +170,12 @@ export default function Cart() {
             <div className="w-full md:w-1/2 mt-4 flex flex-row items-center justify-end">
               <div className="flex flex-col items-end">
                 <span className="text-black text-lg mx-4">
-                  {currency} {totalAmount}
+                  {currency}{" "}
+                  {`${formatToNumber(parseFloat(totalAmount) + fee.amount)}`}
                 </span>
                 <span className="text-gray-500 text-sm mx-4">
-                  Delivery fee included ( NGN 200 )
+                  Delivery fee included ({" "}
+                  {`${fee.currency} ${formatToNumber(fee.amount)}`} )
                 </span>
               </div>
             </div>
@@ -168,7 +183,12 @@ export default function Cart() {
               <button
                 type="button"
                 onClick={() => {
-                  history.push("/checkout/address?step=1");
+                  if (user) {
+                    history.push("/checkout/address?step=1");
+                  } else {
+                    dispatch(getNextRoute(location.pathname));
+                    history.push(`/login?from=${location.pathname}`);
+                  }
                 }}
                 className="w-60 md:w-auto rounded-md border border-transparent shadow-sm mt-2 mx-3 md:mx-0 px-4 py-2 bg-green-400 text-base font-medium text-white  hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm"
               >

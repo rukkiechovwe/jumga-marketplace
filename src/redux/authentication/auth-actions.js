@@ -29,8 +29,9 @@ export const getUser = () => async (dispatch) => {
   });
 };
 
-export const authenticateUser = (user, authType) => async (dispatch) => {
+export const authenticateUser = (user, authType, next) => async (dispatch) => {
   dispatch(authActionStarted());
+  console.log(next);
   const res =
     authType === "login"
       ? await userLogin(user.email, user.password)
@@ -39,7 +40,7 @@ export const authenticateUser = (user, authType) => async (dispatch) => {
     dispatch(authFailed(res.err.message));
   } else {
     dispatch(authSuccess(res.user));
-    history.push(getUrlParam("from"));
+    history.push(next || getUrlParam("from"));
   }
 };
 

@@ -12,6 +12,7 @@ import {
   getRandomIndex,
   formatToNumber,
   getPriceInXCurrency,
+  getFeeInXCurrency,
   clearLocalStorage,
 } from "./utils";
 
@@ -40,6 +41,7 @@ export {
   getLastPathname,
   getFileSize,
   getPriceInXCurrency,
+  getFeeInXCurrency,
   validateLoginForm,
   validateSignUpForm,
   validateRPForm,

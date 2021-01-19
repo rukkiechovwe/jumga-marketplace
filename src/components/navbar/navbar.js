@@ -3,7 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import Avatar from "../avatar/avatar";
 import logo from "../../assets/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrency, setCurrency } from "../../redux/app/app-slice";
+import {
+  getNextRoute,
+  selectCurrency,
+  setCurrency,
+} from "../../redux/app/app-slice";
 
 function NavigationBar(props) {
   const location = useLocation();
@@ -87,9 +91,11 @@ function NavigationBar(props) {
                   </span>
                 )}
               </Link>
-              {user && !user.isMerchant && (
+              {user && user.isMerchant ? (
+                <></>
+              ) : (
                 <Link
-                  to={`/sell`}
+                  to={user ? `/sell` : `/login?from=${location.pathname}`}
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Sell
@@ -101,6 +107,9 @@ function NavigationBar(props) {
                     ? `/account/dashboard`
                     : `/login?from=${location.pathname}`
                 }
+                onClick={() => {
+                  dispatch(getNextRoute(location.pathname));
+                }}
                 className="flex flex-row items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 {user ? "My Account" : "Login"}

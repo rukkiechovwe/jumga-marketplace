@@ -97,7 +97,7 @@ export function splitPayment(total, deliveryFee) {
   return { merchantAmount, dispatcherAmount, jAmount, jAmountForDelivery };
 }
 
-export function getPriceInXCurrency(currency, product) {
+export function getPriceInXCurrency(currency, product, isFee) {
   let price = { currency, amount: product.priceNGN }; // defaults to NGN
   switch (currency) {
     case "GHS":
@@ -115,4 +115,23 @@ export function getPriceInXCurrency(currency, product) {
     default:
   }
   return price;
+}
+export function getFeeInXCurrency(currency, deliveryFee) {
+  let fee = { currency, amount: deliveryFee.NGN }; // defaults to NGN
+  switch (currency) {
+    case "GHS":
+      fee.currency = "GHS";
+      fee.amount = deliveryFee.GHS;
+      break;
+    case "KES":
+      fee.currency = "KES";
+      fee.amount = deliveryFee.KES;
+      break;
+    case "EUR":
+      fee.currency = "EUR";
+      fee.amount = deliveryFee.EUR;
+      break;
+    default:
+  }
+  return fee;
 }

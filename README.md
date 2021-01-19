@@ -17,17 +17,17 @@
   - Nodejs (Express)
   - Heroku
 
-###### Test card information
+### Test Card Information
 
-Card number: 5531886652142950
-cvv: 564
-Expiry: 09/32
-Pin: 3310
-OTP: 12345
-WRONG OTP: 5548
-INSUFFICIENT FUNDS: 6648
+- Card number: 5531886652142950
+- Cvv: 564
+- Expiry: 09/32
+- Pin: 3310
+- OTP: 12345
+- WRONG OTP: 5548
+- INSUFFICIENT FUNDS: 6648
 
-- more test cards [here](https://developer.flutterwave.com/docs/test-cards)
+- More cards from [flw](https://developer.flutterwave.com/docs/test-cards)
 
 <!-- TODO: Add delivery fee to create shop form -->
 <!--

@@ -7,10 +7,12 @@ import { Alert, InputError } from "../../components";
 import loginImg from "../../assets/images/loginImg.jpg";
 import { validateSignUpForm } from "../../helpers";
 import "../../bg-color.css";
+import { selectNextRoute } from "../../redux/app/app-slice";
 
 export default function Signup() {
-  const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const auth = useSelector(selectAuth);
+  const nextRoute = useSelector(selectNextRoute);
   const [error, setError] = useState({});
   const [hasAgreedToTerms, setHasAgreedToTerms] = useState(false);
   const [signup, dispatchInputEvent] = useReducer((state, action) => {
@@ -47,7 +49,7 @@ export default function Signup() {
               } else {
                 setError({});
                 if (hasAgreedToTerms)
-                  dispatch(authenticateUser(signup, "signup"));
+                  dispatch(authenticateUser(signup, "signup", nextRoute));
               }
             }}
           >

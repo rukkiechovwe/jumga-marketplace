@@ -8,4 +8,9 @@
     font-family: Brfirma;
     src: url("./assets/BRFirma-Regular.ttf");
   }
+  @font-face {
+    font-family: Brfirma;
+    font-weight: bold;
+    src: url("./assets/BRFirma-SemiBold.ttf");
+  }
 }

@@ -13,8 +13,6 @@ import { Marketplace } from "./pages/marketplace";
 import { CreateShop, SellOnboarding, ShopPayment } from "./pages/sell";
 import { Dashboard } from "./pages/account";
 import { getCurrentMerchant } from "./redux/product/product-slice";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { getCurrency } from "./redux/app/app-slice";
 
 export const history = createBrowserHistory();
