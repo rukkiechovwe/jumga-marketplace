@@ -87,8 +87,8 @@ export function formatToNumber(value) {
 // this function splits the (payment and delivery amount) of an order into 4
 // 97.5% of the payment amount goes to the shop
 // 2.5% of the payment amount goes to JUMGA
-// 75% of the delivery fee goes to the dispatcher
-// 25% of the delivery fee goes to JUMGA
+// 80% of the delivery fee goes to the dispatcher
+// 20% of the delivery fee goes to JUMGA
 export function splitPayment(total, deliveryFee) {
   const merchantAmount = parseFloat((total * 0.975).toFixed(2));
   const dispatcherAmount = parseFloat((deliveryFee * 0.8).toFixed(2));

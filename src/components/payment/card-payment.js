@@ -4,6 +4,16 @@ import CardOtp from "./otp";
 import CardAddress from "./address";
 import CardInfo from "./card-info";
 
+/**
+ *
+ * @param amount - the amount to charge card eg 2000
+ * @param currency - the currency to charge the card eg EUR
+ * @param label - label ie what the payment is for eg, Payment for Laptop
+ * @param note - payment note
+ * @param onPaymentSuccess - called when the payment is successful
+ * @param onPaymentFailed - called when the payment failed
+ *
+ */
 export default function CardPayment({
   amount,
   label,
@@ -34,6 +44,7 @@ export default function CardPayment({
         setStep(2);
         break;
       case "redirect":
+        // call the "validate-charge" api instead
         setStep(3);
         // const redirectURL = res.res.meta.authorization.redirect;
         // const extWindow = window.open(redirectURL, "_blank");
@@ -52,7 +63,9 @@ export default function CardPayment({
     <div className="w-full sm:w-1/2 absolute right-0 top-0 bg-gray-800 text-white h-full">
       <div className="p-0 sm:p-9 w-full h-full relative flex flex-col items-center justify-center text-center">
         <div className="p-4 sm:py-8">
-          <h2 className="text-3xl phn:text-4xl ">{`${label && `${label} | `}`}Payment</h2>
+          <h2 className="text-3xl phn:text-4xl ">
+            {`${label && `${label} | `}`}Payment
+          </h2>
           <span className="text-gray-500 text-sm">
             {note && note} {`${stepNote && `( ${stepNote.toUpperCase()} )`}`}
           </span>
