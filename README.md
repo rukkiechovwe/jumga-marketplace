@@ -1,8 +1,6 @@
 # Jumga Marketplace
 
-- [Jumga](https://jumga.xyz) -> Uses flw test keys, See [cards](https://github.com/Iamstanlee/jumga-marketplace#test-card-information) for testing
-
-- [Jumga Admin](https://jumga.xyz/admin) -> Shows revenue and profit made by jumga, password to access this route is `password`, lol.
+- [Jumga App](https://jumga.xyz) -> Uses flw test keys, See [cards](https://github.com/Iamstanlee/jumga-marketplace#test-card-information) for testing
 
 ### Tech Stack
 

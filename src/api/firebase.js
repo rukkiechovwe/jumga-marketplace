@@ -312,6 +312,7 @@ export const fetchDashboardProducts = async (user) => {
     return { err: error };
   }
 };
+
 // STORAGE API
 export const uploadFile = async (file, folder, id) => {
   try {

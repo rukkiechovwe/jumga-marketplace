@@ -62,7 +62,7 @@ export default function Cart() {
                 <div className="w-full mx-4 md:mx-0 p-0 phn:p-2 flex flex-row items-center justify-between bg-white rounded-md">
                   <div className="flex items-center w-full">
                     <img
-                      className="w-20 p-2 object-contain"
+                      className="w-24 max-h-24 p-2 object-contain"
                       src={item.productImage}
                       alt={item.title}
                     />
