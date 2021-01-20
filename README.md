@@ -1,7 +1,5 @@
 # Jumga Marketplace
 
-## App
-
 - [Jumga](https://jumga.xyz) -> Uses flw test keys, See [cards](https://github.com/Iamstanlee/jumga-marketplace#test-card-information) for testing
 
 - [Jumga Admin](https://jumga.xyz/admin) -> Shows revenue and profit made by jumga, password to access this route is `password`, lol.
@@ -23,7 +21,7 @@ This app works like every other online marketplaces out there,
 **Merchants** can register for an account, create a store and start selling and **Buyers** can
 register as well, shop and place orders. Though this is an MVP version with alot of features missing, A detailed workflow of the app can be found on [figma](https://www.figma.com/file/6iGYkgIDuOTrT9F9Za8zkd/Jumga?node-id=0%3A1)
 
-#### Key Features
+### Key Features
 
 - Basic ecommerce functionalities
 - Buy and sell
@@ -34,8 +32,8 @@ register as well, shop and place orders. Though this is an MVP version with alot
 - The backend/database runs on firebase
 - For security, The payment request is processed on the nodejs backend, This backend acts like a
   proxy server that makes http requests to the flutterwave API, With this our secrets keys are not exposed on the client.
-- 3 flutterwave APIs were used, the `charges`, `validate-charge` and `rates` APIs, Checkout the implementation [here](https://github.com/Iamstanlee/jumga-marketplace/server/flw.js)
-- The payment UI implementation can be found [here](https://github.com/Iamstanlee/jumga-marketplace/src/components/payment/card-payment.js)
+- 3 flutterwave APIs were used, the `charges`, `validate-charge` and `rates` APIs, Checkout the implementation [here](server/flw.js)
+- The payment UI implementation can be found [here](src/components/payment/card-payment.js)
 
 ### Test Card Information
 
@@ -47,9 +45,9 @@ register as well, shop and place orders. Though this is an MVP version with alot
     OTP: 12345
     WRONG OTP: 5548
     INSUFFICIENT FUNDS: 6648
-
-    See other cards from [flw](https://developer.flutterwave.com/docs/test-cards)
 ```
+
+See other cards from [flw](https://developer.flutterwave.com/docs/test-cards)
 
 <!--
  Card validation
