@@ -25,7 +25,8 @@ register as well, shop and place orders. Though this is an MVP version with alot
 
 - Basic ecommerce functionalities
 - Buy and sell
-- Accepts payment in (**NGN**,**GHS**,**KES**,**EUR**)
+- Accepts payment in **NGN**, **GHS**, **KES**, **EUR**.
+- All features specified in the requirements sent via email
 
 ### Technical
 
