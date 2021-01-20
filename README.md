@@ -35,6 +35,7 @@ register as well, shop and place orders. Though this is an MVP version with alot
   proxy server that makes http requests to the flutterwave API, With this our secrets keys are not exposed on the client.
 - 3 flutterwave APIs were used, the `charges`, `validate-charge` and `rates` APIs, Checkout the implementation [here](server/flw.js)
 - The payment UI implementation can be found [here](src/components/payment/card-payment.js)
+- The split payment function can be found [here](src/helpers/utils.js#L92)
 
 ### Test Card Information
 
