@@ -35,10 +35,10 @@ function Marketplace() {
       {product.isLoading ? (
         <Loading />
       ) : (
-        <div>
-          <div className="w-full overflow-hidden h-screen">
+        <div className="w-full overflow-hidden">
+          <div className="w-full h-screen">
             <div className="h-screen p-3 w-full flex flex-col items-center justify-center md:flex-row p-2">
-              <h1 className="w-full md:w-1/2 text-7xl px-10 text-left">
+              <h1 className="w-full md:w-1/2 text-5xl md:text-7xl mt-4 phn:mt-20 md:mt-0 px-5 md:px-10 text-left">
                 The #1 place to buy and sell online, Seriously.
               </h1>
               <div className="w-full md:w-1/2">
@@ -46,16 +46,16 @@ function Marketplace() {
               </div>
             </div>
           </div>
-          <p className="text-black text-lg text-left mb-8 uppercase ml-8 sm:ml-24 font-bold">
+          <p className="text-black text-lg text-left py-4 px-4 sm:px-8 uppercase font-bold">
             vendors
           </p>
-          <div className="flex flex-row w-full flex-wrap mx-4 sm:mx-6 md:mx-20 mb-20">
+          <div className="flex flex-row w-full flex-wrap py-4 px-4 sm:px-8 mb-14">
             {product.shops &&
               product.shops.map((shop) => {
                 return (
                   <div
                     key={shop.shopId}
-                    className="m2 mr-6  phn:m-4 flex-grow rounded-lg w-full phn:w-1/3 lg:1/4 md:max-w-1/4 min-w-sm shadow-sm border"
+                    className="m2 mr-0 mb-4 phn:mr-4 phn:m-4 flex-grow rounded-lg w-full phn:w-1/3 lg:1/4 lg:max-w-1/4 min-w-sm shadow-sm border"
                   >
                     <div
                       onClick={() => {

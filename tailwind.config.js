@@ -7,7 +7,7 @@ module.exports = {
       serif: ["Brfirma"],
     },
     maxWidth: {
-      '1/4': '27%'
+      '1/4': '30%'
      },
      minWidth: {
       'sm': '25%'
